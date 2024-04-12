@@ -23,10 +23,15 @@ public class VectorUtils
             return Vector3.ClampMagnitude(returnVector, maxMagnitude);
         }*/
 
-        if (magnitudeDifference <= 0)
+        //Debug.Log("Initial Mag: " + initialVector.magnitude + " | Return Mag: " + returnVector.magnitude);
+        bool isMagIncrease = (initialVector + returnVector.normalized).magnitude > initialVector.magnitude;
+
+        if (magnitudeDifference <= 0 && isMagIncrease)
             return Vector3.zero;
 
-
+        //Debug.Log(isMagIncrease);
+        //Debug.Log("Return Vector:" + returnVector);
+        //Debug.Log("Initial Vector: " + initialVector);
         return returnVector;
     }
 

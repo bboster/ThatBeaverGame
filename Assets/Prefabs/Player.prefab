@@ -90,7 +90,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909568489560610396}
-  m_LocalRotation: {x: 0.030338883, y: 0.9696427, z: -0.1685055, w: 0.17458111}
+  m_LocalRotation: {x: 0.024800196, y: 0.9744885, z: -0.13774307, w: 0.17545354}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 90
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -169,7 +169,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2511429904703588832}
-  m_LocalRotation: {x: 0.033509415, y: 0.96641725, z: -0.18611492, w: 0.17400041}
+  m_LocalRotation: {x: 0.033509422, y: 0.96641725, z: -0.18611495, w: 0.17400043}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 90
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -276,15 +276,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundDetector: {fileID: 5455763908366784098}
   wallDetector: {fileID: 1148516093763080221}
-  cameraTransform: {fileID: 4843049338126355337}
-  moveSpeed: 7
-  jumpHeight: 10
-  groundSpeedLimit: 0
-  airSpeedLimit: 0
-  groundDrag: 0.5
-  airDrag: 0.001
+  cameraTransform: {fileID: 0}
+  moveSpeed: 20
+  jumpHeight: 6
+  groundSpeedLimit: 8
+  airSpeedLimit: 2
+  groundDrag: 2.8
+  airDrag: 0.01
   baseGravity: 10
   fallingGravityMod: 1.75
+  isTouchingGrass: 1
 --- !u!114 &6770065584707630237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!135 &34005226611201863
 SphereCollider:
@@ -823,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6092974359621931238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7439358, y: 1.9999999, z: 4.6860104}
+  m_LocalPosition: {x: -1.7439358, y: 2.0000002, z: 4.6860104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -855,7 +856,7 @@ MonoBehaviour:
   m_Follow: {fileID: 25281198692244958}
   m_CommonLens: 1
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 90
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -875,9 +876,9 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 2
-    m_AccelTime: 0.01
-    m_DecelTime: 0.01
+    m_MaxSpeed: 5
+    m_AccelTime: 0.001
+    m_DecelTime: 0.001
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
@@ -892,16 +893,16 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: -1
   m_YAxisRecentering:
     m_enabled: 1
-    m_WaitTime: 1
+    m_WaitTime: 2
     m_RecenteringTime: 2
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.01
-    m_DecelTime: 0.01
+    m_MaxSpeed: 1500
+    m_AccelTime: 0.001
+    m_DecelTime: 0.001
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -993,7 +994,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743674409336943375}
-  m_LocalRotation: {x: 0.02716674, y: 0.97254, z: -0.15088704, w: 0.17510279}
+  m_LocalRotation: {x: 0.01620074, y: 0.9800533, z: -0.08998069, w: 0.17645551}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1030,7 +1031,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 90
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1223,7 +1224,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

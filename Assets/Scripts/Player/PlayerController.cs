@@ -70,21 +70,7 @@ public class PlayerController : MonoBehaviour
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
 
-        ToggleAirDrag(false);
-
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()

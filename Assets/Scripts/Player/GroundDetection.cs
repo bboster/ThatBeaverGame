@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class GroundDetection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    PlayerController player;
+
+    bool isCurrentlyGrounded = false;
+
+    private void Start()
     {
-        
+        player = GetComponentInParent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        player.SetTouchedGround(true);
+        isCurrentlyGrounded = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        isCurrentlyGrounded = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isCurrentlyGrounded = false;
+        player.SetTouchedGround(false);
+    }
+
+    public bool IsCurrentlyGrounded()
+    {
+        return isCurrentlyGrounded;
     }
 }
