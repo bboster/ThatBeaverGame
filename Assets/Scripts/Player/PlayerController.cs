@@ -54,7 +54,8 @@ public class PlayerController : MonoBehaviour
 
     PhysicMaterial physicMaterial;
 
-    bool isTouchingGrass = true;
+    // Public for debugging
+    public bool isTouchingGrass = true;
 
     private void Awake()
     {
@@ -67,6 +68,9 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.Enable();
 
         movementAction = playerInput.currentActionMap.FindAction("Movement");
+        playerInput.currentActionMap.FindAction("Jump").performed += Jump;
+
+        ToggleAirDrag(false);
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -93,19 +97,29 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-        transform.rotation = Quaternion.Euler(0, cameraTransform.rotation.eulerAngles.y, 0);
+        Vector3 newRotation = new(0, cameraTransform.rotation.eulerAngles.y, 0);
+        //Debug.Log("Rotation: " + newRotation);
+        transform.rotation = Quaternion.Euler(newRotation);
     }
 
     private void Move()
     {
         Vector3 newVelocity = Get3DMovement();
         newVelocity = moveSpeed * newVelocity.normalized;
-        Debug.Log(newVelocity);
+        //Debug.Log(newVelocity);
 
         newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (isTouchingGrass ? groundSpeedLimit : airSpeedLimit));
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
         //rb.AddRelativeForce(1000 * Time.fixedDeltaTime * newVelocity, ForceMode.Acceleration);
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        if (!isTouchingGrass)
+            return;
+
+        rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
     }
 
     private void Gravity()
