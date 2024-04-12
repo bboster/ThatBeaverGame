@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 554041903}
   - component: {fileID: 554041902}
   m_Layer: 0
-  m_Name: Plane
-  m_TagString: Untagged
+  m_Name: Floor
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 1179562058}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Sphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -536,7 +536,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179562052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9307184, y: 2.78, z: 0.33495665}
+  m_LocalPosition: {x: 0.13, y: 3.803, z: 5.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -624,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
       propertyPath: fractureOptions.fragmentCount
-      value: 513
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
       propertyPath: triggerOptions.filterCollisionsByTag
@@ -636,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
       propertyPath: triggerOptions.triggerAllowedTags.Array.data[0]
-      value: Wood
+      value: Sphere
       objectReference: {fileID: 0}
     - target: {fileID: 3468638723453320663, guid: 5725c1994e957394582f5395476c15a5, type: 3}
       propertyPath: m_Name
