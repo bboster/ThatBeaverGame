@@ -282,11 +282,13 @@ MonoBehaviour:
   jumpHeight: 6
   groundSpeedLimit: 8
   airSpeedLimit: 2
+  dashCooldown: 1
+  dashSpeed: 12
+  dashDuration: 0.3
   groundDrag: 2.8
   airDrag: 0.01
   baseGravity: 10
   fallingGravityMod: 1.75
-  isTouchingGrass: 1
 --- !u!114 &6770065584707630237
 MonoBehaviour:
   m_ObjectHideFlags: 0

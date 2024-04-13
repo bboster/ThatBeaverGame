@@ -28,6 +28,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float airSpeedLimit;
 
+    [Header("Dash")]
+    [SerializeField]
+    float dashCooldown = 0.5f;
+    [SerializeField]
+    float dashSpeed = 20;
+    [SerializeField]
+    float dashDuration = 0.4f;
+
     [Header("Physics")]
     [SerializeField]
     float groundDrag;
@@ -43,8 +51,11 @@ public class PlayerController : MonoBehaviour
 
     // Private Assignments
 
+    MovementState movementState = MovementState.MOVING;
+
     // Input Assignments
     PlayerInput playerInput;
+
     InputAction movementAction;
 
     Vector2 moveInput;
@@ -54,8 +65,19 @@ public class PlayerController : MonoBehaviour
 
     PhysicMaterial physicMaterial;
 
-    // Public for debugging
-    public bool isTouchingGrass = true;
+    bool isTouchingGrass = true;
+
+    bool gravityEnabled = true;
+
+    // Dash Assignments
+    float dashCurrentCooldown = 0;
+
+    public enum MovementState
+    {
+        STATIONARY,
+        MOVING,
+        DASHING
+    };
 
     private void Awake()
     {
@@ -69,27 +91,44 @@ public class PlayerController : MonoBehaviour
 
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
+        playerInput.currentActionMap.FindAction("Dash").performed += Dash;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()
     {
-        Look();
         Move();
 
         Gravity();
     }
 
+    private void Update()
+    {
+        CooldownTick();
+    }
+
+    private void LateUpdate()
+    {
+        Look();
+    }
+
     private void Look()
     {
+        //if (movementState == MovementState.DASHING)
+          //  return;
+
         Vector3 newRotation = new(0, cameraTransform.rotation.eulerAngles.y, 0);
+        
         //Debug.Log("Rotation: " + newRotation);
         transform.rotation = Quaternion.Euler(newRotation);
     }
 
     private void Move()
     {
+        if (movementState == MovementState.DASHING)
+            return;
+
         Vector3 newVelocity = Get3DMovement();
         newVelocity = moveSpeed * newVelocity.normalized;
         //Debug.Log(newVelocity);
@@ -108,8 +147,44 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
     }
 
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (dashCurrentCooldown > 0)
+            return;
+
+        StartCoroutine(DashOverTime());
+    }
+
+    private IEnumerator DashOverTime()
+    {
+        dashCurrentCooldown = dashCooldown;
+
+        movementState = MovementState.DASHING;
+        Vector3 dashVelocity = Get3DMovement() * dashSpeed;
+
+        rb.velocity = dashVelocity;
+
+        gravityEnabled = false;
+
+        yield return new WaitForSeconds(dashDuration);
+
+        gravityEnabled = true;
+        movementState = MovementState.MOVING;
+    }
+
+    public void CooldownTick()
+    {
+        if (dashCurrentCooldown <= 0)
+            return;
+
+        dashCurrentCooldown -= Time.deltaTime;
+    }
+
     private void Gravity()
     {
+        if (!gravityEnabled)
+            return;
+
         float gravMod = rb.velocity.y < 0 ? fallingGravityMod : 1;
         rb.AddForce(baseGravity * gravMod * Vector3.down);
     }
