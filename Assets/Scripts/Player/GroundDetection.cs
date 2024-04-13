@@ -15,7 +15,7 @@ public class GroundDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        player.SetTouchedGround(true);
+        player.SetTouchedGrass(true);
         isCurrentlyGrounded = true;
     }
 
@@ -25,14 +25,14 @@ public class GroundDetection : MonoBehaviour
 
         if (!player.IsGrounded())
         {
-            player.SetTouchedGround(true);
+            player.SetTouchedGrass(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         isCurrentlyGrounded = false;
-        player.SetTouchedGround(false);
+        player.SetTouchedGrass(false);
     }
 
     public bool IsCurrentlyGrounded()

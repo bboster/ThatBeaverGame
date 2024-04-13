@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
     float baseGravity;
 
     [SerializeField]
+    float wallRunGravityMult = 0.2f;
+
+    [SerializeField]
     float fallingGravityMod;
 
     // Private Assignments
@@ -66,6 +69,8 @@ public class PlayerController : MonoBehaviour
     PhysicMaterial physicMaterial;
 
     bool isTouchingGrass = true;
+
+    bool isOnWall = false;
 
     bool gravityEnabled = true;
 
@@ -186,6 +191,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         float gravMod = rb.velocity.y < 0 ? fallingGravityMod : 1;
+        gravMod *= isOnWall ? wallRunGravityMult : 1;
         rb.AddForce(baseGravity * gravMod * Vector3.down);
     }
 
@@ -200,16 +206,34 @@ public class PlayerController : MonoBehaviour
 
         return moveInput.x * transform.right + moveInput.y * transform.forward;
     }
-    public void SetTouchedGround(bool touchedGrass)
+    public void SetTouchedGrass(bool touchedGrass)
     {
         isTouchingGrass = touchedGrass;
 
         ToggleAirDrag(!touchedGrass);
     }
 
+    public void SetTouchedWall(bool touchedWall)
+    {
+        isOnWall = touchedWall;
+
+        /*Vector3 currentVelocity = rb.velocity;
+        if(currentVelocity.y < 0)
+        {
+            currentVelocity.y = 0;
+            rb.velocity = currentVelocity;
+        }*/
+            
+    }
+
     public bool IsGrounded()
     {
         return isTouchingGrass;
+    }
+
+    public bool IsOnWall()
+    {
+        return isOnWall;
     }
 
     private void ToggleAirDrag(bool isInAir)
