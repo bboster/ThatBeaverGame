@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float wallJumpCooldown = 0.5f;
     [SerializeField]
+    float wallJumpDuration = 0.33f;
+    [SerializeField]
     float wallJumpVerticalForce = 5;
     [SerializeField]
     float wallJumpHorizontalForce = 5;
@@ -87,6 +89,7 @@ public class PlayerController : MonoBehaviour
     // Cooldowns
     float dashCurrentCooldown = 0;
     float wallJumpCurrentCooldown = 0;
+    float wallJumpRemainingDuration = 0;
 
     public enum MovementState
     {
@@ -135,7 +138,15 @@ public class PlayerController : MonoBehaviour
     private void Look()
     {
         //if (movementState == MovementState.STATIONARY)
-          //  return;
+        //  return;
+
+        if (isOnWall && !isTouchingGrass)
+        {
+            transform.rotation = Quaternion.LookRotation(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
+            //transform.LookAt(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
+            //transform.LookAt(wallDetector.GetWallNormal());
+            return;
+        }
 
         Vector2 input = GetMoveInput();
         targetRotationAngle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
@@ -181,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     private void WallJump(InputAction.CallbackContext context)
     {
-        if (!isOnWall && !isTouchingGrass)
+        if (!isOnWall || isTouchingGrass)
             return;
 
         if (wallJumpCurrentCooldown > 0)
@@ -190,8 +201,12 @@ public class PlayerController : MonoBehaviour
         Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
         wallJumpForce.y = wallJumpVerticalForce;
 
-        rb.AddForce(wallJumpForce);
+        rb.AddForce(wallJumpForce, ForceMode.Impulse);
 
+        SetTouchedWall(false);
+        wallJumpRemainingDuration = wallJumpDuration;
+
+        Debug.Log("WALL JUMP");
         wallJumpCurrentCooldown = wallJumpCooldown;
     }
 
@@ -208,7 +223,12 @@ public class PlayerController : MonoBehaviour
         dashCurrentCooldown = dashCooldown;
 
         movementState = MovementState.DASHING;
-        Vector3 dashVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized * dashSpeed;
+        Vector3 dashVelocity;
+        if (isOnWall)
+            dashVelocity = transform.forward * dashSpeed;
+        else
+            dashVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized * dashSpeed;
+
 
         rb.velocity = dashVelocity;
 
@@ -227,6 +247,9 @@ public class PlayerController : MonoBehaviour
 
         if(wallJumpCurrentCooldown > 0)
             wallJumpCurrentCooldown -= Time.deltaTime;
+
+        if (wallJumpRemainingDuration > 0)
+            wallJumpRemainingDuration -= Time.deltaTime;
     }
 
     private void Gravity()
@@ -242,10 +265,10 @@ public class PlayerController : MonoBehaviour
 
     private void WallRunning()
     {
-        if (!isOnWall)
+        if (!isOnWall || isTouchingGrass)
             return;
 
-        Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * wallRunStickMult;
+        Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
         rb.AddForce(wallRunStickForce);
     }
@@ -270,6 +293,9 @@ public class PlayerController : MonoBehaviour
 
     public void SetTouchedWall(bool touchedWall)
     {
+        if (wallJumpRemainingDuration > 0)
+            return;
+
         isOnWall = touchedWall;
 
         /*Vector3 currentVelocity = rb.velocity;

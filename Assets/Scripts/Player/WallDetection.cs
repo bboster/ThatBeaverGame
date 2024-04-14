@@ -56,17 +56,19 @@ public class WallDetection : MonoBehaviour
         float angle = Vector3.SignedAngle(transform.parent.forward, direction, Vector3.up);
         //Debug.Log("Wall Angle: " + angle);
 
-        if (angle < -45 && angle > -135)
+        if (angle < 0 && angle > 90)
             isLeft = true;
         else
             isLeft = false;
+
+        Debug.Log("Wall Is Left: " + isLeft);
     }
 
     private void CalculateWallNormal(Collider wall)
     {
         Vector3 direction = player.transform.position - wall.transform.position;
         Vector3 left = Vector3.Cross(direction, Vector3.up).normalized;
-
+        //wallNormal = left;
         wallNormal = isLeft ? left : -left;
     }
 
