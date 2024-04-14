@@ -362,7 +362,6 @@ MonoBehaviour:
   wallDetector: {fileID: 1148516093763080221}
   cameraTransform: {fileID: 0}
   turnSmoothTime: 0.08
-  rotationOffset: 90
   moveSpeed: 30
   jumpHeight: 6
   groundSpeedLimit: 6
@@ -371,10 +370,11 @@ MonoBehaviour:
   dashSpeed: 12
   dashDuration: 0.3
   wallRunGravityMult: 0.3
-  wallRunStickMult: 7
+  wallRunStickMult: 10
   wallJumpCooldown: 0.5
-  wallJumpVerticalForce: 10
-  wallJumpHorizontalForce: 50
+  wallJumpDuration: 0.25
+  wallJumpVerticalForce: 6
+  wallJumpHorizontalForce: 3
   groundDrag: 3
   airDrag: 0.01
   baseGravity: 10

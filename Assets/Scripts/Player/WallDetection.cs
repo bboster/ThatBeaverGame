@@ -12,6 +12,8 @@ public class WallDetection : MonoBehaviour
 
     Vector3 wallNormal;
 
+    RaycastHit wallHit;
+
     private void Start()
     {
         player = GetComponentInParent<PlayerController>();
@@ -24,7 +26,7 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!player.IsOnWall())
+        if (!player.IsOnWall() || wallNormal == Vector3.zero)
         {
             OnWallTouch(other);
         }
@@ -39,7 +41,6 @@ public class WallDetection : MonoBehaviour
     {
         player.SetTouchedWall(true);
         CheckWallDirection(wall);
-        CalculateWallNormal(wall);
     }
 
     private void OnWallLeave()
@@ -54,23 +55,30 @@ public class WallDetection : MonoBehaviour
         Vector3 direction = transform.position - wall.transform.position;
 
         float angle = Vector3.SignedAngle(transform.parent.forward, direction, Vector3.up);
+
         //Debug.Log("Wall Angle: " + angle);
 
-        if (angle < 0 && angle > 90)
-            isLeft = true;
-        else
+        if (angle < -40 && angle > -150)
             isLeft = false;
+        else
+            isLeft = true;
 
-        Debug.Log("Wall Is Left: " + isLeft);
+        bool didHit = Physics.Raycast(transform.position, transform.right * (isLeft ? -1 : 1), out wallHit, 2);
+        if (!didHit)
+            wallNormal = Vector3.zero;
+        else
+            wallNormal = wallHit.normal;
+
+        //Debug.Log("Wall Is Left: " + isLeft + " | Did Hit: " + didHit);
     }
 
-    private void CalculateWallNormal(Collider wall)
+    /*private void CalculateWallNormal(Collider wall)
     {
         Vector3 direction = player.transform.position - wall.transform.position;
         Vector3 left = Vector3.Cross(direction, Vector3.up).normalized;
         //wallNormal = left;
         wallNormal = isLeft ? left : -left;
-    }
+    }*/
 
     public bool IsCurrentlyOnWall()
     {
@@ -86,4 +94,31 @@ public class WallDetection : MonoBehaviour
     {
         return wallNormal;
     }
+
+    /*private void OnDrawGizmos()
+    {
+        // Left / Right
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(transform.position, transform.right * (isLeft ? -1 : 1));
+        // Wall Normal
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, wallNormal);
+
+        // Negative Wall Normal
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, -wallNormal);
+
+        // Cross
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, Vector3.Cross(wallNormal, Vector3.up));
+
+        // Negative Normal in Cross
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, Vector3.Cross(-wallNormal, Vector3.up));
+
+        // Negative Cross
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, -Vector3.Cross(wallNormal, Vector3.up));
+
+    }*/
 }

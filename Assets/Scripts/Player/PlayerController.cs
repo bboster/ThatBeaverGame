@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float turnSmoothTime = 0.1f;
     [SerializeField]
-    float rotationOffset = 90;
-    [SerializeField]
     float moveSpeed;
     [SerializeField]
     float jumpHeight;
@@ -142,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
         if (isOnWall && !isTouchingGrass)
         {
-            transform.rotation = Quaternion.LookRotation(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
+            //transform.rotation = Quaternion.LookRotation(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
             //transform.LookAt(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
             //transform.LookAt(wallDetector.GetWallNormal());
             return;
@@ -200,6 +198,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
         wallJumpForce.y = wallJumpVerticalForce;
+
+        rb.velocity = new(rb.velocity.x, 0, rb.velocity.z);
 
         rb.AddForce(wallJumpForce, ForceMode.Impulse);
 
@@ -270,7 +270,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
-        rb.AddForce(wallRunStickForce);
+        /*if (!wallDetector.IsWallLeft())
+            wallRunStickForce *= -1;*/
+
+        rb.AddForce(wallRunStickForce, ForceMode.Force);
     }
 
     Vector2 GetMoveInput()
