@@ -17,6 +17,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
+    float turnSmoothTime = 0.1f;
+
+    [SerializeField]
+    float rotationOffset = 90;
+
+    [SerializeField]
     float moveSpeed;
 
     [SerializeField]
@@ -62,6 +68,10 @@ public class PlayerController : MonoBehaviour
     InputAction movementAction;
 
     Vector2 moveInput;
+
+    float turnSmoothVelocity;
+
+    float targetRotationAngle = 0;
 
     // Physics Assignments
     Rigidbody rb;
@@ -111,6 +121,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CooldownTick();
+
+        Debug.Log(transform.rotation.eulerAngles);
     }
 
     private void LateUpdate()
@@ -120,13 +132,16 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-        //if (movementState == MovementState.DASHING)
+        //if (movementState == MovementState.STATIONARY)
           //  return;
 
-        Vector3 newRotation = new(0, cameraTransform.rotation.eulerAngles.y, 0);
-        
-        //Debug.Log("Rotation: " + newRotation);
-        transform.rotation = Quaternion.Euler(newRotation);
+        Vector2 input = GetMoveInput();
+        targetRotationAngle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotationAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+        Debug.Log("Rotation: " + angle);
+        rb.rotation = Quaternion.Euler(new(0, angle, 0));
     }
 
     private void Move()
@@ -135,7 +150,17 @@ public class PlayerController : MonoBehaviour
             return;
 
         Vector3 newVelocity = Get3DMovement();
-        newVelocity = moveSpeed * newVelocity.normalized;
+        if (newVelocity.magnitude == 0)
+        {
+            movementState = MovementState.STATIONARY;
+            return;
+        }
+        else
+            movementState = MovementState.MOVING;
+
+        //newVelocity = moveSpeed * newVelocity.normalized;
+        newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
+        newVelocity *= moveSpeed;
         //Debug.Log(newVelocity);
 
         newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (isTouchingGrass ? groundSpeedLimit : airSpeedLimit));
@@ -165,7 +190,7 @@ public class PlayerController : MonoBehaviour
         dashCurrentCooldown = dashCooldown;
 
         movementState = MovementState.DASHING;
-        Vector3 dashVelocity = Get3DMovement() * dashSpeed;
+        Vector3 dashVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized * dashSpeed;
 
         rb.velocity = dashVelocity;
 
