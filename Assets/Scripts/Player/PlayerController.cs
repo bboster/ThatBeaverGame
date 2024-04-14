@@ -8,29 +8,22 @@ public class PlayerController : MonoBehaviour
     [Header("Logic Assignments")]
     [SerializeField]
     GroundDetection groundDetector;
-
     [SerializeField]
     WallDetection wallDetector;
-
     [SerializeField]
     Transform cameraTransform;
 
     [Header("Movement")]
     [SerializeField]
     float turnSmoothTime = 0.1f;
-
     [SerializeField]
     float rotationOffset = 90;
-
     [SerializeField]
     float moveSpeed;
-
     [SerializeField]
     float jumpHeight;
-
     [SerializeField]
     float groundSpeedLimit;
-
     [SerializeField]
     float airSpeedLimit;
 
@@ -42,19 +35,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float dashDuration = 0.4f;
 
+    [Header("Wall Running")]
+    [SerializeField]
+    float wallRunGravityMult = 0.2f;
+    [SerializeField]
+    float wallRunStickMult = 5;
+    [Space]
+    [SerializeField]
+    float wallJumpCooldown = 0.5f;
+    [SerializeField]
+    float wallJumpVerticalForce = 5;
+    [SerializeField]
+    float wallJumpHorizontalForce = 5;
+
     [Header("Physics")]
     [SerializeField]
     float groundDrag;
-
     [SerializeField]
     float airDrag;
-
     [SerializeField]
     float baseGravity;
-
-    [SerializeField]
-    float wallRunGravityMult = 0.2f;
-
     [SerializeField]
     float fallingGravityMod;
 
@@ -84,8 +84,9 @@ public class PlayerController : MonoBehaviour
 
     bool gravityEnabled = true;
 
-    // Dash Assignments
+    // Cooldowns
     float dashCurrentCooldown = 0;
+    float wallJumpCurrentCooldown = 0;
 
     public enum MovementState
     {
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
+        playerInput.currentActionMap.FindAction("Jump").performed += WallJump;
         playerInput.currentActionMap.FindAction("Dash").performed += Dash;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -116,13 +118,13 @@ public class PlayerController : MonoBehaviour
         Move();
 
         Gravity();
+
+        WallRunning();
     }
 
     private void Update()
     {
         CooldownTick();
-
-        Debug.Log(transform.rotation.eulerAngles);
     }
 
     private void LateUpdate()
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotationAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-        Debug.Log("Rotation: " + angle);
+        //Debug.Log("Rotation: " + angle);
         rb.rotation = Quaternion.Euler(new(0, angle, 0));
     }
 
@@ -177,6 +179,22 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
     }
 
+    private void WallJump(InputAction.CallbackContext context)
+    {
+        if (!isOnWall && !isTouchingGrass)
+            return;
+
+        if (wallJumpCurrentCooldown > 0)
+            return;
+
+        Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
+        wallJumpForce.y = wallJumpVerticalForce;
+
+        rb.AddForce(wallJumpForce);
+
+        wallJumpCurrentCooldown = wallJumpCooldown;
+    }
+
     public void Dash(InputAction.CallbackContext context)
     {
         if (dashCurrentCooldown > 0)
@@ -204,10 +222,11 @@ public class PlayerController : MonoBehaviour
 
     public void CooldownTick()
     {
-        if (dashCurrentCooldown <= 0)
-            return;
+        if (dashCurrentCooldown > 0)
+            dashCurrentCooldown -= Time.deltaTime;
 
-        dashCurrentCooldown -= Time.deltaTime;
+        if(wallJumpCurrentCooldown > 0)
+            wallJumpCurrentCooldown -= Time.deltaTime;
     }
 
     private void Gravity()
@@ -216,8 +235,19 @@ public class PlayerController : MonoBehaviour
             return;
 
         float gravMod = rb.velocity.y < 0 ? fallingGravityMod : 1;
-        gravMod *= isOnWall ? wallRunGravityMult : 1;
+        gravMod *= isOnWall && !isTouchingGrass ? wallRunGravityMult : 1;
+
         rb.AddForce(baseGravity * gravMod * Vector3.down);
+    }
+
+    private void WallRunning()
+    {
+        if (!isOnWall)
+            return;
+
+        Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * wallRunStickMult;
+
+        rb.AddForce(wallRunStickForce);
     }
 
     Vector2 GetMoveInput()

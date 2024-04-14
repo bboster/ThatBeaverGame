@@ -361,19 +361,23 @@ MonoBehaviour:
   groundDetector: {fileID: 5455763908366784098}
   wallDetector: {fileID: 1148516093763080221}
   cameraTransform: {fileID: 0}
-  turnSmoothTime: 0.1
+  turnSmoothTime: 0.08
   rotationOffset: 90
-  moveSpeed: 20
+  moveSpeed: 30
   jumpHeight: 6
-  groundSpeedLimit: 8
+  groundSpeedLimit: 6
   airSpeedLimit: 2
   dashCooldown: 1
   dashSpeed: 12
   dashDuration: 0.3
-  groundDrag: 2.8
+  wallRunGravityMult: 0.3
+  wallRunStickMult: 7
+  wallJumpCooldown: 0.5
+  wallJumpVerticalForce: 10
+  wallJumpHorizontalForce: 50
+  groundDrag: 3
   airDrag: 0.01
   baseGravity: 10
-  wallRunGravityMult: 0.2
   fallingGravityMod: 1.75
 --- !u!114 &6770065584707630237
 MonoBehaviour:
@@ -1395,7 +1399,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 0.2, z: 0.2}
+  m_Size: {x: 2.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1148516093763080221
 MonoBehaviour:

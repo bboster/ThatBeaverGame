@@ -10,6 +10,8 @@ public class WallDetection : MonoBehaviour
 
     bool isLeft = false;
 
+    Vector3 wallNormal;
+
     private void Start()
     {
         player = GetComponentInParent<PlayerController>();
@@ -17,32 +19,34 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        player.SetTouchedWall(true);
-        isCurrentlyOnWall = true;
-
-        CheckWallDirection(other);
+        OnWallTouch(other);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        isCurrentlyOnWall = true;
-
         if (!player.IsOnWall())
         {
-            player.SetTouchedWall(true);
-            CheckWallDirection(other);
+            OnWallTouch(other);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isCurrentlyOnWall = false;
-        player.SetTouchedWall(false);
+        OnWallLeave();
     }
 
-    public bool IsCurrentlyOnWall()
+    private void OnWallTouch(Collider wall)
     {
-        return isCurrentlyOnWall;
+        player.SetTouchedWall(true);
+        CheckWallDirection(wall);
+        CalculateWallNormal(wall);
+    }
+
+    private void OnWallLeave()
+    {
+        isCurrentlyOnWall = false;
+        player.SetTouchedWall(false);
+        wallNormal = Vector3.zero;
     }
 
     private void CheckWallDirection(Collider wall)
@@ -58,8 +62,26 @@ public class WallDetection : MonoBehaviour
             isLeft = false;
     }
 
+    private void CalculateWallNormal(Collider wall)
+    {
+        Vector3 direction = player.transform.position - wall.transform.position;
+        Vector3 left = Vector3.Cross(direction, Vector3.up).normalized;
+
+        wallNormal = isLeft ? left : -left;
+    }
+
+    public bool IsCurrentlyOnWall()
+    {
+        return isCurrentlyOnWall;
+    }
+
     public bool IsWallLeft()
     {
         return isLeft;
+    }
+
+    public Vector3 GetWallNormal()
+    {
+        return wallNormal;
     }
 }
