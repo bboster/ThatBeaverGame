@@ -72,14 +72,6 @@ public class WallDetection : MonoBehaviour
         //Debug.Log("Wall Is Left: " + isLeft + " | Did Hit: " + didHit);
     }
 
-    /*private void CalculateWallNormal(Collider wall)
-    {
-        Vector3 direction = player.transform.position - wall.transform.position;
-        Vector3 left = Vector3.Cross(direction, Vector3.up).normalized;
-        //wallNormal = left;
-        wallNormal = isLeft ? left : -left;
-    }*/
-
     public bool IsCurrentlyOnWall()
     {
         return isCurrentlyOnWall;

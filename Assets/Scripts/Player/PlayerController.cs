@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     float dashSpeed = 20;
     [SerializeField]
     float dashDuration = 0.4f;
+    [SerializeField]
+    bool wallRunningResetsCooldown = true;
 
     [Header("Wall Running")]
     [SerializeField]
@@ -143,7 +145,17 @@ public class PlayerController : MonoBehaviour
             //transform.rotation = Quaternion.LookRotation(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
             //transform.LookAt(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
             //transform.LookAt(wallDetector.GetWallNormal());
-            return;
+            Vector3 wallNormal = wallDetector.GetWallNormal();
+            if (wallNormal != Vector3.zero)
+            {
+                Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+                if ((transform.forward - wallForward).magnitude > (transform.forward - -wallForward).magnitude)
+                    wallForward *= -1;
+
+                transform.LookAt(transform.position + wallForward);
+                return;
+            }
         }
 
         Vector2 input = GetMoveInput();
@@ -206,7 +218,7 @@ public class PlayerController : MonoBehaviour
         SetTouchedWall(false);
         wallJumpRemainingDuration = wallJumpDuration;
 
-        Debug.Log("WALL JUMP");
+        //Debug.Log("WALL JUMP");
         wallJumpCurrentCooldown = wallJumpCooldown;
     }
 
@@ -267,6 +279,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!isOnWall || isTouchingGrass)
             return;
+
+        if (wallRunningResetsCooldown && dashCurrentCooldown > 0)
+            dashCurrentCooldown = 0;
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
