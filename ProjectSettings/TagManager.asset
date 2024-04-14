@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectile
+  - Wood
+  - Floor
+  - Sphere
   layers:
   - Default
   - TransparentFX
