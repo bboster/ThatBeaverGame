@@ -367,8 +367,9 @@ MonoBehaviour:
   groundSpeedLimit: 6
   airSpeedLimit: 2
   dashCooldown: 1
-  dashSpeed: 12
+  dashSpeed: 10
   dashDuration: 0.3
+  wallRunningResetsCooldown: 1
   wallRunGravityMult: 0.3
   wallRunStickMult: 10
   wallJumpCooldown: 0.5
