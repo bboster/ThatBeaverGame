@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8358997850457913646}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,26 +251,26 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   dashParticles: {fileID: 8922022513896151134}
   turnSmoothTime: 0.08
-  moveSpeed: 30
-  jumpHeight: 6
-  groundSpeedLimit: 6
-  airSpeedLimit: 2
+  moveSpeed: 20
+  jumpHeight: 4
+  groundSpeedLimit: 4
+  airSpeedLimit: 1.33
   dashCooldown: 1
-  dashSpeed: 10
+  dashSpeed: 6.65
   dashDuration: 0.3
   grassTouchResetsDashCD: 1
   wallRunningResetsDashCD: 1
   wallRunGravityMult: 0.3
   wallRunStickMult: 10
-  wallRunningSpeed: 5
+  wallRunningSpeed: 4
   wallJumpInputModifier: 0.3
   wallJumpCooldown: 0.5
   wallJumpDuration: 0.25
-  wallJumpVerticalForce: 6
-  wallJumpHorizontalForce: 3.8
+  wallJumpVerticalForce: 4
+  wallJumpHorizontalForce: 3.33
   groundDrag: 3
   airDrag: 0.01
-  baseGravity: 10
+  baseGravity: 8
   fallingGravityMod: 1.75
 --- !u!135 &34005226611201863
 SphereCollider:
