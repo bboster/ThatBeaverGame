@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 25281198692244958}
   - component: {fileID: 6770065584707630237}
   - component: {fileID: 4750350341338325232}
-  - component: {fileID: 34005226611201863}
   - component: {fileID: 471547337493001427}
+  - component: {fileID: 34005226611201863}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -127,27 +127,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!135 &34005226611201863
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4942105761503635167}
-  m_Material: {fileID: 13400000, guid: 66559d937f8eb194dba3e24a8b57b0e4, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &471547337493001427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +163,27 @@ MonoBehaviour:
   airDrag: 0.01
   baseGravity: 10
   fallingGravityMod: 1.75
+--- !u!135 &34005226611201863
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942105761503635167}
+  m_Material: {fileID: 13400000, guid: 66559d937f8eb194dba3e24a8b57b0e4, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5271064524331668030
 GameObject:
   m_ObjectHideFlags: 0
