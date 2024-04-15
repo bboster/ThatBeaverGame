@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Visual Assignments")]
     [SerializeField]
     ParticleSystem dashParticles;
+    [SerializeField]
+    ParticleSystem runningParticles;
 
     [Header("Movement")]
     [SerializeField]
@@ -79,6 +81,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float fallingGravityMod;
 
+    [Header("Animation")]
+    public Animator anim;
+
     // Private Assignments
 
     MovementState movementState = MovementState.MOVING;
@@ -129,6 +134,8 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerInput.currentActionMap.Enable();
 
+        anim = GetComponent<Animator>();
+
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
         playerInput.currentActionMap.FindAction("Jump").performed += WallJump;
@@ -159,6 +166,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CooldownTick();
+        anim.SetBool("isGrounded", isTouchingGrass);
     }
 
     private void LateUpdate()
@@ -200,10 +208,11 @@ public class PlayerController : MonoBehaviour
         if (newVelocity.magnitude == 0)
         {
             movementState = MovementState.STATIONARY;
+            anim.SetBool("isRunning", false);
             return;
         }
         else
-            movementState = MovementState.MOVING;
+            movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
         //newVelocity = moveSpeed * newVelocity.normalized;
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
@@ -222,6 +231,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        anim.SetTrigger("jump");
     }
 
     private void WallJump(InputAction.CallbackContext context)
@@ -401,5 +411,25 @@ public class PlayerController : MonoBehaviour
             wallForward *= -1;
 
         return wallForward;
+    }
+    //The following functions are to be used as animation events during certain animations.
+
+    /// <summary>
+    /// Simply handles whether to turn runningParticles on or off. For some reason putting it in the other spot caused issues.
+    /// </summary>
+    public void RunningParticleToggle(int toggle)
+    {
+        switch (toggle)
+        {
+            case 0:
+                runningParticles.Stop();
+                break;
+            case 1:
+                runningParticles.Play();
+                break;
+            default:
+                Debug.Log("Error trying to read the runningParticle toggle value!");
+                break;
+        }
     }
 }
