@@ -16,10 +16,12 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField]
     float turnSmoothTime = 0.1f;
+    [Space]
     [SerializeField]
     float moveSpeed;
     [SerializeField]
     float jumpHeight;
+    [Space]
     [SerializeField]
     float groundSpeedLimit;
     [SerializeField]
@@ -32,19 +34,29 @@ public class PlayerController : MonoBehaviour
     float dashSpeed = 20;
     [SerializeField]
     float dashDuration = 0.4f;
+    [Space]
     [SerializeField]
-    bool wallRunningResetsCooldown = true;
+    bool grassTouchResetsDashCD = true;
+    [SerializeField]
+    bool wallRunningResetsDashCD = true;
 
     [Header("Wall Running")]
+    //[SerializeField]
+    //float wallRunRotationTime = 0.025f;
     [SerializeField]
     float wallRunGravityMult = 0.2f;
     [SerializeField]
     float wallRunStickMult = 5;
+
+    [Header("Wall Jumping")]
+    [SerializeField]
+    float wallJumpInputModifier = 0.3f;
     [Space]
     [SerializeField]
     float wallJumpCooldown = 0.5f;
     [SerializeField]
     float wallJumpDuration = 0.33f;
+    [Space]
     [SerializeField]
     float wallJumpVerticalForce = 5;
     [SerializeField]
@@ -55,6 +67,7 @@ public class PlayerController : MonoBehaviour
     float groundDrag;
     [SerializeField]
     float airDrag;
+    [Space]
     [SerializeField]
     float baseGravity;
     [SerializeField]
@@ -72,6 +85,8 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
 
     float turnSmoothVelocity;
+
+    //Vector3 wallRunSmoothing;
 
     float targetRotationAngle = 0;
 
@@ -116,6 +131,13 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void OnDisable()
+    {
+        playerInput.currentActionMap.FindAction("Jump").performed -= Jump;
+        playerInput.currentActionMap.FindAction("Jump").performed -= WallJump;
+        playerInput.currentActionMap.FindAction("Dash").performed -= Dash;
+    }
+
     private void FixedUpdate()
     {
         Move();
@@ -142,9 +164,6 @@ public class PlayerController : MonoBehaviour
 
         if (isOnWall && !isTouchingGrass)
         {
-            //transform.rotation = Quaternion.LookRotation(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
-            //transform.LookAt(-Vector3.Cross(wallDetector.GetWallNormal(), transform.up));
-            //transform.LookAt(wallDetector.GetWallNormal());
             Vector3 wallNormal = wallDetector.GetWallNormal();
             if (wallNormal != Vector3.zero)
             {
@@ -153,7 +172,9 @@ public class PlayerController : MonoBehaviour
                 if ((transform.forward - wallForward).magnitude > (transform.forward - -wallForward).magnitude)
                     wallForward *= -1;
 
+                //Vector3 targetDirection = Vector3.SmoothDamp(transform.forward, wallForward, ref wallRunSmoothing, wallRunRotationTime);
                 transform.LookAt(transform.position + wallForward);
+                
                 return;
             }
         }
@@ -212,6 +233,8 @@ public class PlayerController : MonoBehaviour
         wallJumpForce.y = wallJumpVerticalForce;
 
         rb.velocity = new(rb.velocity.x, 0, rb.velocity.z);
+
+        wallJumpForce += Get3DMovement().normalized * wallJumpInputModifier;
 
         rb.AddForce(wallJumpForce, ForceMode.Impulse);
 
@@ -280,7 +303,7 @@ public class PlayerController : MonoBehaviour
         if (!isOnWall || isTouchingGrass)
             return;
 
-        if (wallRunningResetsCooldown && dashCurrentCooldown > 0)
+        if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
             dashCurrentCooldown = 0;
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
@@ -305,6 +328,9 @@ public class PlayerController : MonoBehaviour
     public void SetTouchedGrass(bool touchedGrass)
     {
         isTouchingGrass = touchedGrass;
+
+        if (isTouchingGrass && grassTouchResetsDashCD)
+            dashCurrentCooldown = 0;
 
         ToggleAirDrag(!touchedGrass);
     }
