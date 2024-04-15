@@ -133,6 +133,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        if (playerInput == null || playerInput.currentActionMap == null)
+            return;
+
         playerInput.currentActionMap.FindAction("Jump").performed -= Jump;
         playerInput.currentActionMap.FindAction("Jump").performed -= WallJump;
         playerInput.currentActionMap.FindAction("Dash").performed -= Dash;

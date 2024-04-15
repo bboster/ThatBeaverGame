@@ -3257,22 +3257,6 @@ PrefabInstance:
       value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 25281198692244958, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 25281198692244958, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 25281198692244958, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 25281198692244958, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 25281198692244958, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -3284,14 +3268,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 184711279245716243, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
+    - target: {fileID: 471547337493001427, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 353274759}
-    - target: {fileID: 184711279245716243, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
-      propertyPath: wallRunRotationTime
-      value: 0.005
-      objectReference: {fileID: 0}
     - target: {fileID: 4942105761503635167, guid: 0b20e41c7279d324ba927bee499f9c51, type: 3}
       propertyPath: m_Name
       value: Player
