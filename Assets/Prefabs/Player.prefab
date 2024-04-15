@@ -68,7 +68,7 @@ Transform:
   - {fileID: 5207267407865915463}
   - {fileID: 7050607691677798642}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &6770065584707630237
 MonoBehaviour:
@@ -134,7 +134,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4942105761503635167}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 66559d937f8eb194dba3e24a8b57b0e4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -440,6 +440,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5207267407865915463}
     m_Modifications:
+    - target: {fileID: -9165797768001435688, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2cf3ae019cb544ba8808b46a5eac3, type: 2}
     - target: {fileID: -8679921383154817045, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -500,10 +504,26 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6324970257197964802, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69c1cf4b24268f745b5e684bf85ae72e, type: 2}
     - target: {fileID: 919132149155446097, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
       propertyPath: m_Name
       value: beaver
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69c1cf4b24268f745b5e684bf85ae72e, type: 2}
+    - target: {fileID: 2985478084322739907, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69c1cf4b24268f745b5e684bf85ae72e, type: 2}
+    - target: {fileID: 5064880245253675553, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1943437e09df94e45aad8cafcd1bded5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
