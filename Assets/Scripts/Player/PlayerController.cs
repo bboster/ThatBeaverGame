@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Transform cameraTransform;
 
+    [Header("Visual Assignments")]
+    [SerializeField]
+    ParticleSystem dashParticles;
+
     [Header("Movement")]
     [SerializeField]
     float turnSmoothTime = 0.1f;
@@ -267,6 +271,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = dashVelocity;
 
         gravityEnabled = false;
+
+        dashParticles.Play();
 
         yield return new WaitForSeconds(dashDuration);
 
