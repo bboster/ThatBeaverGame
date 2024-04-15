@@ -86,4 +86,10 @@ public class VectorUtils
 
         return returnList;
     }
+
+    public static Vector3 ZeroOutYAxis(Vector3 vector)
+    {
+        vector.y = 0;
+        return vector;
+    }
 }

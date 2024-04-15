@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     float wallRunGravityMult = 0.2f;
     [SerializeField]
     float wallRunStickMult = 5;
+    [SerializeField]
+    float wallRunningSpeed = 5;
 
     [Header("Wall Jumping")]
     [SerializeField]
@@ -167,15 +169,9 @@ public class PlayerController : MonoBehaviour
 
         if (isOnWall && !isTouchingGrass)
         {
-            Vector3 wallNormal = wallDetector.GetWallNormal();
-            if (wallNormal != Vector3.zero)
+            Vector3 wallForward = CalculateWallForward();
+            if (wallForward != Vector3.zero)
             {
-                Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
-                if ((transform.forward - wallForward).magnitude > (transform.forward - -wallForward).magnitude)
-                    wallForward *= -1;
-
-                //Vector3 targetDirection = Vector3.SmoothDamp(transform.forward, wallForward, ref wallRunSmoothing, wallRunRotationTime);
                 transform.LookAt(transform.position + wallForward);
                 
                 return;
@@ -210,7 +206,7 @@ public class PlayerController : MonoBehaviour
         newVelocity *= moveSpeed;
         //Debug.Log(newVelocity);
 
-        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (isTouchingGrass ? groundSpeedLimit : airSpeedLimit));
+        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit));
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
         //rb.AddRelativeForce(1000 * Time.fixedDeltaTime * newVelocity, ForceMode.Acceleration);
@@ -235,7 +231,7 @@ public class PlayerController : MonoBehaviour
         Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
         wallJumpForce.y = wallJumpVerticalForce;
 
-        rb.velocity = new(rb.velocity.x, 0, rb.velocity.z);
+        rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
 
         wallJumpForce += Get3DMovement().normalized * wallJumpInputModifier;
 
@@ -315,6 +311,12 @@ public class PlayerController : MonoBehaviour
             wallRunStickForce *= -1;*/
 
         rb.AddForce(wallRunStickForce, ForceMode.Force);
+
+        Vector3 wallRunBoost = CalculateWallForward();
+        if (wallRunBoost == Vector3.zero)
+            return;
+
+        rb.AddForce(wallRunBoost * wallRunningSpeed, ForceMode.Acceleration);
     }
 
     Vector2 GetMoveInput()
@@ -345,13 +347,16 @@ public class PlayerController : MonoBehaviour
 
         isOnWall = touchedWall;
 
+        if(rb.velocity.y < 0)
+            rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
+
         /*Vector3 currentVelocity = rb.velocity;
         if(currentVelocity.y < 0)
         {
             currentVelocity.y = 0;
             rb.velocity = currentVelocity;
         }*/
-            
+
     }
 
     public bool IsGrounded()
@@ -376,5 +381,19 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         physicMaterial.dynamicFriction = isInAir ? 0.0f : 0.6f;
         //Debug.Log(physicMaterial.dynamicFriction);
+    }
+
+    private Vector3 CalculateWallForward()
+    {
+        Vector3 wallNormal = wallDetector.GetWallNormal();
+        if (wallNormal == Vector3.zero)
+            return Vector3.zero;
+        
+        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+        if ((transform.forward - wallForward).magnitude > (transform.forward - -wallForward).magnitude)
+            wallForward *= -1;
+
+        return wallForward;
     }
 }
