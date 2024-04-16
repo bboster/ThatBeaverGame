@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Destructable : MonoBehaviour
 {
-
-    public void Start()
+    public void Awake()
     {
-        
+        Fragmenter.fractured += fn;
     }
 
-    public void OnMouseUp()
+    private void fn(object obj, FractureEventArgs e)
     {
-        
+        StartCoroutine(DelayedDestroy(e.obj));
+    }
+
+    private IEnumerator DelayedDestroy(GameObject obj)
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(obj);
     }
 }

@@ -323,6 +323,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &713801818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713801820}
+  - component: {fileID: 713801819}
+  m_Layer: 0
+  m_Name: DestructionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &713801819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713801818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5008687be74684449883940b3f749a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &713801820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713801818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5187902, y: -4.459589, z: 1.7599211}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,29 +666,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
-      propertyPath: triggerOptions.filterCollisionsByTag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
-      propertyPath: triggerOptions.triggerAllowedTags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475226985878828164, guid: 5725c1994e957394582f5395476c15a5, type: 3}
-      propertyPath: triggerOptions.triggerAllowedTags.Array.data[0]
-      value: Sphere
-      objectReference: {fileID: 0}
     - target: {fileID: 3468638723453320663, guid: 5725c1994e957394582f5395476c15a5, type: 3}
       propertyPath: m_Name
       value: Wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 7785256327598920783, guid: 5725c1994e957394582f5395476c15a5, type: 3}
-      propertyPath: Destroy
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
