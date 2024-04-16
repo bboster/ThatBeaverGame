@@ -263,6 +263,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dashCurrentCooldown > 0)
             return;
+        anim.SetTrigger("dash");
 
         StartCoroutine(DashOverTime());
     }
