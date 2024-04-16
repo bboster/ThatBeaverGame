@@ -1019,7 +1019,7 @@ MonoBehaviour:
   dashSpeed: 6.65
   dashDuration: 0.3
   grassTouchResetsDashCD: 1
-  wallRunningResetsDashCD: 1
+  wallRunningResetsDashCD: 0
   wallRunGravityMult: 0.3
   wallRunStickMult: 10
   wallRunningSpeed: 4

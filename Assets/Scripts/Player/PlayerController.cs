@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     float wallRunStickMult = 5;
     [SerializeField]
     float wallRunningSpeed = 5;
+    [SerializeField]
+    bool canRunOnPreviousWall = true;
 
     [Header("Wall Jumping")]
     [SerializeField]
@@ -105,6 +107,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 
     PhysicMaterial physicMaterial;
+
+    bool hasTouchedGrass = true;
 
     bool isTouchingGrass = true;
 
@@ -263,6 +267,10 @@ public class PlayerController : MonoBehaviour
     {
         if (dashCurrentCooldown > 0)
             return;
+
+        if (!hasTouchedGrass)
+            return;
+
         anim.SetTrigger("dash");
 
         StartCoroutine(DashOverTime());
@@ -271,6 +279,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashOverTime()
     {
         dashCurrentCooldown = dashCooldown;
+
+        hasTouchedGrass = false;
 
         movementState = MovementState.DASHING;
         Vector3 dashVelocity;
@@ -321,7 +331,10 @@ public class PlayerController : MonoBehaviour
             return;
 
         if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
+        {
             dashCurrentCooldown = 0;
+            hasTouchedGrass = true;
+        }
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
@@ -352,8 +365,15 @@ public class PlayerController : MonoBehaviour
     {
         isTouchingGrass = touchedGrass;
 
-        if (isTouchingGrass && grassTouchResetsDashCD)
-            dashCurrentCooldown = 0;
+        if (isTouchingGrass)
+        {
+            hasTouchedGrass = true;
+
+            wallDetector.ResetCurrentWall();
+
+            if (grassTouchResetsDashCD)
+                dashCurrentCooldown = 0;
+        }
 
         ToggleAirDrag(!touchedGrass);
     }
@@ -361,6 +381,9 @@ public class PlayerController : MonoBehaviour
     public void SetTouchedWall(bool touchedWall)
     {
         if (wallJumpRemainingDuration > 0)
+            return;
+
+        if (!canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
             return;
 
         isOnWall = touchedWall;

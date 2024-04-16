@@ -4,23 +4,41 @@ using UnityEngine;
 
 public class WallDetection : MonoBehaviour
 {
+    [Header("Previous Wall Checking")]
+    [SerializeField]
+    bool onlyCompareWallNormals = false;
+
+    // Player Assignments
     PlayerController player;
 
     bool isCurrentlyOnWall = false;
 
+    // Wall Assignments
     bool isLeft = false;
 
     Vector3 wallNormal;
 
     RaycastHit wallHit;
 
+    WallContainer currentWall;
+
+    WallContainer previousWall;
+
     private void Start()
     {
         player = GetComponentInParent<PlayerController>();
+
+        currentWall = new();
+        previousWall = new();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (currentWall == null)
+            currentWall = new(other.transform.position);
+        else
+            currentWall.SetWallPosition(other.transform.position);
+
         OnWallTouch(other);
     }
 
@@ -34,6 +52,8 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        previousWall = currentWall;
+        currentWall = null;
         OnWallLeave();
     }
 
@@ -67,8 +87,16 @@ public class WallDetection : MonoBehaviour
         if (!didHit)
             wallNormal = Vector3.zero;
         else
+        {
             wallNormal = wallHit.normal;
 
+            if (currentWall == null)
+                currentWall = new(wallNormal, wall.transform.position);
+            else
+                currentWall?.SetWallNormal(wallNormal);
+        }
+
+        //Debug.Log("Wall Normal: " + wallNormal);
         //Debug.Log("Wall Is Left: " + isLeft + " | Did Hit: " + didHit);
     }
 
@@ -85,6 +113,27 @@ public class WallDetection : MonoBehaviour
     public Vector3 GetWallNormal()
     {
         return wallNormal;
+    }
+
+    public bool IsOnPreviousWall()
+    {
+        if (previousWall == null)
+            return false;
+
+        bool isPrevious;
+
+        if (onlyCompareWallNormals)
+            isPrevious = previousWall.Normal == currentWall?.Normal;
+        else
+            isPrevious = previousWall.Equals(currentWall);
+
+        Debug.Log(isPrevious);
+        return isPrevious;
+    }
+
+    public void ResetCurrentWall()
+    {
+        currentWall = null;
     }
 
     /*private void OnDrawGizmos()
@@ -113,4 +162,36 @@ public class WallDetection : MonoBehaviour
         Gizmos.DrawLine(transform.position, -Vector3.Cross(wallNormal, Vector3.up));
 
     }*/
+}
+
+public class WallContainer{
+    public Vector3 Normal { get; private set; }
+
+    public Vector3 Position { get; private set; }
+
+    public WallContainer(Vector3 wallNormal, Vector3 wallPosition)
+    {
+        Normal = wallNormal;
+        Position = wallPosition;
+    }
+
+    public WallContainer(Vector3 wallPosition)
+    {
+        Position = wallPosition;
+    }
+
+    public WallContainer()
+    {
+
+    }
+
+    public void SetWallNormal(Vector3 newNormal)
+    {
+        Normal = newNormal;
+    }
+
+    public void SetWallPosition(Vector3 newPosition)
+    {
+        Position = newPosition;
+    }
 }
