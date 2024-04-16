@@ -7,6 +7,8 @@ public class WallDetection : MonoBehaviour
     [Header("Previous Wall Checking")]
     [SerializeField]
     bool onlyCompareWallNormals = false;
+    [SerializeField]
+    float wallDifferenceThreshold = 0.1f;
 
     // Player Assignments
     PlayerController player;
@@ -52,9 +54,9 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        OnWallLeave();
         previousWall = currentWall;
         currentWall = null;
-        OnWallLeave();
     }
 
     private void OnWallTouch(Collider wall)
@@ -117,17 +119,32 @@ public class WallDetection : MonoBehaviour
 
     public bool IsOnPreviousWall()
     {
-        if (previousWall == null)
+        if (previousWall == null || previousWall.Normal == Vector3.zero || 
+            currentWall == null || currentWall.Normal == Vector3.zero)
             return false;
 
         bool isPrevious;
 
-        if (onlyCompareWallNormals)
+        /*if (onlyCompareWallNormals)
             isPrevious = previousWall.Normal == currentWall?.Normal;
+        else
+            isPrevious = previousWall.Equals(currentWall);*/
+
+        Vector3 currentWallId = currentWall.Normal + currentWall.Position;
+        Vector3 previousWallId = previousWall.Normal + previousWall.Position;
+        Vector3 swappedCurrentWallId = VectorUtils.SwapXAndZ(currentWall.Normal) + currentWall.Position;
+
+        if (onlyCompareWallNormals)
+        {
+            isPrevious = wallDifferenceThreshold < Mathf.Abs(Vector3.Distance(currentWallId, previousWallId));
+            if (!isPrevious)
+                isPrevious = wallDifferenceThreshold < Mathf.Abs(Vector3.Distance(swappedCurrentWallId, previousWallId));
+        } 
         else
             isPrevious = previousWall.Equals(currentWall);
 
-        Debug.Log(isPrevious);
+        Debug.Log("Current Wall Normal: " + currentWallId + " | Previous Wall Normal: " + previousWallId);
+        //Debug.Log(isPrevious);
         return isPrevious;
     }
 

@@ -92,4 +92,14 @@ public class VectorUtils
         vector.y = 0;
         return vector;
     }
+
+    public static Vector3 SwapXAndZ(Vector3 vector)
+    {
+        float x = vector.x;
+
+        vector.x = vector.z;
+        vector.z = x;
+
+        return vector;
+    }
 }

@@ -383,7 +383,7 @@ public class PlayerController : MonoBehaviour
         if (wallJumpRemainingDuration > 0)
             return;
 
-        if (!canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
+        if (touchedWall && !canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
             return;
 
         isOnWall = touchedWall;
