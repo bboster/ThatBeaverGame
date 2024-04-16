@@ -230,6 +230,7 @@ public class PlayerController : MonoBehaviour
         if (!isTouchingGrass)
             return;
 
+        SetTouchedGrass(false);
         rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         anim.SetTrigger("jump");
     }
