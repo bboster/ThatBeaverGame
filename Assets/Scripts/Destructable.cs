@@ -5,6 +5,11 @@ using UnityEngine;
 public class Destructable : MonoBehaviour
 {
     //public static event EventHandler<FractureEventArgs> fractured;
+    [SerializeField]
+    float destructionDelayMax = 12;
+    [SerializeField]
+    float destructionDelayMin = 5;
+    
 
     public void Awake()
     {
@@ -18,7 +23,7 @@ public class Destructable : MonoBehaviour
 
     private IEnumerator DelayedDestroy(GameObject obj)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(Random.Range(destructionDelayMin, destructionDelayMax));
         Destroy(obj);
     }
 }
