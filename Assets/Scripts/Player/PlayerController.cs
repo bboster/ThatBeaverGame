@@ -222,15 +222,12 @@ public class PlayerController : MonoBehaviour
         else
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
-        //newVelocity = moveSpeed * newVelocity.normalized;
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
-        //Debug.Log(newVelocity);
 
         newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit));
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
-        //rb.AddRelativeForce(1000 * Time.fixedDeltaTime * newVelocity, ForceMode.Acceleration);
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -342,9 +339,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
-        /*if (!wallDetector.IsWallLeft())
-            wallRunStickForce *= -1;*/
-
         rb.AddForce(wallRunStickForce, ForceMode.Force);
 
         Vector3 wallRunBoost = CalculateWallForward();
@@ -397,14 +391,6 @@ public class PlayerController : MonoBehaviour
 
         if(rb.velocity.y < 0)
             rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
-
-        /*Vector3 currentVelocity = rb.velocity;
-        if(currentVelocity.y < 0)
-        {
-            currentVelocity.y = 0;
-            rb.velocity = currentVelocity;
-        }*/
-
     }
 
     public bool IsGrounded()
@@ -428,7 +414,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         physicMaterial.dynamicFriction = isInAir ? 0.0f : 0.6f;
-        //Debug.Log(physicMaterial.dynamicFriction);
     }
 
     private Vector3 CalculateWallForward()
