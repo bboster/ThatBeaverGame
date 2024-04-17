@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GnawHitbox : MonoBehaviour
 {
-    Collider col;
+    [SerializeField] float WaitDuration;
+    [SerializeField] Collider col;
 
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class GnawHitbox : MonoBehaviour
 
     private IEnumerator DisableCollider()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(WaitDuration);
         col.enabled = false;
     }
 }
