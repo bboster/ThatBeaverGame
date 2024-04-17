@@ -47,8 +47,10 @@ public class PlayerController : MonoBehaviour
     bool wallRunningResetsDashCD = true;
 
     [Header("Wall Running")]
-    //[SerializeField]
-    //float wallRunRotationTime = 0.025f;
+    [SerializeField]
+    float wallRunRotationTime = 0.025f;
+    [SerializeField]
+    float minSpeedToStartWallRun = 4f;
     [SerializeField]
     float wallRunGravityMult = 0.2f;
     [SerializeField]
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     float turnSmoothVelocity;
 
-    //Vector3 wallRunSmoothing;
+    Vector3 wallRunSmoothing;
 
     float targetRotationAngle = 0;
 
@@ -188,8 +190,10 @@ public class PlayerController : MonoBehaviour
             Vector3 wallForward = CalculateWallForward();
             if (wallForward != Vector3.zero)
             {
-                transform.LookAt(transform.position + wallForward);
-                
+                //transform.LookAt(transform.position + wallForward);
+                //Quaternion targetRotation = Quaternion.LookRotation(wallForward);
+                //transform.rotation = targetRotation;
+                //transform.rotation = Quaternion.Euler(Vector3.SmoothDamp(transform.rotation.eulerAngles, targetRotation.eulerAngles, ref wallRunSmoothing, wallRunRotationTime));
                 return;
             }
         }
@@ -369,7 +373,7 @@ public class PlayerController : MonoBehaviour
         {
             hasTouchedGrass = true;
 
-            wallDetector.ResetCurrentWall();
+            wallDetector.ResetStoredWalls();
 
             if (grassTouchResetsDashCD)
                 dashCurrentCooldown = 0;
@@ -380,7 +384,10 @@ public class PlayerController : MonoBehaviour
 
     public void SetTouchedWall(bool touchedWall)
     {
-        if (wallJumpRemainingDuration > 0)
+        if (wallJumpRemainingDuration > 0 && touchedWall)
+            return;
+
+        if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
             return;
 
         if (touchedWall && !canRunOnPreviousWall && wallDetector.IsOnPreviousWall())

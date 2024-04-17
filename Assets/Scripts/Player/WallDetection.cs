@@ -7,8 +7,8 @@ public class WallDetection : MonoBehaviour
     [Header("Previous Wall Checking")]
     [SerializeField]
     bool onlyCompareWallNormals = false;
-    [SerializeField]
-    float wallDifferenceThreshold = 0.1f;
+    //[SerializeField]
+    //float wallDifferenceThreshold = 0.1f;
 
     // Player Assignments
     PlayerController player;
@@ -36,10 +36,10 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (currentWall == null)
+        /*if (currentWall == null)
             currentWall = new(other.transform.position);
         else
-            currentWall.SetWallPosition(other.transform.position);
+            currentWall.SetWallPosition(other.transform.position);*/
 
         OnWallTouch(other);
     }
@@ -61,8 +61,8 @@ public class WallDetection : MonoBehaviour
 
     private void OnWallTouch(Collider wall)
     {
-        player.SetTouchedWall(true);
         CheckWallDirection(wall);
+        player.SetTouchedWall(true);
     }
 
     private void OnWallLeave()
@@ -92,11 +92,17 @@ public class WallDetection : MonoBehaviour
         {
             wallNormal = wallHit.normal;
 
+            /*
             if (currentWall == null)
                 currentWall = new(wallNormal, wall.transform.position);
             else
                 currentWall?.SetWallNormal(wallNormal);
+            */
+
+            currentWall = new(wall.gameObject, wallHit.normal);
         }
+
+        
 
         //Debug.Log("Wall Normal: " + wallNormal);
         //Debug.Log("Wall Is Left: " + isLeft + " | Did Hit: " + didHit);
@@ -119,17 +125,34 @@ public class WallDetection : MonoBehaviour
 
     public bool IsOnPreviousWall()
     {
-        if (previousWall == null || previousWall.Normal == Vector3.zero || 
-            currentWall == null || currentWall.Normal == Vector3.zero)
+        //Debug.Log("Current Wall: " + !(currentWall == null));
+        //Debug.Log("Null Check...");
+        if (previousWall == null || 
+            currentWall == null)
+            return false;
+
+        //Debug.Log("Checking Colliders...");
+        if (!ReferenceEquals(previousWall.Object, currentWall.Object))
             return false;
 
         bool isPrevious;
 
-        /*if (onlyCompareWallNormals)
-            isPrevious = previousWall.Normal == currentWall?.Normal;
+        if (onlyCompareWallNormals)
+            isPrevious = previousWall.Normal == currentWall.Normal;
         else
-            isPrevious = previousWall.Equals(currentWall);*/
+            isPrevious = previousWall.Equals(currentWall);
 
+        //Debug.Log("Current Wall Normal: " + currentWall.Normal + " | Previous Wall Normal: " + previousWall.Normal);
+        /*int currentTri = currentWall.HitTriangleIdx;
+        int previousTri = previousWall.HitTriangleIdx;
+
+        isPrevious = currentTri == previousTri;*/
+
+        //Debug.Log("Current Wall Tri: " + currentTri + " | Previous Wall Tri: " + previousTri);
+
+        return isPrevious;
+
+        /*
         Vector3 currentWallId = currentWall.Normal + currentWall.Position;
         Vector3 previousWallId = previousWall.Normal + previousWall.Position;
         Vector3 swappedCurrentWallId = VectorUtils.SwapXAndZ(currentWall.Normal) + currentWall.Position;
@@ -145,12 +168,13 @@ public class WallDetection : MonoBehaviour
 
         Debug.Log("Current Wall Normal: " + currentWallId + " | Previous Wall Normal: " + previousWallId);
         //Debug.Log(isPrevious);
-        return isPrevious;
+        return isPrevious;*/
     }
 
-    public void ResetCurrentWall()
+    public void ResetStoredWalls()
     {
         currentWall = null;
+        previousWall = null;
     }
 
     /*private void OnDrawGizmos()
@@ -186,6 +210,10 @@ public class WallContainer{
 
     public Vector3 Position { get; private set; }
 
+    public int HitTriangleIdx { get; private set; }
+
+    public GameObject Object { get; private set; }
+
     public WallContainer(Vector3 wallNormal, Vector3 wallPosition)
     {
         Normal = wallNormal;
@@ -200,6 +228,18 @@ public class WallContainer{
     public WallContainer()
     {
 
+    }
+
+    public WallContainer(GameObject obj, int hitTriangle)
+    {
+        Object = obj;
+        HitTriangleIdx = hitTriangle;
+    }
+
+    public WallContainer(GameObject obj, Vector3 normal)
+    {
+        Object = obj;
+        Normal = normal;
     }
 
     public void SetWallNormal(Vector3 newNormal)

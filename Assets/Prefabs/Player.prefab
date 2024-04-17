@@ -1010,19 +1010,22 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   dashParticles: {fileID: 8922022513896151134}
   runningParticles: {fileID: 2919165649579779302}
-  turnSmoothTime: 0.08
+  turnSmoothTime: 0.05
   moveSpeed: 20
   jumpHeight: 4
   groundSpeedLimit: 4
   airSpeedLimit: 1.33
   dashCooldown: 1
-  dashSpeed: 6.65
+  dashSpeed: 7
   dashDuration: 0.3
   grassTouchResetsDashCD: 1
-  wallRunningResetsDashCD: 0
+  wallRunningResetsDashCD: 1
+  wallRunRotationTime: 0.02
+  minSpeedToStartWallRun: 1.5
   wallRunGravityMult: 0.3
   wallRunStickMult: 10
-  wallRunningSpeed: 4
+  wallRunningSpeed: 5
+  canRunOnPreviousWall: 0
   wallJumpInputModifier: 0.3
   wallJumpCooldown: 0.5
   wallJumpDuration: 0.25
@@ -6831,7 +6834,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.2, y: 0.2, z: 0.2}
+  m_Size: {x: 2.2, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6155279174856866846
 MonoBehaviour:
@@ -6845,6 +6848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9004f0ff0c5bf2a4ebf69aa7e44cab9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyCompareWallNormals: 1
+  wallDifferenceThreshold: 0.11
 --- !u!1001 &3588399995364014448
 PrefabInstance:
   m_ObjectHideFlags: 0
