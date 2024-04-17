@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
             Vector3 wallForward = CalculateWallForward();
             if (wallForward != Vector3.zero)
             {
-                //transform.LookAt(transform.position + wallForward);
+                transform.LookAt(transform.position + wallForward);
                 //Quaternion targetRotation = Quaternion.LookRotation(wallForward);
                 //transform.rotation = targetRotation;
                 //transform.rotation = Quaternion.Euler(Vector3.SmoothDamp(transform.rotation.eulerAngles, targetRotation.eulerAngles, ref wallRunSmoothing, wallRunRotationTime));

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6884345089643265965}
   - component: {fileID: 2875166451079566484}
   - component: {fileID: 7307516643524628988}
+  - component: {fileID: 4201146908882598232}
   m_Layer: 0
   m_Name: GnawHitBox
   m_TagString: BeaverGnaw
@@ -105,6 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Center: {x: -3.5527137e-15, y: 0, z: 0.0000004768374}
+--- !u!114 &4201146908882598232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669382844547665259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f8c82f9b324d141b42d449c61dd687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &691678411307380182
 GameObject:
   m_ObjectHideFlags: 0
@@ -6849,7 +6862,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onlyCompareWallNormals: 1
-  wallDifferenceThreshold: 0.11
 --- !u!1001 &3588399995364014448
 PrefabInstance:
   m_ObjectHideFlags: 0
