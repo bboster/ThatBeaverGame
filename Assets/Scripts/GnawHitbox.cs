@@ -4,23 +4,95 @@ using UnityEngine;
 
 public class GnawHitbox : MonoBehaviour
 {
-    [SerializeField] float WaitDuration;
-    [SerializeField] Collider col;
+    [Header("Gnaw Explosion Physics")]
+    [SerializeField]
+    float explosionForce = 5;
+    [SerializeField]
+    float explosionRadius = 1;
+    [SerializeField]
+    float playerVelocityMult = 0.3f;
+    [SerializeField]
+    float upwardsModifier = 0.3f;
+    [SerializeField]
+    ForceMode forceMode = ForceMode.Impulse;
+    [Header("Gnaw Stats")]
+    [SerializeField] float gnawDurationWhenTriggered = 0.05f;
+
+    Collider col;
+    Rigidbody parentRb;
+    Transform collisionPoint;
+
+    List<FracturedObjectContainer> objectsToFracture = new();
 
     private void Awake()
     {
         col = GetComponent<Collider>();
+        parentRb = GetComponentInParent<Rigidbody>();
+        collisionPoint = transform.GetChild(0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision: " + collision.collider.gameObject);
-        col.enabled = false;
+        Fracture fracture = other.GetComponent<Fracture>();
+        if (fracture == null)
+            return;
+
+        if (objectsToFracture.Count == 0)
+            StartCoroutine(GnawDurationTriggered());
+
+        if (parentRb.velocity.magnitude * parentRb.mass >= fracture.fractureableSO.minForceToTrigger)
+            objectsToFracture.Add(new(fracture, other));
     }
 
-    private IEnumerator DisableCollider()
+    private void OnGnawFail()
     {
-        yield return new WaitForSeconds(WaitDuration);
+
+    }
+
+    private void OnGnawSuccess()
+    {
+
+    }
+
+    private IEnumerator GnawDurationTriggered()
+    {
+        yield return new WaitForSeconds(gnawDurationWhenTriggered);
         col.enabled = false;
+
+        if (objectsToFracture.Count == 0)
+        {
+            OnGnawFail();
+        }
+        else
+        {
+            Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
+
+            foreach (FracturedObjectContainer f in objectsToFracture)
+                f.Fracture.CauseFracture(col, Physics.ClosestPoint(collisionPoint.position, f.Collider, f.Collider.transform.position, f.Collider.transform.rotation));
+            
+
+            Fragmenter.FractureCompletedEvent -= OnFractureCompletedEvent;
+
+            OnGnawSuccess();
+
+            objectsToFracture.Clear();
+        }
+    }
+
+    private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
+    {
+        e.rigidbody.AddExplosionForce(explosionForce + (parentRb.velocity.magnitude * playerVelocityMult), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+    }
+}
+
+public class FracturedObjectContainer
+{
+    public Fracture Fracture { get; private set; }
+    public Collider Collider { get; private set; }
+
+    public FracturedObjectContainer(Fracture f, Collider col)
+    {
+        Fracture = f;
+        Collider = col;
     }
 }
