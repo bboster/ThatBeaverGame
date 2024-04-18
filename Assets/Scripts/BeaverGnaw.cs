@@ -24,11 +24,11 @@ public class BeaverGnaw : MonoBehaviour
         {
             if(GnawIsTrue)
             {
-                Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
+                //Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
             }
             else
             {
-                Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
+                //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 GnawIsTrue = true;
                 GnawHitBox.enabled = true;
                 StartCoroutine(JevWaiting());
@@ -38,13 +38,13 @@ public class BeaverGnaw : MonoBehaviour
 
     public IEnumerator JevWaiting()
     {
-        Debug.Log("Jev is GNAWING");
+        //Debug.Log("Jev is GNAWING");
         yield return new WaitForSeconds(GnawDuration);
 
         GnawHitBox.enabled = false;
 
         yield return new WaitForSeconds(GnawCooldown - GnawDuration);
         GnawIsTrue = false;
-        Debug.Log("Jev is calm");
+        //Debug.Log("Jev is calm");
     }
 }

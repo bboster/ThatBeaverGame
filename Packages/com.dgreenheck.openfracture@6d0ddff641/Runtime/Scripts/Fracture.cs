@@ -19,15 +19,6 @@ public class Fracture : MonoBehaviour
     /// </summary>
     private GameObject fragmentRoot;
 
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-
-        rb.mass = fractureableSO.rigidbodyMass;
-    }
-
     [ContextMenu("Print Mesh Info")]
     public void PrintMeshInfo()
     {
@@ -239,6 +230,13 @@ public class Fracture : MonoBehaviour
 
         // Copy rigid body properties to fragment
         var fragmentRigidBody = obj.AddComponent<Rigidbody>();
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            Debug.LogError(gameObject + "'s RIGIDBODY IS NULL");
+
+        rb.mass = fractureableSO.rigidbodyMass;
+
         fragmentRigidBody.velocity = rb.velocity;
         fragmentRigidBody.angularVelocity = rb.angularVelocity;
         fragmentRigidBody.drag = rb.drag;
@@ -262,6 +260,8 @@ public class Fracture : MonoBehaviour
     private void CopyFractureComponent(GameObject obj)
     {
         var fractureComponent = obj.AddComponent<Fracture>();
+
+        fractureComponent.fractureableSO = (FractureableSO) ScriptableObject.CreateInstance("FractureableSO");
 
         fractureComponent.fractureableSO.triggerOptions = fractureableSO.triggerOptions;
         fractureComponent.fractureableSO.fractureOptions = fractureableSO.fractureOptions;
