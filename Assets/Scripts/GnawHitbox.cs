@@ -21,6 +21,7 @@ public class GnawHitbox : MonoBehaviour
     Collider col;
     Rigidbody parentRb;
     Transform collisionPoint;
+    BeaverStats playerStats;
 
     List<FracturedObjectContainer> objectsToFracture = new();
 
@@ -29,6 +30,7 @@ public class GnawHitbox : MonoBehaviour
         col = GetComponent<Collider>();
         parentRb = GetComponentInParent<Rigidbody>();
         collisionPoint = transform.GetChild(0);
+        playerStats = GetComponentInParent<BeaverStats>();
     }
 
     private void OnTriggerEnter(Collider other)

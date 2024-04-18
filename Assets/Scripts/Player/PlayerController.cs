@@ -123,6 +123,11 @@ public class PlayerController : MonoBehaviour
     float wallJumpCurrentCooldown = 0;
     float wallJumpRemainingDuration = 0;
 
+    // Scaling Stats
+    BeaverStats playerStats;
+
+    Vector3 startScale;
+
     public enum MovementState
     {
         STATIONARY,
@@ -141,6 +146,9 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.Enable();
 
         anim = GetComponent<Animator>();
+
+        playerStats = GetComponent<BeaverStats>();
+        startScale = transform.localScale;
 
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
