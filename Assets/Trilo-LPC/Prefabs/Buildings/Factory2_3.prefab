@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 33907694682028454}
   - component: {fileID: 23083428697240652}
   - component: {fileID: 64771413558692230}
-  - component: {fileID: 5937537607942643322}
-  - component: {fileID: 6691102402895009393}
+  - component: {fileID: 2080338845640652647}
+  - component: {fileID: 7525401074854118557}
   m_Layer: 0
   m_Name: Factory2_3
   m_TagString: Untagged
@@ -115,7 +115,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: af2b8694fde98b34ea38096f47f6967e, type: 3}
---- !u!54 &5937537607942643322
+--- !u!54 &2080338845640652647
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +142,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &6691102402895009393
+--- !u!114 &7525401074854118557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,33 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 0
-    minimumCollisionForce: 10
-    filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - BeaverGnaw
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 8
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 536e9c273f2a18943a4448db92d2e497, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 2
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
+  fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
   MinForceForTrigger: 0
   currentRefractureCount: 0

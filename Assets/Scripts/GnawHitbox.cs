@@ -32,7 +32,7 @@ public class GnawHitbox : MonoBehaviour
         if (fracture == null)
             return;
 
-        if (parentRb.velocity.magnitude * parentRb.mass < fracture.MinForceForTrigger)
+        if (parentRb.velocity.magnitude * parentRb.mass < fracture.fractureableSO.minForceToTrigger)
         {
             OnGnawFail();
             return;
