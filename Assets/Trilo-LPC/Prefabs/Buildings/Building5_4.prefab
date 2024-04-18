@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33525046599725422}
   - component: {fileID: 23768333157524758}
   - component: {fileID: 64697722934508842}
-  - component: {fileID: 1190291760638563867}
   - component: {fileID: 26029546044983549}
   - component: {fileID: 7602668732948719021}
   m_Layer: 0
@@ -112,48 +111,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 95063320b1dbe944d8853b3b26549078, type: 3}
---- !u!114 &1190291760638563867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609150860426164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 0
-    minimumCollisionForce: 500
-    filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - Player
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 8
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 536e9c273f2a18943a4448db92d2e497, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 1
-    maxRefractureCount: 2
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  MinForceForTrigger: 0
-  currentRefractureCount: 0
 --- !u!54 &26029546044983549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -193,33 +150,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 0
-    minimumCollisionForce: 500
-    filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - Player
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 8
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 536e9c273f2a18943a4448db92d2e497, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 1
-    maxRefractureCount: 2
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  MinForceForTrigger: 0
+  fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
   currentRefractureCount: 0

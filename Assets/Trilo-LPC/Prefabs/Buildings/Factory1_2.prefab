@@ -153,5 +153,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
-  MinForceForTrigger: 0
   currentRefractureCount: 0

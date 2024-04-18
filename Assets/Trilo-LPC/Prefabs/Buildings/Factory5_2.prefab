@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 33367475037330104}
   - component: {fileID: 23610170067841466}
   - component: {fileID: 64908946002159870}
-  - component: {fileID: 912540871087153451}
   - component: {fileID: 4779002092423476460}
+  - component: {fileID: 912540871087153451}
   m_Layer: 0
   m_Name: Factory5_2
   m_TagString: Untagged
@@ -110,21 +110,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: b3973c3ee4836944d959d451804f7eac, type: 3}
---- !u!114 &912540871087153451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714716311683900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
-  MinForceForTrigger: 0
-  currentRefractureCount: 0
 --- !u!54 &4779002092423476460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,3 +137,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &912540871087153451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714716311683900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
+  currentRefractureCount: 0
