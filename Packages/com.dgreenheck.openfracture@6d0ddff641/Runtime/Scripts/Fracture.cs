@@ -12,8 +12,7 @@ public class Fracture : MonoBehaviour
     public RefractureOptions refractureOptions;
     public CallbackOptions callbackOptions;
 
-    [SerializeField]
-    float minForceForTrigger = 0;
+    public float MinForceForTrigger = 0;
     /// <summary>
     /// The number of times this fragment has been re-fractured.
     /// </summary>
@@ -48,6 +47,12 @@ public class Fracture : MonoBehaviour
     public void CauseFracture()
     {
         callbackOptions.CallOnFracture(null, gameObject, transform.position);
+        this.ComputeFracture();
+    }
+
+    public void CauseFracture(Collider instigator, Vector3 collisionPoint)
+    {
+        callbackOptions.CallOnFracture(instigator, gameObject, collisionPoint);
         this.ComputeFracture();
     }
 
@@ -102,16 +107,6 @@ public class Fracture : MonoBehaviour
 
             if (triggerOptions.filterCollisionsByTag && tagAllowed)
             {
-                if(minForceForTrigger > 0)
-                {
-                    Rigidbody parentRb = collider.GetComponentInParent<Rigidbody>();
-
-                    if (parentRb == null || parentRb.velocity.magnitude < minForceForTrigger)
-                        return;
-
-                    Debug.Log("Parent RB Velocity Magnitude: " + parentRb.velocity.magnitude);
-                }
-
                 callbackOptions.CallOnFracture(collider, gameObject, transform.position);
                 this.ComputeFracture();
             }

@@ -4,23 +4,42 @@ using UnityEngine;
 
 public class GnawHitbox : MonoBehaviour
 {
-    [SerializeField] float WaitDuration;
-    [SerializeField] Collider col;
+    Collider col;
+    Rigidbody parentRb;
+    Transform collisionPoint;
 
     private void Awake()
     {
         col = GetComponent<Collider>();
+        parentRb = GetComponentInParent<Rigidbody>();
+        collisionPoint = transform.GetChild(0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision: " + collision.collider.gameObject);
+        Fracture fracture = other.GetComponent<Fracture>();
+        if (fracture == null)
+            return;
+
+        if (parentRb.velocity.magnitude * parentRb.mass < fracture.MinForceForTrigger)
+        {
+            OnGnawFail();
+            return;
+        }
+
+        fracture.CauseFracture(col, Physics.ClosestPoint(collisionPoint.position, other, other.transform.position, other.transform.rotation));
+
+        OnGnawSuccess();
         col.enabled = false;
     }
 
-    private IEnumerator DisableCollider()
+    private void OnGnawFail()
     {
-        yield return new WaitForSeconds(WaitDuration);
-        col.enabled = false;
+
+    }
+
+    private void OnGnawSuccess()
+    {
+
     }
 }
