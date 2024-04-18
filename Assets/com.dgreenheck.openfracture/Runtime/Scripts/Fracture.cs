@@ -8,8 +8,6 @@ using UnityEngine.Events;
 public class Fracture : MonoBehaviour
 {
     public FractureableSO fractureableSO;
-
-    public float MinForceForTrigger = 0;
     /// <summary>
     /// The number of times this fragment has been re-fractured.
     /// </summary>
