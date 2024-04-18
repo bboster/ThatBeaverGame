@@ -7,13 +7,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class Fracture : MonoBehaviour
 {
-    public TriggerOptions triggerOptions;
-    public FractureOptions fractureOptions;
-    public RefractureOptions refractureOptions;
-    public CallbackOptions callbackOptions;
-
-    [SerializeField]
-    float minForceForTrigger = 0;
+    public FractureableSO fractureableSO;
     /// <summary>
     /// The number of times this fragment has been re-fractured.
     /// </summary>
@@ -47,7 +41,13 @@ public class Fracture : MonoBehaviour
 
     public void CauseFracture()
     {
-        callbackOptions.CallOnFracture(null, gameObject, transform.position);
+        fractureableSO.callbackOptions.CallOnFracture(null, gameObject, transform.position);
+        this.ComputeFracture();
+    }
+
+    public void CauseFracture(Collider instigator, Vector3 collisionPoint)
+    {
+        fractureableSO.callbackOptions.CallOnFracture(instigator, gameObject, collisionPoint);
         this.ComputeFracture();
     }
 
@@ -68,7 +68,7 @@ public class Fracture : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (triggerOptions.triggerType == TriggerType.Collision)
+        if (fractureableSO.triggerOptions.triggerType == TriggerType.Collision)
         {
             if (collision.contactCount > 0)
             {
@@ -77,14 +77,14 @@ public class Fracture : MonoBehaviour
                 float collisionForce = collision.impulse.magnitude / Time.fixedDeltaTime;
 
                 // Colliding object tag must be in the set of allowed collision tags if filtering by tag is enabled
-                bool tagAllowed = triggerOptions.IsTagAllowed(contact.otherCollider.gameObject.tag);
+                bool tagAllowed = fractureableSO.triggerOptions.IsTagAllowed(contact.otherCollider.gameObject.tag);
 
                 // Object is unfrozen if the colliding object has the correct tag (if tag filtering is enabled)
                 // and the collision force exceeds the minimum collision force.
-                if (collisionForce > triggerOptions.minimumCollisionForce &&
-                   (triggerOptions.filterCollisionsByTag && tagAllowed))
+                if (collisionForce > fractureableSO.triggerOptions.minimumCollisionForce &&
+                   (fractureableSO.triggerOptions.filterCollisionsByTag && tagAllowed))
                 {
-                    callbackOptions.CallOnFracture(contact.otherCollider, gameObject, contact.point);
+                    fractureableSO.callbackOptions.CallOnFracture(contact.otherCollider, gameObject, contact.point);
                     this.ComputeFracture();
                 }
             }
@@ -93,26 +93,16 @@ public class Fracture : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (triggerOptions.triggerType == TriggerType.Trigger)
+        if (fractureableSO.triggerOptions.triggerType == TriggerType.Trigger)
         {
             Debug.Log("Trigger Entered!");
 
             // Colliding object tag must be in the set of allowed collision tags if filtering by tag is enabled
-            bool tagAllowed = triggerOptions.IsTagAllowed(collider.gameObject.tag);
+            bool tagAllowed = fractureableSO.triggerOptions.IsTagAllowed(collider.gameObject.tag);
 
-            if (triggerOptions.filterCollisionsByTag && tagAllowed)
+            if (fractureableSO.triggerOptions.filterCollisionsByTag && tagAllowed)
             {
-                if(minForceForTrigger > 0)
-                {
-                    Rigidbody parentRb = collider.GetComponentInParent<Rigidbody>();
-
-                    if (parentRb == null || parentRb.velocity.magnitude < minForceForTrigger)
-                        return;
-
-                    Debug.Log("Parent RB Velocity Magnitude: " + parentRb.velocity.magnitude);
-                }
-
-                callbackOptions.CallOnFracture(collider, gameObject, transform.position);
+                fractureableSO.callbackOptions.CallOnFracture(collider, gameObject, transform.position);
                 this.ComputeFracture();
             }
         }
@@ -120,11 +110,11 @@ public class Fracture : MonoBehaviour
 
     void Update()
     {
-        if (triggerOptions.triggerType == TriggerType.Keyboard)
+        if (fractureableSO.triggerOptions.triggerType == TriggerType.Keyboard)
         {
-            if (Input.GetKeyDown(triggerOptions.triggerKey))
+            if (Input.GetKeyDown(fractureableSO.triggerOptions.triggerKey))
             {
-                callbackOptions.CallOnFracture(null, gameObject, transform.position);
+                fractureableSO.callbackOptions.CallOnFracture(null, gameObject, transform.position);
                 this.ComputeFracture();
             }
         }
@@ -155,11 +145,11 @@ public class Fracture : MonoBehaviour
 
             var fragmentTemplate = CreateFragmentTemplate();
 
-            if (fractureOptions.asynchronous)
+            if (fractureableSO.fractureOptions.asynchronous)
             {
                 StartCoroutine(Fragmenter.FractureAsync(
                     this.gameObject,
-                    this.fractureOptions,
+                    fractureableSO.fractureOptions,
                     fragmentTemplate,
                     this.fragmentRoot.transform,
                     () =>
@@ -172,11 +162,11 @@ public class Fracture : MonoBehaviour
 
                         // Fire the completion callback
                         if ((this.currentRefractureCount == 0) ||
-                            (this.currentRefractureCount > 0 && this.refractureOptions.invokeCallbacks))
+                            (this.currentRefractureCount > 0 && fractureableSO.refractureOptions.invokeCallbacks))
                         {
-                            if (callbackOptions.onCompleted != null)
+                            if (fractureableSO.callbackOptions.onCompleted != null)
                             {
-                                callbackOptions.onCompleted.Invoke();
+                                fractureableSO.callbackOptions.onCompleted.Invoke();
                             }
                         }
                     }
@@ -185,7 +175,7 @@ public class Fracture : MonoBehaviour
             else
             {
                 Fragmenter.Fracture(this.gameObject,
-                                    this.fractureOptions,
+                                    fractureableSO.fractureOptions,
                                     fragmentTemplate,
                                     this.fragmentRoot.transform);
 
@@ -197,11 +187,11 @@ public class Fracture : MonoBehaviour
 
                 // Fire the completion callback
                 if ((this.currentRefractureCount == 0) ||
-                    (this.currentRefractureCount > 0 && this.refractureOptions.invokeCallbacks))
+                    (this.currentRefractureCount > 0 && fractureableSO.refractureOptions.invokeCallbacks))
                 {
-                    if (callbackOptions.onCompleted != null)
+                    if (fractureableSO.callbackOptions.onCompleted != null)
                     {
-                        callbackOptions.onCompleted.Invoke();
+                        fractureableSO.callbackOptions.onCompleted.Invoke();
                     }
                 }
             }
@@ -217,7 +207,7 @@ public class Fracture : MonoBehaviour
     {
         // If pre-fracturing, make the fragments children of this object so they can easily be unfrozen later.
         // Otherwise, parent to this object's parent
-        GameObject obj = new GameObject();
+        GameObject obj = new();
         obj.name = "Fragment";
         obj.tag = this.tag;
 
@@ -228,7 +218,7 @@ public class Fracture : MonoBehaviour
         var meshRenderer = obj.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterials = new Material[2] {
             this.GetComponent<MeshRenderer>().sharedMaterial,
-            this.fractureOptions.insideMaterial
+            fractureableSO.fractureOptions.insideMaterial
         };
 
         // Copy collider properties to fragment
@@ -239,17 +229,23 @@ public class Fracture : MonoBehaviour
         fragmentCollider.isTrigger = thisCollider.isTrigger;
 
         // Copy rigid body properties to fragment
-        var thisRigidBody = this.GetComponent<Rigidbody>();
         var fragmentRigidBody = obj.AddComponent<Rigidbody>();
-        fragmentRigidBody.velocity = thisRigidBody.velocity;
-        fragmentRigidBody.angularVelocity = thisRigidBody.angularVelocity;
-        fragmentRigidBody.drag = thisRigidBody.drag;
-        fragmentRigidBody.angularDrag = thisRigidBody.angularDrag;
-        fragmentRigidBody.useGravity = thisRigidBody.useGravity;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            Debug.LogError(gameObject + "'s RIGIDBODY IS NULL");
+
+        rb.mass = fractureableSO.rigidbodyMass;
+
+        fragmentRigidBody.velocity = rb.velocity;
+        fragmentRigidBody.angularVelocity = rb.angularVelocity;
+        fragmentRigidBody.drag = rb.drag;
+        fragmentRigidBody.angularDrag = rb.angularDrag;
+        fragmentRigidBody.useGravity = rb.useGravity;
 
         // If refracturing is enabled, create a copy of this component and add it to the template fragment object
-        if (refractureOptions.enableRefracturing &&
-           (this.currentRefractureCount < refractureOptions.maxRefractureCount))
+        if (fractureableSO.refractureOptions.enableRefracturing &&
+           (this.currentRefractureCount < fractureableSO.refractureOptions.maxRefractureCount))
         {
             CopyFractureComponent(obj);
         }
@@ -265,10 +261,12 @@ public class Fracture : MonoBehaviour
     {
         var fractureComponent = obj.AddComponent<Fracture>();
 
-        fractureComponent.triggerOptions = this.triggerOptions;
-        fractureComponent.fractureOptions = this.fractureOptions;
-        fractureComponent.refractureOptions = this.refractureOptions;
-        fractureComponent.callbackOptions = this.callbackOptions;
+        fractureComponent.fractureableSO = (FractureableSO) ScriptableObject.CreateInstance("FractureableSO");
+
+        fractureComponent.fractureableSO.triggerOptions = fractureableSO.triggerOptions;
+        fractureComponent.fractureableSO.fractureOptions = fractureableSO.fractureOptions;
+        fractureComponent.fractureableSO.refractureOptions = fractureableSO.refractureOptions;
+        fractureComponent.fractureableSO.callbackOptions = fractureableSO.callbackOptions;
         fractureComponent.currentRefractureCount = this.currentRefractureCount + 1;
         fractureComponent.fragmentRoot = this.fragmentRoot;
     }

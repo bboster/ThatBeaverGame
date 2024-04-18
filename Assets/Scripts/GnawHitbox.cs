@@ -4,23 +4,67 @@ using UnityEngine;
 
 public class GnawHitbox : MonoBehaviour
 {
-    [SerializeField] float WaitDuration;
-    [SerializeField] Collider col;
+    [Header("Gnaw Explosion Physics")]
+    [SerializeField]
+    float explosionForce = 5;
+    [SerializeField]
+    float explosionRadius = 1;
+    [SerializeField]
+    float playerVelocityMult = 0.3f;
+    [SerializeField]
+    float upwardsModifier = 0.3f;
+    [SerializeField]
+    ForceMode forceMode = ForceMode.Impulse;
 
+    Collider col;
+    Rigidbody parentRb;
+    Transform collisionPoint;
     private void Awake()
     {
         col = GetComponent<Collider>();
+        parentRb = GetComponentInParent<Rigidbody>();
+        collisionPoint = transform.GetChild(0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision: " + collision.collider.gameObject);
+        Fracture fracture = other.GetComponent<Fracture>();
+        if (fracture == null)
+            return;
+
+        if (parentRb.velocity.magnitude * parentRb.mass < fracture.fractureableSO.minForceToTrigger)
+        {
+            OnGnawFail();
+            return;
+        }
+
+        Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
+
+        fracture.CauseFracture(col, Physics.ClosestPoint(collisionPoint.position, other, other.transform.position, other.transform.rotation));
+        StartCoroutine(DisableFractureListener());
+
+        OnGnawSuccess();
         col.enabled = false;
     }
 
-    private IEnumerator DisableCollider()
+    private void OnGnawFail()
     {
-        yield return new WaitForSeconds(WaitDuration);
-        col.enabled = false;
+
+    }
+
+    private void OnGnawSuccess()
+    {
+
+    }
+
+    private IEnumerator DisableFractureListener()
+    {
+        yield return new WaitForEndOfFrame();
+        Fragmenter.FractureCompletedEvent -= OnFractureCompletedEvent;
+    }
+
+    private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
+    {
+        e.rigidbody.AddExplosionForce(explosionForce + (parentRb.velocity.magnitude * playerVelocityMult), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
     }
 }

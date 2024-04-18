@@ -5,15 +5,16 @@ using UnityEngine;
 public class BeaverGnaw : MonoBehaviour
 {
     // Range of raycast - essentially for height detection between objects
-    [SerializeField] GameObject GnawHitBox;
+    [SerializeField] Collider GnawHitBox;
 
     [SerializeField] float GnawCooldown;
+    [SerializeField] float GnawDuration;
 
     bool GnawIsTrue = false;
 
     private void Start()
     {
-        GnawHitBox.SetActive(false);
+        GnawHitBox.enabled = false;
     }
 
     // Update is called once per frame
@@ -23,25 +24,27 @@ public class BeaverGnaw : MonoBehaviour
         {
             if(GnawIsTrue)
             {
-                Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
+                //Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
             }
             else
             {
-                Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
+                //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 GnawIsTrue = true;
-                GnawHitBox.SetActive(true);
-                StartCoroutine("JevWaiting");
+                GnawHitBox.enabled = true;
+                StartCoroutine(JevWaiting());
             }
         }
     }
 
     public IEnumerator JevWaiting()
     {
-        Debug.Log("Jev is GNAWING");
-        yield return new WaitForSeconds(GnawCooldown);
+        //Debug.Log("Jev is GNAWING");
+        yield return new WaitForSeconds(GnawDuration);
 
-        GnawHitBox.SetActive(false);
+        GnawHitBox.enabled = false;
+
+        yield return new WaitForSeconds(GnawCooldown - GnawDuration);
         GnawIsTrue = false;
-        Debug.Log("Jev is calm");
+        //Debug.Log("Jev is calm");
     }
 }
