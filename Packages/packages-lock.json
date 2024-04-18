@@ -1,14 +1,5 @@
 {
   "dependencies": {
-    "com.dgreenheck.openfracture": {
-      "version": "file:com.dgreenheck.openfracture@6d0ddff641",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.30",
-        "com.unity.testtools.codecoverage": "1.0.1"
-      }
-    },
     "com.unity.cinemachine": {
       "version": "2.9.7",
       "depth": 0,
