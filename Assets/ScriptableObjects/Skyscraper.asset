@@ -32,7 +32,7 @@ MonoBehaviour:
     textureOffset: {x: 0, y: 0}
   refractureOptions:
     enableRefracturing: 1
-    maxRefractureCount: 3
+    maxRefractureCount: 1
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
