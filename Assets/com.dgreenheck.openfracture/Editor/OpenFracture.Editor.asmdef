@@ -2,7 +2,7 @@
     "name": "OpenFracture.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:7b1a8d9f4355a214f9a95471fa510c86"
+        "GUID:3807d5231e6e5f14cbe0505c5ff6afc5"
     ],
     "includePlatforms": [
         "Editor"
