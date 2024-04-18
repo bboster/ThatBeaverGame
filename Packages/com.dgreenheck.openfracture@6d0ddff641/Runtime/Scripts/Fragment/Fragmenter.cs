@@ -12,6 +12,8 @@ public static class Fragmenter
 {
     public static event EventHandler<FractureEventArgs> fractured;
 
+    public static event EventHandler<FractureEventCompleteArgs> FractureCompletedEvent;
+
     /// <summary>
     /// Generates the mesh fragments based on the provided options. The generated fragment objects are
     /// stored as children of `fragmentParent`
@@ -268,6 +270,8 @@ public static class Fragmenter
             var size = fragmentMesh.bounds.size;
             float density = (parentSize.x * parentSize.y * parentSize.z) / parentMass;
             rigidBody.mass = (size.x * size.y * size.z) / density;
+
+            FractureCompletedEvent?.Invoke(fragment, new(rigidBody));
             
             // This code only compiles for the editor
             #if UNITY_EDITOR
@@ -290,5 +294,15 @@ public class FractureEventArgs
     public FractureEventArgs(GameObject obj)
     {
         this.obj = obj;
+    }
+}
+
+public class FractureEventCompleteArgs
+{
+    public Rigidbody rigidbody;
+
+    public FractureEventCompleteArgs(Rigidbody rb)
+    {
+        rigidbody = rb;
     }
 }
