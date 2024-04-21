@@ -1,14 +1,13 @@
 {
   "dependencies": {
     "com.dgreenheck.openfracture": {
-      "version": "https://github.com/dgreenheck/OpenFracture.git",
+      "version": "file:com.dgreenheck.openfracture@6d0ddff641",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
       "dependencies": {
         "com.unity.test-framework": "1.1.30",
         "com.unity.testtools.codecoverage": "1.0.1"
-      },
-      "hash": "6d0ddff64173193f024638c2de2dbeb8a2525965"
+      }
     },
     "com.unity.cinemachine": {
       "version": "2.9.7",
@@ -103,6 +102,15 @@
         "com.unity.settings-manager": "1.0.3",
         "com.unity.modules.physics": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.recorder": {
+      "version": "4.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
