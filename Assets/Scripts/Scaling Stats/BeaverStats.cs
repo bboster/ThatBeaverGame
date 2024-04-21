@@ -43,4 +43,13 @@ public class BeaverStats : MonoBehaviour
         foreach (ScalingStat stat in statsToAdd.ScalingStats)
             AddStat(stat.GetStat(), -stat.GetScalingValue());
     }
+
+    public float GetStat(ScalableStat stat)
+    {
+        if(playerStats.ContainsKey(stat))
+            return playerStats[stat];
+
+        Debug.LogError("Stat not found in dictionary.");
+        return -1;
+    }
 }
