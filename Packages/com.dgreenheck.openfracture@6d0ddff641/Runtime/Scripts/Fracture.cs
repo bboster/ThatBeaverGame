@@ -196,6 +196,14 @@ public class Fracture : MonoBehaviour
                 }
             }
         }
+
+        this.fragmentRoot.AddComponent<Rigidbody>();
+
+        this.fragmentRoot.GetComponent<Rigidbody>().AddExplosionForce
+            (1000, this.fragmentRoot.transform.position, 5000);
+
+        //Destroys the fragments
+        Destroy(this.fragmentRoot, 10);
     }
 
     /// <summary>
@@ -242,6 +250,8 @@ public class Fracture : MonoBehaviour
         fragmentRigidBody.drag = rb.drag;
         fragmentRigidBody.angularDrag = rb.angularDrag;
         fragmentRigidBody.useGravity = rb.useGravity;
+
+        //obj.GetComponent<Rigidbody>().AddExplosionForce(10000000000, this.transform.position, 500000000000);
 
         // If refracturing is enabled, create a copy of this component and add it to the template fragment object
         if (fractureableSO.refractureOptions.enableRefracturing &&
