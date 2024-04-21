@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Testing Scenes/ParkourCity.unity
     guid: f0932f34377b14944a482dc604612428
+  - enabled: 1
+    path: Assets/Scenes/Testing Scenes/Map.unity
+    guid: ffe0ae1a89d77a5489e451df3811ff84
   m_configObjects: {}
