@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour
     // Main Menu Options
     void Start()
     {
+
+        Time.timeScale = 1f;
+
         mainMenuScreen.SetActive(true);
         CreditsScreen.SetActive(false);
         HowToPlayScreen.SetActive(false);

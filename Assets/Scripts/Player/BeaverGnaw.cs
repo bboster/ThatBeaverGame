@@ -11,10 +11,12 @@ public class BeaverGnaw : MonoBehaviour
     [SerializeField] float GnawDuration;
 
     bool GnawIsTrue = false;
+    Animator anim;
 
     private void Start()
     {
         GnawHitBox.enabled = false;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -22,16 +24,17 @@ public class BeaverGnaw : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            if(GnawIsTrue)
+            anim.SetTrigger("chomp");
+            if (GnawIsTrue)
             {
                 //Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
             }
             else
             {
                 //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
-                GnawIsTrue = true;
-                GnawHitBox.enabled = true;
-                StartCoroutine(JevWaiting());
+                //GnawIsTrue = true;
+                //GnawHitBox.enabled = true;
+                //StartCoroutine(JevWaiting());
             }
         }
     }
@@ -41,10 +44,11 @@ public class BeaverGnaw : MonoBehaviour
         //Debug.Log("Jev is GNAWING");
         yield return new WaitForSeconds(GnawDuration);
 
-        GnawHitBox.enabled = false;
+        //GnawHitBox.enabled = false;
 
         yield return new WaitForSeconds(GnawCooldown - GnawDuration);
-        GnawIsTrue = false;
+        //GnawIsTrue = false;
         //Debug.Log("Jev is calm");
     }
+    // this following function is to be used during the Chomp animation as an animation event.
 }

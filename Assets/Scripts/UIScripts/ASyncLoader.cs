@@ -13,7 +13,10 @@ public class ASyncLoader : MonoBehaviour
     [Header("Loading Bar / Slider")]
     [SerializeField] private Slider loadingBar;
 
-    public void LoadLevelButton(int levelIndex)
+    [Header("Transition Reference")]
+    [SerializeField] private LevelLoader transitionObject;
+
+    public void PreloadNextScene(int levelIndex)
     {
         mainMenuScreen.SetActive(false);
         loadingScreen.SetActive(true);
@@ -35,5 +38,7 @@ public class ASyncLoader : MonoBehaviour
             loadingBar.value = progressValue;
             yield return null;
         }
+
+        transitionObject.LoadNextLevelAndTransition();
     }
 }
