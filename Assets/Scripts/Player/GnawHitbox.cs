@@ -77,7 +77,13 @@ public class GnawHitbox : MonoBehaviour
             Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
 
             foreach (FracturedObjectContainer f in objectsToFracture)
+            {
+                if (f.Collider == null)
+                    continue;
+
                 f.Fracture.CauseFracture(col, Physics.ClosestPoint(collisionPoint.position, f.Collider, f.Collider.transform.position, f.Collider.transform.rotation));
+            }
+                
             
             Fragmenter.FractureCompletedEvent -= OnFractureCompletedEvent;
 
