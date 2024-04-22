@@ -64,15 +64,7 @@ public class GnawHitbox : MonoBehaviour
 
     }
 
-    public void DisableGnawHitbox()
-    {
-        col.enabled = false;
-    }
-
-    public void EnableGnawHitbox()
-    {
-        col.enabled = true;
-    }
+    
 
     private IEnumerator GnawDurationTriggered()
     {
@@ -87,7 +79,7 @@ public class GnawHitbox : MonoBehaviour
         {
             Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
 
-            Debug.Log("Objects to Fracture: " + objectsToFracture.Count + " | Time: " + Time.time);
+            //Debug.Log("Objects to Fracture: " + objectsToFracture.Count + " | Time: " + Time.time);
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
                 PS.AddPoint();
