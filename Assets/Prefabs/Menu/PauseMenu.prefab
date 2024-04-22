@@ -606,6 +606,8 @@ GameObject:
   - component: {fileID: 7730286528693124129}
   - component: {fileID: 6434381818676368445}
   - component: {fileID: 264388170943602871}
+  - component: {fileID: 5233339365572304731}
+  - component: {fileID: 8309466551018407543}
   m_Layer: 0
   m_Name: HowToPlayButton
   m_TagString: Untagged
@@ -728,6 +730,50 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5233339365572304731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286218087179835843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1c27c5d07bde4bb00710ac62b865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 10
+  shakeSpeed: 40
+--- !u!114 &8309466551018407543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286218087179835843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5233339365572304731}
+          m_TargetAssemblyTypeName: UIButtonShake, Assembly-CSharp
+          m_MethodName: StartShake
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2484772507854572531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1190,8 @@ GameObject:
   - component: {fileID: 6111873743561992397}
   - component: {fileID: 4439887811581138331}
   - component: {fileID: 3735275119497229949}
+  - component: {fileID: 3288932122124123984}
+  - component: {fileID: 1946191251721147206}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1266,6 +1314,50 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3288932122124123984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845528390089145640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1c27c5d07bde4bb00710ac62b865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 10
+  shakeSpeed: 40
+--- !u!114 &1946191251721147206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845528390089145640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3288932122124123984}
+          m_TargetAssemblyTypeName: UIButtonShake, Assembly-CSharp
+          m_MethodName: StartShake
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4036506548863422704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1640,8 @@ GameObject:
   - component: {fileID: 5417282322266536369}
   - component: {fileID: 3010683031225476565}
   - component: {fileID: 8023998941915127015}
+  - component: {fileID: 8683011234154623866}
+  - component: {fileID: 4332062936196984643}
   m_Layer: 0
   m_Name: QuitButton
   m_TagString: Untagged
@@ -1670,6 +1764,50 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8683011234154623866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367627274969995247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1c27c5d07bde4bb00710ac62b865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 10
+  shakeSpeed: 40
+--- !u!114 &4332062936196984643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367627274969995247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8683011234154623866}
+          m_TargetAssemblyTypeName: UIButtonShake, Assembly-CSharp
+          m_MethodName: StartShake
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4590863550956391817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,6 +1820,8 @@ GameObject:
   - component: {fileID: 8579045869775159078}
   - component: {fileID: 7865794170334584520}
   - component: {fileID: 8264456592645347626}
+  - component: {fileID: 8809011593219111863}
+  - component: {fileID: 8606119758679223322}
   m_Layer: 0
   m_Name: ReturnToMain
   m_TagString: Untagged
@@ -1804,6 +1944,50 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8809011593219111863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590863550956391817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1c27c5d07bde4bb00710ac62b865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 10
+  shakeSpeed: 40
+--- !u!114 &8606119758679223322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590863550956391817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8809011593219111863}
+          m_TargetAssemblyTypeName: UIButtonShake, Assembly-CSharp
+          m_MethodName: StartShake
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5314172534410351306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,6 +2533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuScreen: {fileID: 1150908397766056086}
   HowToPlayScreen: {fileID: 1613898604501112445}
+  transitionObject: {fileID: 0}
 --- !u!1 &7576930855549500071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,6 +2546,8 @@ GameObject:
   - component: {fileID: 7060290402000573036}
   - component: {fileID: 5159108294629267229}
   - component: {fileID: 6044099321098749741}
+  - component: {fileID: 365683448936803070}
+  - component: {fileID: 5146065713502023691}
   m_Layer: 0
   m_Name: RestartGameButton
   m_TagString: Untagged
@@ -2483,6 +2670,50 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &365683448936803070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576930855549500071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1c27c5d07bde4bb00710ac62b865a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  shakeMagnitude: 10
+  shakeSpeed: 40
+--- !u!114 &5146065713502023691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576930855549500071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 365683448936803070}
+          m_TargetAssemblyTypeName: UIButtonShake, Assembly-CSharp
+          m_MethodName: StartShake
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &9210280451704399315
 GameObject:
   m_ObjectHideFlags: 0

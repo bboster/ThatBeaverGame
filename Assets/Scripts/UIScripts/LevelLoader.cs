@@ -17,6 +17,11 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
+    public float getTransitionTime()
+    {
+        return transitionTime;
+    }
+
     // Starts the animation, waits a couple of seconds, then actually goes to
     // the next scene.
     private IEnumerator LoadLevel(int levelIndex)
@@ -26,5 +31,19 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelIndex);
+    }
+
+    // Mainly utilized for PauseMenu, just calls RestartLevel();
+    public void StartRestartCoroutine()
+    {
+        StartCoroutine(RestartLevel());
+    }
+
+    // Does the animation, minus the load next level part, of course.
+    public IEnumerator RestartLevel()
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
     }
 }

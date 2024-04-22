@@ -6,8 +6,12 @@ using System;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Screen References")]
     [SerializeField] GameObject pauseMenuScreen;
     [SerializeField] GameObject HowToPlayScreen;
+
+    [Header("Transition Reference")]
+    [SerializeField] private LevelLoader transitionObject;
 
     bool isPaused;
 
@@ -90,6 +94,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ReloadScene()
     {
+        Debug.Log("Hey i work!");
+        transitionObject.StartRestartCoroutine();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Jev is born anew, REJOICE AND DESTROY!!!");
     }
