@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIButtonShake : MonoBehaviour
 {
@@ -20,8 +21,10 @@ public class UIButtonShake : MonoBehaviour
 
     public void StartShake()
     {
+        Debug.Log("Try Shake");
         if (!isShaking)
         {
+            Debug.Log("Is Shaking");
             StartCoroutine(Shake());
         }
     }
@@ -44,9 +47,9 @@ public class UIButtonShake : MonoBehaviour
             transform.rotation = Quaternion.Euler(originalRotation.x, originalRotation.y, rotationAngle);
 
             // Increment the elapsed time
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
-            yield return null;
+            yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
         }
 
         // Reset the button's rotation to its original rotation
@@ -54,4 +57,14 @@ public class UIButtonShake : MonoBehaviour
 
         isShaking = false;
     }
+
+    /*private void OnMouseOver()
+    {
+        StartShake();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        StartShake();
+    }*/
 }
