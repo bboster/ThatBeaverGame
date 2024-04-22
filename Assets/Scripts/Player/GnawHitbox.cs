@@ -50,7 +50,6 @@ public class GnawHitbox : MonoBehaviour
             StartCoroutine(GnawDurationTriggered());
         }
             
-
         if (parentRb.velocity.magnitude * force >= fracture.fractureableSO.minForceToTrigger)
             objectsToFracture.Add(new(fracture, other));
     }
@@ -65,6 +64,8 @@ public class GnawHitbox : MonoBehaviour
 
     }
 
+    
+
     private IEnumerator GnawDurationTriggered()
     {
         yield return new WaitForSeconds(gnawDurationWhenTriggered);
@@ -78,6 +79,7 @@ public class GnawHitbox : MonoBehaviour
         {
             Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
 
+            //Debug.Log("Objects to Fracture: " + objectsToFracture.Count + " | Time: " + Time.time);
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
                 PS.AddPoint();

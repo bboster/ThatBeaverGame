@@ -163,6 +163,11 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Start()
+    {
+        Time.timeScale = 0.1f;
+    }
+
     private void OnDisable()
     {
         if (playerInput == null || playerInput.currentActionMap == null)
