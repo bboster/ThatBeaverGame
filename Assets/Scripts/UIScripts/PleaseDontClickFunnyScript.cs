@@ -18,6 +18,9 @@ public class PleaseDontClickFunnyScript : MonoBehaviour
 
     private int damageTickCount = 0;
 
+    // Depending on how many times the player has clicked the cover, it will
+    // break more and more depending on damageTickCount. If it reaches 3,
+    // the cover is broken forever (until the scene reloads).
     public void damage()
     { 
         if (damageTickCount == 0)

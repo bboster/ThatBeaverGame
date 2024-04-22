@@ -9,6 +9,8 @@ public class Destructable : MonoBehaviour
     float destructionDelayMax = 12;
     [SerializeField]
     float destructionDelayMin = 5;
+
+    //private PointSystem PS;
     
 
     public void Awake()
