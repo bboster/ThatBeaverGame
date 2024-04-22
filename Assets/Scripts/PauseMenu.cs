@@ -45,7 +45,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        Debug.Log("Destruction halted, Jev is eepy")
+        Debug.Log("Destruction halted, Jev is eepy");
 
     }
 
