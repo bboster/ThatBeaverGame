@@ -27,6 +27,8 @@ public class GnawHitbox : MonoBehaviour
 
     float force = 1;
 
+    [SerializeField] private PointSystem PS;
+
     private void Awake()
     {
         col = GetComponent<Collider>();
@@ -78,6 +80,7 @@ public class GnawHitbox : MonoBehaviour
 
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
+                PS.AddPoint();
                 if (f.Collider == null)
                     continue;
 
