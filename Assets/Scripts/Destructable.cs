@@ -10,7 +10,7 @@ public class Destructable : MonoBehaviour
     [SerializeField]
     float destructionDelayMin = 5;
 
-    private PointSystem PS;
+    //private PointSystem PS;
     
 
     public void Awake()
