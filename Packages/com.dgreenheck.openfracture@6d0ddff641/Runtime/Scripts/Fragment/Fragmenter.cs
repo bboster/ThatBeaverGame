@@ -244,7 +244,7 @@ public static class Fragmenter
         for(int k = 0; k < meshes.Length; k++)
         {
             GameObject fragment = GameObject.Instantiate(fragmentTemplate, parent);
-            fractured?.Invoke(fragment, new FractureEventArgs(fragment));
+            fractured?.Invoke(fragment, new FractureEventArgs(fragment)); // INVOTE FEACTURED
             fragment.name = $"Fragment{i}";
             fragment.transform.localPosition = Vector3.zero;
             fragment.transform.localRotation = Quaternion.identity;
