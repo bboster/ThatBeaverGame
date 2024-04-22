@@ -200,10 +200,10 @@ public class Fracture : MonoBehaviour
         this.fragmentRoot.AddComponent<Rigidbody>();
 
         this.fragmentRoot.GetComponent<Rigidbody>().AddExplosionForce
-            (1000, this.fragmentRoot.transform.position, 5000);
+            (10000, this.fragmentRoot.transform.position, 5000);
 
         //Destroys the fragments
-        Destroy(this.fragmentRoot, 10);
+        Destroy(this.fragmentRoot, 5);
     }
 
     /// <summary>
