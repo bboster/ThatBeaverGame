@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 31053c41d23f0cf45aa132b6aad0647a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Testing Scenes/ParkourCity.unity
     guid: f0932f34377b14944a482dc604612428
   - enabled: 1

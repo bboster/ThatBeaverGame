@@ -123,6 +123,11 @@ public class PlayerController : MonoBehaviour
     float wallJumpCurrentCooldown = 0;
     float wallJumpRemainingDuration = 0;
 
+    // Scaling Stats
+    BeaverStats playerStats;
+
+    Vector3 startScale;
+
     public enum MovementState
     {
         STATIONARY,
@@ -141,6 +146,9 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.Enable();
 
         anim = GetComponent<Animator>();
+
+        playerStats = GetComponent<BeaverStats>();
+        startScale = transform.localScale;
 
         movementAction = playerInput.currentActionMap.FindAction("Movement");
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
@@ -225,9 +233,10 @@ public class PlayerController : MonoBehaviour
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
 
-        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit));
+        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
+        //Debug.Log("Speed: " + rb.velocity.magnitude);
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -236,7 +245,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         SetTouchedGrass(false);
-        rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
     }
 
@@ -248,12 +257,14 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCurrentCooldown > 0)
             return;
 
-        Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
-        wallJumpForce.y = wallJumpVerticalForce;
-
         rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
 
+        Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
+
         wallJumpForce += Get3DMovement().normalized * wallJumpInputModifier;
+        wallJumpForce *= playerStats.GetStat(ScalableStat.SPEED);
+
+        wallJumpForce.y = wallJumpVerticalForce * playerStats.GetStat(ScalableStat.JUMP_HEIGHT);
 
         rb.AddForce(wallJumpForce, ForceMode.Impulse);
 
@@ -290,7 +301,7 @@ public class PlayerController : MonoBehaviour
         else
             dashVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized * dashSpeed;
 
-
+        dashVelocity *= playerStats.GetStat(ScalableStat.SPEED);
         rb.velocity = dashVelocity;
 
         gravityEnabled = false;
@@ -345,7 +356,11 @@ public class PlayerController : MonoBehaviour
         if (wallRunBoost == Vector3.zero)
             return;
 
+        wallRunBoost *= playerStats.GetStat(ScalableStat.SPEED);
         rb.AddForce(wallRunBoost * wallRunningSpeed, ForceMode.Acceleration);
+
+        // Speedometer
+        //Debug.Log(VectorUtils.ZeroOutYAxis(rb.velocity).magnitude);
     }
 
     Vector2 GetMoveInput()
@@ -448,5 +463,10 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Error trying to read the runningParticle toggle value!");
                 break;
         }
+    }
+
+    public void UpdateScale()
+    {
+        transform.localScale = startScale * playerStats.GetStat(ScalableStat.SIZE);
     }
 }

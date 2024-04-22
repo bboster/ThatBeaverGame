@@ -21,14 +21,18 @@ public class GnawHitbox : MonoBehaviour
     Collider col;
     Rigidbody parentRb;
     Transform collisionPoint;
+    BeaverStats playerStats;
 
     List<FracturedObjectContainer> objectsToFracture = new();
+
+    float force = 1;
 
     private void Awake()
     {
         col = GetComponent<Collider>();
         parentRb = GetComponentInParent<Rigidbody>();
         collisionPoint = transform.GetChild(0);
+        playerStats = GetComponentInParent<BeaverStats>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,9 +42,14 @@ public class GnawHitbox : MonoBehaviour
             return;
 
         if (objectsToFracture.Count == 0)
-            StartCoroutine(GnawDurationTriggered());
+        {
+            force = playerStats.GetStat(ScalableStat.FORCE);
 
-        if (parentRb.velocity.magnitude * parentRb.mass >= fracture.fractureableSO.minForceToTrigger)
+            StartCoroutine(GnawDurationTriggered());
+        }
+            
+
+        if (parentRb.velocity.magnitude * force >= fracture.fractureableSO.minForceToTrigger)
             objectsToFracture.Add(new(fracture, other));
     }
 
@@ -70,7 +79,6 @@ public class GnawHitbox : MonoBehaviour
             foreach (FracturedObjectContainer f in objectsToFracture)
                 f.Fracture.CauseFracture(col, Physics.ClosestPoint(collisionPoint.position, f.Collider, f.Collider.transform.position, f.Collider.transform.rotation));
             
-
             Fragmenter.FractureCompletedEvent -= OnFractureCompletedEvent;
 
             OnGnawSuccess();
@@ -81,7 +89,7 @@ public class GnawHitbox : MonoBehaviour
 
     private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
     {
-        e.rigidbody.AddExplosionForce(explosionForce + (parentRb.velocity.magnitude * playerVelocityMult), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+        e.rigidbody.AddExplosionForce(force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
     }
 }
 
