@@ -471,6 +471,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void PlayChompParticle()
     {
+        anim.ResetTrigger("chomp");
         chompParticles.Play();
     }
 
