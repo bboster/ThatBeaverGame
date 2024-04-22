@@ -249,9 +249,14 @@ public class PlayerController : MonoBehaviour
         if (!isTouchingGrass)
             return;
 
+        if (wallJumpCurrentCooldown > 0)
+            return;
+
         SetTouchedGrass(false);
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
+
+        wallJumpCurrentCooldown = wallJumpCooldown;
     }
 
     private void WallJump(InputAction.CallbackContext context)
@@ -351,6 +356,12 @@ public class PlayerController : MonoBehaviour
         {
             dashCurrentCooldown = 0;
             hasTouchedGrass = true;
+        }
+
+        if(rb.velocity.magnitude < 0.05f)
+        {
+            SetTouchedWall(false);
+            return;
         }
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
