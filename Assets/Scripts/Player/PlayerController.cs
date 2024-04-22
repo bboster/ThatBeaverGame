@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     ParticleSystem dashParticles;
     [SerializeField]
     ParticleSystem runningParticles;
+    [SerializeField]
+    ParticleSystem chompParticles;
 
     [Header("Movement")]
     [SerializeField]
@@ -463,6 +465,13 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Error trying to read the runningParticle toggle value!");
                 break;
         }
+    }
+    /// <summary>
+    /// Simply plays chomp particle during chomp animation
+    /// </summary>
+    public void PlayChompParticle()
+    {
+        chompParticles.Play();
     }
 
     public void UpdateScale()
