@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animation")]
     public Animator anim;
+
+    public event Action TouchedGroundEvent;
 
     // Private Assignments
 
