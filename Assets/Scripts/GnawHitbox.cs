@@ -89,7 +89,7 @@ public class GnawHitbox : MonoBehaviour
 
     private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
     {
-        e.rigidbody.AddExplosionForce(force * explosionForce + (parentRb.velocity.magnitude * playerVelocityMult), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+        e.rigidbody.AddExplosionForce(force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
     }
 }
 

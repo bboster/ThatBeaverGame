@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ScalingStatsSO : ScriptableObject
 {
+    public string text;
+
+    public Color color;
+
     public List<ScalingStat> ScalingStats;
 }
 

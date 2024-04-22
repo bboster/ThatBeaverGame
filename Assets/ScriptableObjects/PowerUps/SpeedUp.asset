@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4debaf5c877e0a4458fb0e31ea70cfa5, type: 3}
   m_Name: SpeedUp
   m_EditorClassIdentifier: 
+  text: Speed+
+  color: {r: 1, g: 0.9302826, b: 0, a: 1}
   ScalingStats:
   - name: Speed
     stat: 0

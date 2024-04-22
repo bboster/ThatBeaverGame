@@ -233,11 +233,10 @@ public class PlayerController : MonoBehaviour
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
 
-        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity, (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit));
-
-        newVelocity *= playerStats.GetStat(ScalableStat.SPEED);
+        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
+        //Debug.Log("Speed: " + rb.velocity.magnitude);
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -359,6 +358,9 @@ public class PlayerController : MonoBehaviour
 
         wallRunBoost *= playerStats.GetStat(ScalableStat.SPEED);
         rb.AddForce(wallRunBoost * wallRunningSpeed, ForceMode.Acceleration);
+
+        // Speedometer
+        //Debug.Log(VectorUtils.ZeroOutYAxis(rb.velocity).magnitude);
     }
 
     Vector2 GetMoveInput()
