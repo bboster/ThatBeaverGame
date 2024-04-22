@@ -24,31 +24,37 @@ public class BeaverGnaw : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("chomp");
             if (GnawIsTrue)
             {
                 //Debug.Log("JEV IS ALREADY DESTROYING, DO NOT RUSH!");
             }
             else
             {
+                anim.SetTrigger("chomp");
+
                 //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 //GnawIsTrue = true;
                 //GnawHitBox.enabled = true;
-                //StartCoroutine(JevWaiting());
+                StartCoroutine(JevWaiting());
             }
         }
     }
 
     public IEnumerator JevWaiting()
     {
-        //Debug.Log("Jev is GNAWING");
-        yield return new WaitForSeconds(GnawDuration);
-
-        //GnawHitBox.enabled = false;
-
-        yield return new WaitForSeconds(GnawCooldown - GnawDuration);
-        //GnawIsTrue = false;
-        //Debug.Log("Jev is calm");
+        GnawIsTrue = true;
+        yield return new WaitForSeconds(GnawCooldown);
+        GnawIsTrue = false;
     }
     // this following function is to be used during the Chomp animation as an animation event.
+
+    public void DisableGnawHitbox()
+    {
+        GnawHitBox.enabled = false;
+    }
+
+    public void EnableGnawHitbox()
+    {
+        GnawHitBox.enabled = true;
+    }
 }

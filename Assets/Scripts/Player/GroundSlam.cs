@@ -6,37 +6,83 @@ using UnityEngine.InputSystem;
 public class GroundSlam : MonoBehaviour
 {
     [SerializeField]
+    Collider hitbox;
+
+    [SerializeField]
+    float floatTime = 0.3f;
+
+    [SerializeField]
+    float floatForce = 2;
+
+    [SerializeField]
     float downwardForce = 5;
 
     [SerializeField]
     float velocityMult = 0.1f;
 
-    PlayerController playerController;
+    [SerializeField]
+    float cooldown = 1;
+
+    InputAction slamAction;
     Rigidbody playerRb;
+    PlayerController playerController;
+
+    float currentCooldown = 0;
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
         playerRb = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
+    }
 
+    private void OnEnable()
+    {
         PlayerInput playerInput = GetComponent<PlayerInput>();
-        playerInput.currentActionMap.FindAction("GroundSlam").performed += OnGroundSlam;
+        slamAction = playerInput.currentActionMap.FindAction("GroundSlam");
+        slamAction.performed += OnGroundSlam;
+    }
+
+    private void Update()
+    {
+        if (currentCooldown > 0)
+            currentCooldown -= Time.deltaTime;
     }
 
     private void OnDisable()
     {
-        PlayerInput playerInput = GetComponent<PlayerInput>();
-
-        if (playerInput == null || playerInput.currentActionMap == null)
-            return;
-
-        playerInput.currentActionMap.FindAction("GroundSlam").performed -= OnGroundSlam;
+        slamAction.performed -= OnGroundSlam;
     }
 
     private void OnGroundSlam(InputAction.CallbackContext context)
     {
+        if (currentCooldown > 0)
+            return;
+
+        if (playerController.IsGrounded())
+            return;
+
+        StartCoroutine(DelayedSlam());
+    }
+
+    private IEnumerator DelayedSlam()
+    {
+        playerRb.velocity *= velocityMult;
+
+
+        for(float i = 0; i < floatTime; i += 0.05f)
+        {
+            playerRb.AddForce(Vector3.up * floatForce, ForceMode.Acceleration);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+            
+
         playerRb.velocity *= velocityMult;
 
         playerRb.AddForce(Vector3.down * downwardForce, ForceMode.Impulse);
+
+        hitbox.enabled = true;
+
+        currentCooldown = cooldown;
     }
 }
