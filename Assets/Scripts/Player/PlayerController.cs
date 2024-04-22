@@ -262,6 +262,8 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCurrentCooldown > 0)
             return;
 
+        anim.SetTrigger("jump");
+
         rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
 
         Vector3 wallJumpForce = wallDetector.GetWallNormal().normalized * wallJumpHorizontalForce;
@@ -346,7 +348,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isOnWall || isTouchingGrass)
             return;
-
+        anim.SetBool("wallrunning", true);
         if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
         {
             dashCurrentCooldown = 0;
@@ -399,7 +401,10 @@ public class PlayerController : MonoBehaviour
     public void SetTouchedWall(bool touchedWall)
     {
         if (wallJumpRemainingDuration > 0 && touchedWall)
+        {
+            anim.SetBool("wallrunning", false);
             return;
+        }
 
         if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
             return;
