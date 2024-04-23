@@ -202,8 +202,8 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-        //if (movementState == MovementState.STATIONARY)
-        //  return;
+        if (movementState == MovementState.STATIONARY)
+          return;
 
         if (isOnWall && !isTouchingGrass)
         {
