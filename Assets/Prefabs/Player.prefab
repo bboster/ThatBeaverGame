@@ -7278,7 +7278,9 @@ MonoBehaviour:
   emissionMod: 15
   radiusFloor: 14
   radiusMod: 18
-  fovMod: 10
+  mainCamera: {fileID: 0}
+  fovMod: 25
+  fovTransitionSpeed: 0.1
 --- !u!1001 &3588399995364014448
 PrefabInstance:
   m_ObjectHideFlags: 0

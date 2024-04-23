@@ -26,19 +26,23 @@ public class SpeedLines : MonoBehaviour
     [SerializeField]
     CinemachineFreeLook mainCamera;
     [SerializeField]
-    float focalLengthMod = 1;
+    float fovMod = 1;
+    [SerializeField]
+    float fovTransitionSpeed = 0.5f;
 
     Rigidbody playerRb;
     ParticleSystem particles;
 
-    float focalLengthFloor = 10;
+    float fovFloor = 70;
+
+    float playerSpeed = 0;
 
     private void Awake()
     {
         playerRb = GetComponentInParent<Rigidbody>();
         particles = GetComponent<ParticleSystem>();
 
-        focalLengthFloor = mainCamera.m_Lens.FieldOfView;
+        fovFloor = mainCamera.m_Lens.FieldOfView;
     }
 
     private void FixedUpdate()
@@ -46,22 +50,21 @@ public class SpeedLines : MonoBehaviour
         UpdateSpeedLines();
     }
 
+    private void LateUpdate()
+    {
+        mainCamera.m_Lens.FieldOfView = Mathf.Lerp(mainCamera.m_Lens.FieldOfView, (playerSpeed / minSpeed) * fovMod + fovFloor, fovTransitionSpeed);
+    }
+
     private void UpdateSpeedLines()
     {
-        float playerSpeed = VectorUtils.ZeroOutYAxis(playerRb.velocity).magnitude;
+        playerSpeed = VectorUtils.ZeroOutYAxis(playerRb.velocity).magnitude;
         EmissionModule emission = particles.emission;
         ShapeModule shape = particles.shape;
-
-        float clampedSpeed = Mathf.Clamp(playerSpeed, minSpeed, maxSpeed);
-
-        mainCamera.m_Lens.FieldOfView = (clampedSpeed / minSpeed) * focalLengthMod + focalLengthFloor;
 
         if (playerSpeed < minSpeed)
         {
             if(emission.enabled)
                 emission.enabled = false;
-
-            mainCamera.m_Lens.FieldOfView = focalLengthFloor;
 
             return;
         }
@@ -69,9 +72,11 @@ public class SpeedLines : MonoBehaviour
         if (!emission.enabled)
             emission.enabled = true;
 
+        float clampedSpeed = Mathf.Clamp(playerSpeed, minSpeed, maxSpeed);
+
         emission.rateOverTime = clampedSpeed * emissionMod;
         shape.radius = (radiusMod / clampedSpeed) + radiusFloor;
 
-        Debug.Log($"Emission Rate: {emission.rateOverTime} | Shape Radius: {shape.radius} | Field of View: {mainCamera.m_Lens.FieldOfView}");
+        //Debug.Log($"Emission Rate: {emission.rateOverTime} | Shape Radius: {shape.radius} | Field of View: {mainCamera.m_Lens.FieldOfView}");
     }
 }
