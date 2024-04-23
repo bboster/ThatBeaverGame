@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Sphere
   - BeaverGnaw
+  - MainCinemachineCamera
   layers:
   - Default
   - TransparentFX

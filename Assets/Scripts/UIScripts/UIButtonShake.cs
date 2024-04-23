@@ -21,10 +21,8 @@ public class UIButtonShake : MonoBehaviour
 
     public void StartShake()
     {
-        Debug.Log("Try Shake");
         if (!isShaking)
         {
-            Debug.Log("Is Shaking");
             StartCoroutine(Shake());
         }
     }

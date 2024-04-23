@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     float groundSpeedLimit;
     [SerializeField]
     float airSpeedLimit;
+    [SerializeField]
+    float maxSlopeAngle = 60;
 
     [Header("Dash")]
     [SerializeField]
@@ -91,8 +93,6 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     public Animator anim;
 
-    public event Action TouchedGroundEvent;
-
     // Private Assignments
 
     MovementState movementState = MovementState.MOVING;
@@ -122,6 +122,9 @@ public class PlayerController : MonoBehaviour
     bool isOnWall = false;
 
     bool gravityEnabled = true;
+
+    // Slope Calculations
+    RaycastHit slopeHit;
 
     // Cooldowns
     float dashCurrentCooldown = 0;
@@ -240,8 +243,27 @@ public class PlayerController : MonoBehaviour
 
         newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
 
+        if (IsOnSlope())
+            rb.AddForce(GetSlopeMoveDirection() * newVelocity.magnitude, ForceMode.Acceleration);
+
         rb.AddForce(newVelocity, ForceMode.Acceleration);
         //Debug.Log("Speed: " + rb.velocity.magnitude);
+    }
+
+    private bool IsOnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, transform.localScale.y * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(Get3DMovement(), slopeHit.normal).normalized;
     }
 
     private void Jump(InputAction.CallbackContext context)

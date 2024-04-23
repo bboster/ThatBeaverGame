@@ -1133,6 +1133,7 @@ MonoBehaviour:
   jumpHeight: 4
   groundSpeedLimit: 4
   airSpeedLimit: 1.33
+  maxSlopeAngle: 60
   dashCooldown: 1
   dashSpeed: 7
   dashDuration: 0.3
@@ -7247,7 +7248,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5404293445208497537, guid: 85c67045c85451844a217856e72c3c7f, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 6179945422808044957}
   m_SourcePrefab: {fileID: 100100000, guid: 85c67045c85451844a217856e72c3c7f, type: 3}
 --- !u!4 &768569051674202497 stripped
@@ -7275,6 +7276,9 @@ MonoBehaviour:
   minSpeed: 5
   maxSpeed: 50
   emissionMod: 15
+  radiusFloor: 14
+  radiusMod: 18
+  fovMod: 10
 --- !u!1001 &3588399995364014448
 PrefabInstance:
   m_ObjectHideFlags: 0
