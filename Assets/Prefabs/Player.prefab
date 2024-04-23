@@ -1128,6 +1128,7 @@ MonoBehaviour:
   dashParticles: {fileID: 8922022513896151134}
   runningParticles: {fileID: 2919165649579779302}
   chompParticles: {fileID: 4173553077158233167}
+  playerModel: {fileID: 1726994627778284794}
   turnSmoothTime: 0.05
   moveSpeed: 20
   jumpHeight: 4

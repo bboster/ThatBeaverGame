@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     ParticleSystem runningParticles;
     [SerializeField]
     ParticleSystem chompParticles;
+    [SerializeField]
+    GameObject playerModel;
 
     [Header("Movement")]
     [SerializeField]
@@ -135,6 +137,8 @@ public class PlayerController : MonoBehaviour
     BeaverStats playerStats;
 
     Vector3 startScale;
+
+    bool isModelInverted = false;
 
     public enum MovementState
     {
@@ -375,7 +379,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isOnWall || isTouchingGrass)
             return;
-        anim.SetBool("wallrunning", true);
+
         if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
         {
             dashCurrentCooldown = 0;
@@ -434,10 +438,7 @@ public class PlayerController : MonoBehaviour
     public void SetTouchedWall(bool touchedWall)
     {
         if (wallJumpRemainingDuration > 0 && touchedWall)
-        {
-            anim.SetBool("wallrunning", false);
             return;
-        }
 
         if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
             return;
@@ -447,8 +448,29 @@ public class PlayerController : MonoBehaviour
 
         isOnWall = touchedWall;
 
-        if(rb.velocity.y < 0)
+        anim.SetBool("wallrunning", touchedWall);
+
+        if (!touchedWall)
+            SetModelInverted(false);
+        else
+            SetModelInverted(wallDetector.IsWallLeft());
+
+
+        if (rb.velocity.y < 0)
             rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
+    }
+
+    private void SetModelInverted(bool inverted)
+    {
+        if (inverted == isModelInverted)
+            return;
+
+        isModelInverted = inverted;
+
+        Vector3 invertedScale = playerModel.transform.localScale;
+        invertedScale.x *= -1;
+
+        playerModel.transform.localScale = invertedScale;
     }
 
     public bool IsGrounded()
