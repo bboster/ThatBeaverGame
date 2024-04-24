@@ -217,7 +217,10 @@ MonoBehaviour:
   upwardsModifier: 0.1
   forceMode: 1
   gnawDurationWhenTriggered: 0.05
+  soccerForceMod: 40
+  soccerUpwards: 1
   PS: {fileID: 0}
+  plusAnim: {fileID: 0}
 --- !u!1 &691678411307380182
 GameObject:
   m_ObjectHideFlags: 0
