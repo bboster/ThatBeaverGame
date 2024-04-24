@@ -8,6 +8,8 @@ public class PointSystem : MonoBehaviour
     [SerializeField] private int currentPoints;
     [SerializeField] private TMP_Text pointsText;
     [SerializeField] private FractureableSO fracture;
+    [SerializeField] private GameObject plusOne;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class PointSystem : MonoBehaviour
         pointsText.text = "Points: " + currentPoints.ToString();
     }
 
-    public void AddPoint()
+    public void AddPoint(int point)
     {
         currentPoints += fracture.pointsToAward;
     }
