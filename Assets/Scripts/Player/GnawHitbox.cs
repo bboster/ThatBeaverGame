@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GnawHitbox : MonoBehaviour
@@ -28,6 +29,10 @@ public class GnawHitbox : MonoBehaviour
     float force = 1;
 
     [SerializeField] private PointSystem PS;
+    [SerializeField] private AnimationClip plusAnim;
+    private Animation anim;
+    
+    
 
     private void Awake()
     {
@@ -35,6 +40,11 @@ public class GnawHitbox : MonoBehaviour
         parentRb = GetComponentInParent<Rigidbody>();
         collisionPoint = transform.GetChild(0);
         playerStats = GetComponentInParent<BeaverStats>();
+    }
+
+    private void Start()
+    {
+        anim = GetComponent<Animation>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -84,7 +94,9 @@ public class GnawHitbox : MonoBehaviour
             {
                 if(f.Fracture.currentRefractureCount == 0)
                 {
-                    PS.AddPoint();
+                    anim.clip = plusAnim;
+                    anim.Play();
+                    PS.AddPoint(f.Fracture.fractureableSO.pointsToAward);
                 }
                 if (f.Collider == null)
                     continue;
