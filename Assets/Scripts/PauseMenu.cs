@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private LevelLoader transitionObject;
 
     bool isPaused;
+    bool canPause;
 
     // Main Menu Options
     void Start()
@@ -24,19 +25,27 @@ public class PauseMenu : MonoBehaviour
         HowToPlayScreen.SetActive(false);
 
         isPaused = false;
+        canPause = true;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused == true)
+            if(canPause == true)
             {
-                ReturnToGame();
+                if (isPaused == true)
+                {
+                    ReturnToGame();
+                }
+                else
+                {
+                    PauseTheGame();
+                }
             }
             else
             {
-                PauseTheGame();
+                Debug.Log("PLEASE STOP TRYING TO BREAK THE MENU!");
             }
         }
     }
@@ -82,6 +91,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Haha, this guy STILL needs instructions");
         pauseMenuScreen.SetActive(false);
         HowToPlayScreen.SetActive(true);
+        canPause = false;
 
     }
 
@@ -90,6 +100,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Good, you can read");
         pauseMenuScreen.SetActive(true);
         HowToPlayScreen.SetActive(false);
+        canPause = true;
     }
 
     public void ReloadScene()
