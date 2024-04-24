@@ -17,4 +17,4 @@ MonoBehaviour:
   ScalingStats:
   - name: Strength
     stat: 3
-    scalingValue: 1
+    scalingValue: 2

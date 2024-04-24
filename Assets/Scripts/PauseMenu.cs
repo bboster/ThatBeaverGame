@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private LevelLoader transitionObject;
 
     bool isPaused;
-    bool canPause;
+    public bool canPause;
 
     // Main Menu Options
     void Start()
