@@ -32,6 +32,9 @@ public class Timer : MonoBehaviour
         }
         else if(timer <= 0 && timerCanStart) // we can switch this to being another scene later if preferred.
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            GameObject.Find("PauseMenu").GetComponent<PauseMenu>().canPause = false;
             GameOverScreen.SetActive(true);
             Time.timeScale = 0.0f;
         }
