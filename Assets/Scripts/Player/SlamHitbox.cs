@@ -81,6 +81,7 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
+        Animator anim = GetComponentInParent<Animator>();
         willDisable = true;
         yield return new WaitForSeconds(slamDurationWhenTriggered);
         col.enabled = false;
@@ -105,7 +106,6 @@ public class SlamHitbox : MonoBehaviour
 
             objectsToFracture.Clear();
         }
-
         willDisable = false;
     }
 
