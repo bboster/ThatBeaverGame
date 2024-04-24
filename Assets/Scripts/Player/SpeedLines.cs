@@ -52,7 +52,7 @@ public class SpeedLines : MonoBehaviour
 
     private void LateUpdate()
     {
-        mainCamera.m_Lens.FieldOfView = Mathf.Lerp(mainCamera.m_Lens.FieldOfView, (playerSpeed / minSpeed) * fovMod + fovFloor, fovTransitionSpeed);
+        mainCamera.m_Lens.FieldOfView = Mathf.Lerp(mainCamera.m_Lens.FieldOfView, (Mathf.Clamp(playerSpeed, 0, maxSpeed) / minSpeed) * fovMod + fovFloor, fovTransitionSpeed);
     }
 
     private void UpdateSpeedLines()
