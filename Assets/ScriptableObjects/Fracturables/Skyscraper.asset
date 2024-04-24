@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: Skyscraper
   m_EditorClassIdentifier: 
-  minForceToTrigger: 1000
+  minForceToTrigger: 30
   rigidbodyMass: 100
   triggerOptions:
     triggerType: 0
