@@ -18,6 +18,11 @@ public class GnawHitbox : MonoBehaviour
     ForceMode forceMode = ForceMode.Impulse;
     [Header("Gnaw Stats")]
     [SerializeField] float gnawDurationWhenTriggered = 0.05f;
+    [Header("Soccer Ball")]
+    [SerializeField]
+    float soccerForceMod = 50;
+    [SerializeField]
+    float soccerUpwards = 1;
 
     Collider col;
     Rigidbody parentRb;
@@ -51,7 +56,23 @@ public class GnawHitbox : MonoBehaviour
     {
         Fracture fracture = other.GetComponent<Fracture>();
         if (fracture == null)
+        {
+            if (other.CompareTag("SoccerBall"))
+            {
+                Rigidbody otherRb = other.GetComponent<Rigidbody>();
+                if (otherRb != null)
+                {
+                    Vector3 soccerForce = soccerForceMod * force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)) * transform.parent.forward;
+                    soccerForce.y += upwardsModifier * soccerUpwards;
+                    otherRb.AddForce(soccerForce, ForceMode.Impulse);
+                }
+                    
+                    //otherRb.AddExplosionForce(, collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+
+            }
+
             return;
+        }
 
         if (objectsToFracture.Count == 0)
         {
