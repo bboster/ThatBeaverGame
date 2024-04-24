@@ -41,7 +41,17 @@ public class GnawHitbox : MonoBehaviour
     {
         Fracture fracture = other.GetComponent<Fracture>();
         if (fracture == null)
+        {
+            if (other.CompareTag("SoccerBall"))
+            {
+                Rigidbody otherRb = other.GetComponent<Rigidbody>();
+                if(otherRb != null)
+                    otherRb.AddExplosionForce(force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+
+            }
+
             return;
+        }
 
         if (objectsToFracture.Count == 0)
         {
