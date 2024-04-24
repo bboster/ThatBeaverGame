@@ -48,7 +48,21 @@ public class SlamHitbox : MonoBehaviour
         if (fracture == null)
         {
             if(!willDisable)
-                StartCoroutine(SlamDurationTriggered()); 
+                StartCoroutine(SlamDurationTriggered());
+
+            if (other.CompareTag("SoccerBall"))
+            {
+                Rigidbody otherRb = other.GetComponent<Rigidbody>();
+                if (otherRb != null)
+                {
+                    Vector3 soccerForce = force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)) * transform.parent.forward;
+                    soccerForce.y += upwardsModifier * 70;
+                    otherRb.AddForce(soccerForce, ForceMode.Impulse);
+                }
+
+                //otherRb.AddExplosionForce(, collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+
+            }
 
             return;
         }
@@ -67,6 +81,7 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
+        Animator anim = GetComponentInParent<Animator>();
         willDisable = true;
         yield return new WaitForSeconds(slamDurationWhenTriggered);
         col.enabled = false;
@@ -91,7 +106,6 @@ public class SlamHitbox : MonoBehaviour
 
             objectsToFracture.Clear();
         }
-
         willDisable = false;
     }
 
