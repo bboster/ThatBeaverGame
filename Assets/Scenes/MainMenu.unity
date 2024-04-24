@@ -4072,6 +4072,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4040299199147326444, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 87661c15ba8b67a47b5bc74007090d56, type: 3}
     - target: {fileID: 5901074384774225114, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4079,6 +4083,10 @@ PrefabInstance:
     - target: {fileID: 6211676820482555798, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
       propertyPath: m_Name
       value: HowToPlayScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211676820482555798, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7250152920830233933, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
       propertyPath: m_RootOrder
@@ -4124,8 +4132,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8073806391124492281, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
+      propertyPath: m_Name
+      value: PowerUpUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6356623115810710339, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d655a13809b35ba428789ae4da3b6593, type: 3}
