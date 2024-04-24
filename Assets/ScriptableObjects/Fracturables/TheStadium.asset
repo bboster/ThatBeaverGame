@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForceToTrigger: 20
   rigidbodyMass: 100
+  pointsToAward: 2500
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 0
