@@ -279,6 +279,12 @@ public class PlayerController : MonoBehaviour
             return;
 
         SetTouchedGrass(false);
+
+        if (rb == null)
+        {
+            return;
+        }
+
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
 
@@ -320,6 +326,11 @@ public class PlayerController : MonoBehaviour
 
         if (!hasTouchedGrass)
             return;
+
+        if (anim == null)
+        {
+            return;
+        }
 
         anim.SetTrigger("dash");
 
@@ -485,6 +496,11 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleAirDrag(bool isInAir)
     {
+        if (rb == null)
+        {
+            return;
+        }
+
         rb.drag = isInAir ? airDrag : groundDrag;
 
         StartCoroutine(DelayedFrictionChange(isInAir));
