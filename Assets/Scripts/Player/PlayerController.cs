@@ -448,14 +448,20 @@ public class PlayerController : MonoBehaviour
 
     public void SetTouchedWall(bool touchedWall)
     {
-        if (wallJumpRemainingDuration > 0 && touchedWall)
-            return;
+        if (touchedWall)
+        {
+            if (isTouchingGrass)
+                return;
 
-        if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
-            return;
+            if (wallJumpRemainingDuration > 0)
+                return;
 
-        if (touchedWall && !canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
-            return;
+            if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun)
+                return;
+
+            if (!canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
+                return;
+        }
 
         isOnWall = touchedWall;
 
@@ -482,6 +488,7 @@ public class PlayerController : MonoBehaviour
         invertedScale.x *= -1;
 
         playerModel.transform.localScale = invertedScale;
+        Debug.Log("IsInverted: " + inverted);
     }
 
     public bool IsGrounded()

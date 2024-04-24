@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class WallDetection : MonoBehaviour
 {
+    [Header("Wall Exclusion")]
     [SerializeField]
     List<string> excludedTags = new();
+
+    [SerializeField]
+    float minWallHeight = 0.1f;
+
+    [Header("Left Check")]
+    [SerializeField]
+    float leftMinAngle = 40;
+    [SerializeField]
+    float leftMaxAngle = 150;
 
     [Header("Previous Wall Checking")]
     [SerializeField]
@@ -64,8 +74,22 @@ public class WallDetection : MonoBehaviour
 
     private void OnWallTouch(Collider wall)
     {
+        if (wall.isTrigger)
+            return;
+
+        Renderer wallRenderer = wall.GetComponent<Renderer>();
+        if (wallRenderer == null)
+            return;
+
+        Bounds wallBounds = wallRenderer.bounds;
+        if (wallBounds.center.y + wallBounds.extents.y * wall.transform.lossyScale.y < minWallHeight)
+            return;
+
         CheckWallDirection(wall);
         player.SetTouchedWall(true);
+
+        
+        //Debug.Log(wallBounds.center.y + wallBounds.extents.y * wall.transform.lossyScale.y);
     }
 
     private void OnWallLeave()
@@ -82,10 +106,8 @@ public class WallDetection : MonoBehaviour
         float angle = Vector3.SignedAngle(transform.parent.forward, direction, Vector3.up);
 
         //Debug.Log("Wall Angle: " + angle);
-        if (angle < -40 && angle > -150)
-            isLeft = false;
-        else
-            isLeft = true;
+
+        isLeft = angle < leftMaxAngle && angle > leftMinAngle;
 
         bool didHit = Physics.Raycast(transform.position, transform.right * (isLeft ? -1 : 1), out wallHit, 2);
         if (!didHit)
@@ -96,6 +118,8 @@ public class WallDetection : MonoBehaviour
 
             currentWall = new(wall.gameObject, wallHit.normal);
         }
+
+        //Debug.Log("Wall Left: " + isLeft);
     }
 
     public bool IsCurrentlyOnWall()
