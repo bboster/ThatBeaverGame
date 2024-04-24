@@ -11,6 +11,7 @@ TagManager:
   - BeaverGnaw
   - MainCinemachineCamera
   - SoccerBall
+  - Barrier
   layers:
   - Default
   - TransparentFX

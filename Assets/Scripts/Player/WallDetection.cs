@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WallDetection : MonoBehaviour
 {
+    [SerializeField]
+    List<string> excludedTags = new();
+
     [Header("Previous Wall Checking")]
     [SerializeField]
     bool onlyCompareWallNormals = false;
@@ -35,11 +38,17 @@ public class WallDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (excludedTags.Contains(other.tag))
+            return;
+
         OnWallTouch(other);
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (excludedTags.Contains(other.tag))
+            return;
+
         if (!player.IsOnWall() || wallNormal == Vector3.zero)
         {
             OnWallTouch(other);

@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GnawHitBox: {fileID: 7307516643524628988}
-  GnawCooldown: 1
+  GnawCooldown: 0.5
   GnawDuration: 0.3
 --- !u!114 &5746978374436264824
 MonoBehaviour:
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 1932907480017359788}
-  floatTime: 0.3
+  floatTime: 0.6
   floatForce: 2
   downwardForce: 10
   velocityMult: 0.3
@@ -1451,6 +1451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2515b47145412a4c8960c227921d471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  excludedTags: []
 --- !u!1 &5855654084844233515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,6 +2293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9004f0ff0c5bf2a4ebf69aa7e44cab9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  excludedTags:
+  - SoccerBall
+  - Barrier
   onlyCompareWallNormals: 1
 --- !u!1 &9196720736254760812
 GameObject:

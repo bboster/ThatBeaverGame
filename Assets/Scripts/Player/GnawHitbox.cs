@@ -46,7 +46,7 @@ public class GnawHitbox : MonoBehaviour
             {
                 Rigidbody otherRb = other.GetComponent<Rigidbody>();
                 if(otherRb != null)
-                    otherRb.AddExplosionForce(force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+                    otherRb.AddExplosionForce(30 * force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)), collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
 
             }
 

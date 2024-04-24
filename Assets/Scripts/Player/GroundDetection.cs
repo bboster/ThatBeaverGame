@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GroundDetection : MonoBehaviour
 {
+    [SerializeField]
+    List<string> excludedTags = new();
+
     PlayerController player;
 
     bool isCurrentlyGrounded = false;
@@ -15,12 +18,18 @@ public class GroundDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (excludedTags.Contains(other.tag))
+            return;
+
         player.SetTouchedGrass(true);
         isCurrentlyGrounded = true;
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (excludedTags.Contains(other.tag))
+            return;
+
         isCurrentlyGrounded = true;
 
         if (!player.IsGrounded())
