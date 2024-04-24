@@ -6,7 +6,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     // the amount of time.
-    [SerializeField] private float timer = 180;
+    [SerializeField] private float timer = 300;
 
     // UI stuff
     public TMP_Text timerUI;
