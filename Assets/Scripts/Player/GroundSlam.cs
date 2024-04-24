@@ -62,6 +62,7 @@ public class GroundSlam : MonoBehaviour
             return;
 
         StartCoroutine(DelayedSlam());
+        playerController.anim.SetTrigger("pound");
     }
 
     private IEnumerator DelayedSlam()
