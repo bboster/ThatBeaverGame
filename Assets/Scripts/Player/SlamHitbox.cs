@@ -92,8 +92,6 @@ public class SlamHitbox : MonoBehaviour
 
             objectsToFracture.Clear();
         }
-
-        anim.ResetTrigger("poundCollided");
         willDisable = false;
     }
 
