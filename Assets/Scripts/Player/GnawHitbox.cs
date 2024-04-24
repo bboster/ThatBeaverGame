@@ -82,7 +82,10 @@ public class GnawHitbox : MonoBehaviour
             //Debug.Log("Objects to Fracture: " + objectsToFracture.Count + " | Time: " + Time.time);
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
-                PS.AddPoint();
+                if(f.Fracture.currentRefractureCount == 0)
+                {
+                    PS.AddPoint();
+                }
                 if (f.Collider == null)
                     continue;
 
