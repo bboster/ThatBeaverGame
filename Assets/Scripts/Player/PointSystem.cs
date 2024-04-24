@@ -7,6 +7,7 @@ public class PointSystem : MonoBehaviour
 {
     [SerializeField] private int currentPoints;
     [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private FractureableSO fracture;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,6 @@ public class PointSystem : MonoBehaviour
 
     public void AddPoint()
     {
-        currentPoints++;
+        currentPoints += fracture.pointsToAward;
     }
 }

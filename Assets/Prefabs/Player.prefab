@@ -7275,7 +7275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeed: 5
-  maxSpeed: 50
+  maxSpeed: 12
   emissionMod: 15
   radiusFloor: 14
   radiusMod: 18
