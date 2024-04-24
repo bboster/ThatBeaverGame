@@ -48,6 +48,7 @@ public class Fracture : MonoBehaviour
     public void CauseFracture(Collider instigator, Vector3 collisionPoint)
     {
         fractureableSO.callbackOptions.CallOnFracture(instigator, gameObject, collisionPoint);
+
         this.ComputeFracture();
     }
 

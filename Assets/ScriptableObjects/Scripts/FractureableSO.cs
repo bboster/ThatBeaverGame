@@ -11,6 +11,8 @@ public class FractureableSO : ScriptableObject
 
     public float rigidbodyMass = 10;
 
+    public int pointsToAward = 1;
+
     [Header("Base Fracture Options")]
     public TriggerOptions triggerOptions;
     public FractureOptions fractureOptions;
