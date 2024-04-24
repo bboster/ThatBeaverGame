@@ -70,11 +70,11 @@ public class GroundSlam : MonoBehaviour
         playerRb.velocity *= velocityMult;
 
 
-        for(float i = 0; i < floatTime; i += 0.05f)
+        for(float i = 0; i < floatTime; i += Time.deltaTime)
         {
-            playerRb.AddForce(Vector3.up * floatForce, ForceMode.Acceleration);
+            playerRb.velocity = VectorUtils.ZeroOutYAxis(playerRb.velocity);
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForEndOfFrame();
         }
             
 
