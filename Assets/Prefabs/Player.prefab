@@ -2300,8 +2300,8 @@ MonoBehaviour:
   - SoccerBall
   - Barrier
   minWallHeight: 0.1
-  leftMinAngle: 30
-  leftMaxAngle: 160
+  leftMinAngle: 1
+  leftMaxAngle: 179
   onlyCompareWallNormals: 1
 --- !u!1 &9196720736254760812
 GameObject:

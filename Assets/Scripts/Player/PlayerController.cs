@@ -468,9 +468,9 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("wallrunning", touchedWall);
 
         if (!touchedWall)
-            SetModelInverted(false);
+            SetModelInverted(true);
         else
-            SetModelInverted(wallDetector.IsWallLeft());
+            SetModelInverted(wallDetector.IsWallLeft()); 
 
 
         if (rb.velocity.y < 0)
@@ -479,16 +479,27 @@ public class PlayerController : MonoBehaviour
 
     private void SetModelInverted(bool inverted)
     {
-        if (inverted == isModelInverted)
+        if (isModelInverted == inverted)
             return;
 
         isModelInverted = inverted;
 
-        Vector3 invertedScale = playerModel.transform.localScale;
-        invertedScale.x *= -1;
+        if (inverted)
+        {
+            Vector3 invertedScale = playerModel.transform.localScale;
+            invertedScale.x = -1 * Mathf.Abs(invertedScale.x);
 
-        playerModel.transform.localScale = invertedScale;
-        Debug.Log("IsInverted: " + inverted);
+            playerModel.transform.localScale = invertedScale;
+        }
+        else
+        {
+            Vector3 scale = playerModel.transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+
+            playerModel.transform.localScale = scale;
+        }
+        
+        //Debug.Log("IsInverted: " + inverted);
     }
 
     public bool IsGrounded()
