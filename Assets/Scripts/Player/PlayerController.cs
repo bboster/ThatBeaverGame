@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     ParticleSystem chompParticles;
     [SerializeField]
+    ParticleSystem fallingParticles;
+    [SerializeField]
     GameObject playerModel;
 
     [Header("Movement")]
@@ -595,6 +597,21 @@ public class PlayerController : MonoBehaviour
     public void ResetAnimTrigger(string triggerName)
     {
         anim.ResetTrigger(triggerName);
+    }
+    public void FallingParticleToggle(int toggle)
+    {
+        switch (toggle)
+        {
+            case 0:
+                fallingParticles.Stop();
+                break;
+            case 1:
+                fallingParticles.Play();
+                break;
+            default:
+                Debug.Log("Error trying to read the fallingParticle toggle value!");
+                break;
+        }
     }
 
     public void UpdateScale()
