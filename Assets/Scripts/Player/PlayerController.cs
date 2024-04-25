@@ -589,6 +589,13 @@ public class PlayerController : MonoBehaviour
         anim.ResetTrigger("chomp");
         chompParticles.Play();
     }
+    /// <summary>
+    /// Resets the trigger of any animation. Trigger defined by string input.
+    /// </summary>
+    public void ResetAnimTrigger(string triggerName)
+    {
+        anim.ResetTrigger(triggerName);
+    }
 
     public void UpdateScale()
     {

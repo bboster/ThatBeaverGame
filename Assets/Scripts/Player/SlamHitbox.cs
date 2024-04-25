@@ -85,7 +85,7 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
-        Animator anim = GetComponentInParent<Animator>();
+        GetComponentInParent<Animator>().SetTrigger("poundCollided");
         willDisable = true;
         yield return new WaitForSeconds(slamDurationWhenTriggered);
         col.enabled = false;
@@ -112,6 +112,7 @@ public class SlamHitbox : MonoBehaviour
         }
         willDisable = false;
 
+        yield return new WaitForSeconds(0.5f);
         parentRb.AddForce(Vector3.up * reboundForce, ForceMode.Impulse);
     }
 
