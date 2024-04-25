@@ -448,23 +448,29 @@ public class PlayerController : MonoBehaviour
 
     public void SetTouchedWall(bool touchedWall)
     {
-        if (wallJumpRemainingDuration > 0 && touchedWall)
-            return;
+        if (touchedWall)
+        {
+            if (isTouchingGrass)
+                return;
 
-        if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
-            return;
+            if (wallJumpRemainingDuration > 0)
+                return;
 
-        if (touchedWall && !canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
-            return;
+            if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun)
+                return;
+
+            if (!canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
+                return;
+        }
 
         isOnWall = touchedWall;
 
         anim.SetBool("wallrunning", touchedWall);
 
         if (!touchedWall)
-            SetModelInverted(false);
+            SetModelInverted(true);
         else
-            SetModelInverted(wallDetector.IsWallLeft());
+            SetModelInverted(wallDetector.IsWallLeft()); 
 
 
         if (rb.velocity.y < 0)
@@ -473,15 +479,27 @@ public class PlayerController : MonoBehaviour
 
     private void SetModelInverted(bool inverted)
     {
-        if (inverted == isModelInverted)
+        if (isModelInverted == inverted)
             return;
 
         isModelInverted = inverted;
 
-        Vector3 invertedScale = playerModel.transform.localScale;
-        invertedScale.x *= -1;
+        if (inverted)
+        {
+            Vector3 invertedScale = playerModel.transform.localScale;
+            invertedScale.x = -1 * Mathf.Abs(invertedScale.x);
 
-        playerModel.transform.localScale = invertedScale;
+            playerModel.transform.localScale = invertedScale;
+        }
+        else
+        {
+            Vector3 scale = playerModel.transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+
+            playerModel.transform.localScale = scale;
+        }
+        
+        //Debug.Log("IsInverted: " + inverted);
     }
 
     public bool IsGrounded()

@@ -49,7 +49,7 @@ public class PowerUp : MonoBehaviour
 
         
         Vector3 targetPostition = new(-other.attachedRigidbody.velocity.x, this.transform.position.y, -other.attachedRigidbody.velocity.z);
-        transform.rotation = Quaternion.Euler(Quaternion.LookRotation(targetPostition).eulerAngles + new Vector3(0, 180, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, Quaternion.LookRotation(targetPostition).eulerAngles.y + 180, 0));
 
         anim.Play("TextCrawl");
 
