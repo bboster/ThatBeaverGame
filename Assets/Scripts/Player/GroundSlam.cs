@@ -67,8 +67,11 @@ public class GroundSlam : MonoBehaviour
 
     private IEnumerator DelayedSlam()
     {
+        currentCooldown = cooldown;
+
         playerRb.velocity *= velocityMult;
 
+        playerController.SetMovementState(PlayerController.MovementState.SLAMMING);
 
         for(float i = 0; i < floatTime; i += Time.deltaTime)
         {
@@ -76,14 +79,19 @@ public class GroundSlam : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-            
+
+        hitbox.enabled = true;
 
         playerRb.velocity *= velocityMult;
 
         playerRb.AddForce(Vector3.down * downwardForce, ForceMode.Impulse);
 
-        hitbox.enabled = true;
+        while (hitbox.enabled)
+        {
+            playerRb.AddForce(Vector3.down * downwardForce, ForceMode.Impulse);
+            yield return new WaitForEndOfFrame();
+        }
 
-        currentCooldown = cooldown;
+        playerController.SetMovementState(PlayerController.MovementState.STATIONARY);
     }
 }

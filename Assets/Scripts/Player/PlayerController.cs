@@ -133,6 +133,8 @@ public class PlayerController : MonoBehaviour
     float wallJumpCurrentCooldown = 0;
     float wallJumpRemainingDuration = 0;
 
+    bool isSlamming = false;
+
     // Scaling Stats
     BeaverStats playerStats;
 
@@ -144,7 +146,8 @@ public class PlayerController : MonoBehaviour
     {
         STATIONARY,
         MOVING,
-        DASHING
+        DASHING,
+        SLAMMING
     };
 
     private void Awake()
@@ -239,13 +242,14 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", false);
             return;
         }
-        else
+        else if(movementState != MovementState.SLAMMING)
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
 
-        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
+        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), 
+            (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
 
         if (IsOnSlope())
             rb.AddForce(GetSlopeMoveDirection() * newVelocity.magnitude, ForceMode.Acceleration);
@@ -325,6 +329,9 @@ public class PlayerController : MonoBehaviour
             return;
 
         if (!hasTouchedGrass)
+            return;
+
+        if (movementState == MovementState.SLAMMING)
             return;
 
         if (anim == null)
@@ -543,6 +550,17 @@ public class PlayerController : MonoBehaviour
 
         return wallForward;
     }
+
+    public void SetMovementState(MovementState newState)
+    {
+        movementState = newState;
+    }
+
+    public MovementState GetMovementState()
+    {
+        return movementState;
+    }
+
     //The following functions are to be used as animation events during certain animations.
 
     /// <summary>

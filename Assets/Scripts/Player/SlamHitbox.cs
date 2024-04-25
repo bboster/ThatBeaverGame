@@ -21,6 +21,10 @@ public class SlamHitbox : MonoBehaviour
     [SerializeField]
     float baseForceModifier = 0.3f;
 
+    [Header("Rebound Force")]
+    [SerializeField]
+    float reboundForce = 5;
+
     Collider col;
     Rigidbody parentRb;
     Transform collisionPoint;
@@ -107,6 +111,8 @@ public class SlamHitbox : MonoBehaviour
             objectsToFracture.Clear();
         }
         willDisable = false;
+
+        parentRb.AddForce(Vector3.up * reboundForce, ForceMode.Impulse);
     }
 
     private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)

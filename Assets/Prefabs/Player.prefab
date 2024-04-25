@@ -1200,8 +1200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 1932907480017359788}
-  floatTime: 0.6
-  floatForce: 2
+  floatTime: 0.9
+  floatForce: 3
   downwardForce: 10
   velocityMult: 0.3
   cooldown: 1
@@ -1321,6 +1321,7 @@ MonoBehaviour:
   forceMode: 1
   slamDurationWhenTriggered: 0.05
   baseForceModifier: 0.7
+  reboundForce: 5
 --- !u!1 &5271064524331668030
 GameObject:
   m_ObjectHideFlags: 0
