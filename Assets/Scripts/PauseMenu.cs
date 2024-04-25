@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        Debug.Log("Destruction halted, Jev is eepy");
+        //Debug.Log("Destruction halted, Jev is eepy");
 
     }
 
@@ -70,7 +70,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
 
-        Debug.Log("JEV IS NO LONGER EEPY, KILL KILL KILL!");
+        //Debug.Log("JEV IS NO LONGER EEPY, KILL KILL KILL!");
     }
 
     public void ReturnToMenu()

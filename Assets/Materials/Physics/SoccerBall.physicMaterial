@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: SoccerBall
   dynamicFriction: 0.3
   staticFriction: 0.3
-  bounciness: 0.5
+  bounciness: 0.4
   frictionCombine: 0
   bounceCombine: 0

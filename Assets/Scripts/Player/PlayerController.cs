@@ -133,6 +133,8 @@ public class PlayerController : MonoBehaviour
     float wallJumpCurrentCooldown = 0;
     float wallJumpRemainingDuration = 0;
 
+    bool isSlamming = false;
+
     // Scaling Stats
     BeaverStats playerStats;
 
@@ -144,7 +146,8 @@ public class PlayerController : MonoBehaviour
     {
         STATIONARY,
         MOVING,
-        DASHING
+        DASHING,
+        SLAMMING
     };
 
     private void Awake()
@@ -239,13 +242,14 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", false);
             return;
         }
-        else
+        else if(movementState != MovementState.SLAMMING)
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
 
-        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
+        newVelocity = VectorUtils.ClampHorizontalVelocity(rb.velocity, newVelocity * playerStats.GetStat(ScalableStat.SPEED), 
+            (!isTouchingGrass && !isOnWall ? airSpeedLimit : groundSpeedLimit) * playerStats.GetStat(ScalableStat.SPEED));
 
         if (IsOnSlope())
             rb.AddForce(GetSlopeMoveDirection() * newVelocity.magnitude, ForceMode.Acceleration);
@@ -279,6 +283,12 @@ public class PlayerController : MonoBehaviour
             return;
 
         SetTouchedGrass(false);
+
+        if (rb == null)
+        {
+            return;
+        }
+
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
 
@@ -320,6 +330,14 @@ public class PlayerController : MonoBehaviour
 
         if (!hasTouchedGrass)
             return;
+
+        if (movementState == MovementState.SLAMMING)
+            return;
+
+        if (anim == null)
+        {
+            return;
+        }
 
         anim.SetTrigger("dash");
 
@@ -437,23 +455,29 @@ public class PlayerController : MonoBehaviour
 
     public void SetTouchedWall(bool touchedWall)
     {
-        if (wallJumpRemainingDuration > 0 && touchedWall)
-            return;
+        if (touchedWall)
+        {
+            if (isTouchingGrass)
+                return;
 
-        if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun && touchedWall)
-            return;
+            if (wallJumpRemainingDuration > 0)
+                return;
 
-        if (touchedWall && !canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
-            return;
+            if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun)
+                return;
+
+            if (!canRunOnPreviousWall && wallDetector.IsOnPreviousWall())
+                return;
+        }
 
         isOnWall = touchedWall;
 
         anim.SetBool("wallrunning", touchedWall);
 
         if (!touchedWall)
-            SetModelInverted(false);
+            SetModelInverted(true);
         else
-            SetModelInverted(wallDetector.IsWallLeft());
+            SetModelInverted(wallDetector.IsWallLeft()); 
 
 
         if (rb.velocity.y < 0)
@@ -462,15 +486,27 @@ public class PlayerController : MonoBehaviour
 
     private void SetModelInverted(bool inverted)
     {
-        if (inverted == isModelInverted)
+        if (isModelInverted == inverted)
             return;
 
         isModelInverted = inverted;
 
-        Vector3 invertedScale = playerModel.transform.localScale;
-        invertedScale.x *= -1;
+        if (inverted)
+        {
+            Vector3 invertedScale = playerModel.transform.localScale;
+            invertedScale.x = -1 * Mathf.Abs(invertedScale.x);
 
-        playerModel.transform.localScale = invertedScale;
+            playerModel.transform.localScale = invertedScale;
+        }
+        else
+        {
+            Vector3 scale = playerModel.transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+
+            playerModel.transform.localScale = scale;
+        }
+        
+        //Debug.Log("IsInverted: " + inverted);
     }
 
     public bool IsGrounded()
@@ -485,6 +521,11 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleAirDrag(bool isInAir)
     {
+        if (rb == null)
+        {
+            return;
+        }
+
         rb.drag = isInAir ? airDrag : groundDrag;
 
         StartCoroutine(DelayedFrictionChange(isInAir));
@@ -509,6 +550,17 @@ public class PlayerController : MonoBehaviour
 
         return wallForward;
     }
+
+    public void SetMovementState(MovementState newState)
+    {
+        movementState = newState;
+    }
+
+    public MovementState GetMovementState()
+    {
+        return movementState;
+    }
+
     //The following functions are to be used as animation events during certain animations.
 
     /// <summary>
@@ -536,6 +588,13 @@ public class PlayerController : MonoBehaviour
     {
         anim.ResetTrigger("chomp");
         chompParticles.Play();
+    }
+    /// <summary>
+    /// Resets the trigger of any animation. Trigger defined by string input.
+    /// </summary>
+    public void ResetAnimTrigger(string triggerName)
+    {
+        anim.ResetTrigger(triggerName);
     }
 
     public void UpdateScale()

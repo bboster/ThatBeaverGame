@@ -21,6 +21,10 @@ public class SlamHitbox : MonoBehaviour
     [SerializeField]
     float baseForceModifier = 0.3f;
 
+    [Header("Rebound Force")]
+    [SerializeField]
+    float reboundForce = 5;
+
     Collider col;
     Rigidbody parentRb;
     Transform collisionPoint;
@@ -48,7 +52,21 @@ public class SlamHitbox : MonoBehaviour
         if (fracture == null)
         {
             if(!willDisable)
-                StartCoroutine(SlamDurationTriggered()); 
+                StartCoroutine(SlamDurationTriggered());
+
+            if (other.CompareTag("SoccerBall"))
+            {
+                Rigidbody otherRb = other.GetComponent<Rigidbody>();
+                if (otherRb != null)
+                {
+                    Vector3 soccerForce = force * (explosionForce + (parentRb.velocity.magnitude * playerVelocityMult)) * transform.parent.forward;
+                    soccerForce.y += upwardsModifier * 70;
+                    otherRb.AddForce(soccerForce, ForceMode.Impulse);
+                }
+
+                //otherRb.AddExplosionForce(, collisionPoint.position, explosionRadius, upwardsModifier, forceMode);
+
+            }
 
             return;
         }
@@ -92,8 +110,10 @@ public class SlamHitbox : MonoBehaviour
 
             objectsToFracture.Clear();
         }
-
         willDisable = false;
+
+        yield return new WaitForSeconds(0.5f);
+        parentRb.AddForce(Vector3.up * reboundForce, ForceMode.Impulse);
     }
 
     private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
