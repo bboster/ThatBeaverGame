@@ -9,6 +9,9 @@ public class GroundSlam : MonoBehaviour
     Collider hitbox;
 
     [SerializeField]
+    float minSlamHeight = 2;
+
+    [SerializeField]
     float floatTime = 0.3f;
 
     [SerializeField]
@@ -58,7 +61,7 @@ public class GroundSlam : MonoBehaviour
         if (currentCooldown > 0)
             return;
 
-        if (playerController.IsGrounded())
+        if (playerController.IsGrounded() || !IsAboveMinHeight())
             return;
 
         StartCoroutine(DelayedSlam());
@@ -93,5 +96,10 @@ public class GroundSlam : MonoBehaviour
         }
 
         playerController.SetMovementState(PlayerController.MovementState.STATIONARY);
+    }
+
+    private bool IsAboveMinHeight()
+    {
+        return !Physics.Raycast(transform.position, Vector3.down, minSlamHeight);
     }
 }
