@@ -24,11 +24,14 @@ public class SlamHitbox : MonoBehaviour
     [Header("Rebound Force")]
     [SerializeField]
     float reboundForce = 5;
+    [SerializeField]
+    float reboundDelay = 0.08f;
 
     Collider col;
     Rigidbody parentRb;
     Transform collisionPoint;
     BeaverStats playerStats;
+    PlayerController playerController;
 
     float force = 1;
 
@@ -42,6 +45,7 @@ public class SlamHitbox : MonoBehaviour
         parentRb = GetComponentInParent<Rigidbody>();
         collisionPoint = transform.GetChild(0);
         playerStats = GetComponentInParent<BeaverStats>();
+        playerController = GetComponentInParent<PlayerController>();
 
         col.enabled = false;
     }
@@ -112,8 +116,10 @@ public class SlamHitbox : MonoBehaviour
         }
         willDisable = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(reboundDelay);
         parentRb.AddForce(Vector3.up * reboundForce, ForceMode.Impulse);
+
+        playerController.FallingParticleToggle(0);
     }
 
     private void OnFractureCompletedEvent(object sender, FractureEventCompleteArgs e)
