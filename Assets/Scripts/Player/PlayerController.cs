@@ -405,6 +405,9 @@ public class PlayerController : MonoBehaviour
         if (!isOnWall || isTouchingGrass)
             return;
 
+        if (movementState == MovementState.SLAMMING)
+            return;
+
         if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
         {
             dashCurrentCooldown = 0;
@@ -481,10 +484,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("wallrunning", touchedWall);
 
-        if (!touchedWall)
-            SetModelInverted(true);
-        else
-            SetModelInverted(wallDetector.IsWallLeft()); 
+        SetModelInverted(wallDetector.IsWallLeft()); 
 
 
         if (rb.velocity.y < 0)
