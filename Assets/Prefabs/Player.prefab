@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6548757448981999322}
   - component: {fileID: 903009113021037711}
-  - component: {fileID: 6258728777418537366}
   m_Layer: 0
   m_Name: ParticleCamera
   m_TagString: Untagged
@@ -84,14 +83,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6258728777418537366
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148203642153684633}
-  m_Enabled: 1
 --- !u!1 &669382844547665259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1062,7 @@ Transform:
   - {fileID: 5207267407865915463}
   - {fileID: 7050607691677798642}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &6770065584707630237
 MonoBehaviour:
@@ -1163,7 +1154,7 @@ MonoBehaviour:
   wallRunningResetsDashCD: 1
   wallRunRotationTime: 0.02
   minSpeedToStartWallRun: 1.5
-  wallRunGravityMult: 0.3
+  wallRunGravityMult: 0.25
   wallRunStickMult: 10
   wallRunningSpeed: 5
   canRunOnPreviousWall: 1
