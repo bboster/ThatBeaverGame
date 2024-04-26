@@ -305,6 +305,11 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCurrentCooldown > 0)
             return;
 
+        if (anim == null)
+        {
+            return;
+        }
+
         anim.SetTrigger("jump");
 
         rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
