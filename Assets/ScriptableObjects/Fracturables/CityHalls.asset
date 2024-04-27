@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: CityHalls
   m_EditorClassIdentifier: 
-  minForceToTrigger: 8
+  minForceToTrigger: 15
   rigidbodyMass: 14
-  pointsToAward: 1000
+  pointsToAward: 2500
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: TheTree
   m_EditorClassIdentifier: 
-  minForceToTrigger: 10
+  minForceToTrigger: 12
   rigidbodyMass: 20
   pointsToAward: 1000
   triggerOptions:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
-  minForceToTrigger: 15
+  minForceToTrigger: 25
   rigidbodyMass: 30
   pointsToAward: 5000
   triggerOptions:

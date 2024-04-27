@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: TheRock
   m_EditorClassIdentifier: 
-  minForceToTrigger: 50
+  minForceToTrigger: 75
   rigidbodyMass: 10
   pointsToAward: 10000
   triggerOptions:
@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 0}
+    insideMaterial: {fileID: 2100000, guid: 6a89d222165b25240a6388df0196be3d, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:

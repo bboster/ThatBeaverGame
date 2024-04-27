@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: Building
   m_EditorClassIdentifier: 
-  minForceToTrigger: 5
+  minForceToTrigger: 7
   rigidbodyMass: 10
   pointsToAward: 750
   triggerOptions:
