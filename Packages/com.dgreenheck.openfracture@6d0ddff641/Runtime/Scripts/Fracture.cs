@@ -204,7 +204,7 @@ public class Fracture : MonoBehaviour
             (10000, this.fragmentRoot.transform.position, 5000);
 
         //Destroys the fragments
-        Destroy(this.fragmentRoot, 5);
+        //Destroy(this.fragmentRoot, 20);
     }
 
     /// <summary>

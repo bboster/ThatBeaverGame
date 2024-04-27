@@ -9,6 +9,11 @@ public class Destructable : MonoBehaviour
     float destructionDelayMax = 12;
     [SerializeField]
     float destructionDelayMin = 5;
+    [Space]
+    [SerializeField]
+    float shrinkDuration = 1;
+    [SerializeField]
+    float scaleRate = 1;
 
     //private PointSystem PS;
     
@@ -25,7 +30,15 @@ public class Destructable : MonoBehaviour
 
     private IEnumerator DelayedDestroy(GameObject obj)
     {
+        Collider col = obj.GetComponent<Collider>();
         yield return new WaitForSeconds(Random.Range(destructionDelayMin, destructionDelayMax));
+
+        col.enabled = false;
+        for (float i = 0; i < shrinkDuration; i += 0.025f)
+        {
+            yield return new WaitForSeconds(0.025f);
+            obj.transform.localScale /= scaleRate;
+        }
         Destroy(obj);
     }
 }
