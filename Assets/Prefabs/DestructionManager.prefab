@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5008687be74684449883940b3f749a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionDelayMax: 30
-  destructionDelayMin: 25
+  destructionDelayMax: 20
+  destructionDelayMin: 17
+  shrinkDuration: 1
+  scaleRate: 1.2
