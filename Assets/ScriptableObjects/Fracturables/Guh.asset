@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 0}
+    insideMaterial: {fileID: 2100000, guid: 17e28f34f7de4e44bbbd6f5c27eaed3d, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
