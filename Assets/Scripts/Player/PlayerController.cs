@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     ParticleSystem chompParticles;
     [SerializeField]
+    ParticleSystem fallingParticles;
+    [SerializeField]
     GameObject playerModel;
 
     [Header("Movement")]
@@ -303,6 +305,11 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCurrentCooldown > 0)
             return;
 
+        if (anim == null)
+        {
+            return;
+        }
+
         anim.SetTrigger("jump");
 
         rb.velocity = VectorUtils.ZeroOutYAxis(rb.velocity);
@@ -398,6 +405,9 @@ public class PlayerController : MonoBehaviour
         if (!isOnWall || isTouchingGrass)
             return;
 
+        if (movementState == MovementState.SLAMMING)
+            return;
+
         if (wallRunningResetsDashCD && dashCurrentCooldown > 0)
         {
             dashCurrentCooldown = 0;
@@ -474,10 +484,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("wallrunning", touchedWall);
 
-        if (!touchedWall)
-            SetModelInverted(true);
-        else
-            SetModelInverted(wallDetector.IsWallLeft()); 
+        SetModelInverted(wallDetector.IsWallLeft()); 
 
 
         if (rb.velocity.y < 0)
@@ -595,6 +602,21 @@ public class PlayerController : MonoBehaviour
     public void ResetAnimTrigger(string triggerName)
     {
         anim.ResetTrigger(triggerName);
+    }
+    public void FallingParticleToggle(int toggle)
+    {
+        switch (toggle)
+        {
+            case 0:
+                fallingParticles.Stop();
+                break;
+            case 1:
+                fallingParticles.Play();
+                break;
+            default:
+                Debug.Log("Error trying to read the fallingParticle toggle value!");
+                break;
+        }
     }
 
     public void UpdateScale()

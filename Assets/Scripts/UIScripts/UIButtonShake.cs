@@ -29,7 +29,7 @@ public class UIButtonShake : MonoBehaviour
 
     private IEnumerator Shake()
     {
-        isShaking = true;
+        //isShaking = true;
 
         float elapsedTime = 0.0f;
 
@@ -53,7 +53,7 @@ public class UIButtonShake : MonoBehaviour
         // Reset the button's rotation to its original rotation
         transform.rotation = originalRotation;
 
-        isShaking = false;
+        //isShaking = false;
     }
 
     /*private void OnMouseOver()
