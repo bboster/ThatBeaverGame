@@ -18,6 +18,7 @@ public class Timer : MonoBehaviour
 
     // anticipating there being a game over screen.
     [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] GameObject TimerCanvas;
 
     private void Start()
     {
@@ -36,6 +37,7 @@ public class Timer : MonoBehaviour
             Cursor.visible = true;
             GameObject.Find("PauseMenu").GetComponent<PauseMenu>().canPause = false;
             GameOverScreen.SetActive(true);
+            TimerCanvas.SetActive(false);
             Time.timeScale = 0.0f;
         }
 
