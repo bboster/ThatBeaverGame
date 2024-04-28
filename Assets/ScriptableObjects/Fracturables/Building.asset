@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: Building
   m_EditorClassIdentifier: 
-  minForceToTrigger: 5
+  minForceToTrigger: 7
   rigidbodyMass: 10
-  pointsToAward: 1
+  pointsToAward: 750
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 5000
@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 1b0bc784e09188b42be251b96ca90c27, type: 2}
+    insideMaterial: {fileID: 2100000, guid: f45ec49f02bf023469a0e5fc06adc9b8, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
-  m_Name: PowerPlant
+  m_Name: PointPlaceholder
   m_EditorClassIdentifier: 
-  minForceToTrigger: 25
-  rigidbodyMass: 30
-  pointsToAward: 5000
+  minForceToTrigger: 0
+  rigidbodyMass: 10
+  pointsToAward: 1
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 3a83fec555ec4a144a18043e70d808ff, type: 2}
+    insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:

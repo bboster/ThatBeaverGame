@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: Guh
   m_EditorClassIdentifier: 
-  minForceToTrigger: 0
+  minForceToTrigger: 100
   rigidbodyMass: 10
-  pointsToAward: 1
+  pointsToAward: 143600
   triggerOptions:
     triggerType: 0
-    minimumCollisionForce: 10
+    minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 100
+    fragmentCount: 2
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 1b0bc784e09188b42be251b96ca90c27, type: 2}
+    insideMaterial: {fileID: 2100000, guid: 17e28f34f7de4e44bbbd6f5c27eaed3d, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
@@ -38,19 +38,7 @@ MonoBehaviour:
   callbackOptions:
     onFracture:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     onCompleted:
       m_PersistentCalls:
         m_Calls: []

@@ -17,4 +17,4 @@ MonoBehaviour:
   ScalingStats:
   - name: Speed
     stat: 0
-    scalingValue: 0.33
+    scalingValue: 0.11

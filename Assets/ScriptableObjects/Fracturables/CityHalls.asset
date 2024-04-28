@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: CityHalls
   m_EditorClassIdentifier: 
-  minForceToTrigger: 7
+  minForceToTrigger: 15
   rigidbodyMass: 14
-  pointsToAward: 1
+  pointsToAward: 2500
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 1b0bc784e09188b42be251b96ca90c27, type: 2}
+    insideMaterial: {fileID: 2100000, guid: 88f8bfe612184564e91d24aeeab099f4, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:

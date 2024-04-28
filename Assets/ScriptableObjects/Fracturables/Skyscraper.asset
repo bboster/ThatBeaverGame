@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: Skyscraper
   m_EditorClassIdentifier: 
-  minForceToTrigger: 30
+  minForceToTrigger: 50
   rigidbodyMass: 100
-  pointsToAward: 1
+  pointsToAward: 5000
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 10000
@@ -22,13 +22,13 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 100
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 1b0bc784e09188b42be251b96ca90c27, type: 2}
+    insideMaterial: {fileID: 6098924145076851180, guid: 915f3aa3541346c428bc43d766b30214, type: 3}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:

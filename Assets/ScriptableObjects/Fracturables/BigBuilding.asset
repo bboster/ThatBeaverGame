@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842c9fd4123e59343b3c365cd36398da, type: 3}
   m_Name: BigBuilding
   m_EditorClassIdentifier: 
-  minForceToTrigger: 0
+  minForceToTrigger: 12
   rigidbodyMass: 10
-  pointsToAward: 1
+  pointsToAward: 1500
   triggerOptions:
     triggerType: 0
     minimumCollisionForce: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     zAxis: 1
     detectFloatingFragments: 0
     asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 1b0bc784e09188b42be251b96ca90c27, type: 2}
+    insideMaterial: {fileID: 2100000, guid: d500ed9b40836f9478d25362fad92ae0, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
