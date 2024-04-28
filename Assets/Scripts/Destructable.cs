@@ -18,12 +18,17 @@ public class Destructable : MonoBehaviour
     //private PointSystem PS;
     
 
-    public void Awake()
+    public void Start()
     {
-        Fragmenter.fractured += fn;
+        Fragmenter.fractured += OnFractureEvent;
     }
 
-    private void fn(object obj, FractureEventArgs e)
+    public void OnDestroy()
+    {
+        Fragmenter.fractured -= OnFractureEvent;
+    }
+
+    private void OnFractureEvent(object obj, FractureEventArgs e)
     {
         StartCoroutine(DelayedDestroy(e.obj));
     }

@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour
     bool wallRunningResetsDashCD = true;
 
     [Header("Wall Running")]
-    [SerializeField]
-    float wallRunRotationTime = 0.025f;
+    //[SerializeField]
+    //float wallRunRotationTime = 0.025f;
     [SerializeField]
     float minSpeedToStartWallRun = 4f;
     [SerializeField]
@@ -134,8 +134,6 @@ public class PlayerController : MonoBehaviour
     float dashCurrentCooldown = 0;
     float wallJumpCurrentCooldown = 0;
     float wallJumpRemainingDuration = 0;
-
-    bool isSlamming = false;
 
     // Scaling Stats
     BeaverStats playerStats;

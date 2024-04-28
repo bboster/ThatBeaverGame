@@ -15,9 +15,6 @@ public class GroundSlam : MonoBehaviour
     float floatTime = 0.3f;
 
     [SerializeField]
-    float floatForce = 2;
-
-    [SerializeField]
     float downwardForce = 5;
 
     [SerializeField]
