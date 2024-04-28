@@ -107,7 +107,6 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Hey i work!");
         transitionObject.StartRestartCoroutine();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Jev is born anew, REJOICE AND DESTROY!!!");
     }
 }
