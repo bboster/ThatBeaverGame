@@ -7,6 +7,7 @@ public class PointSystem : MonoBehaviour
 {
     [SerializeField] private int currentPoints;
     [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private TMP_Text pointsGameOver;
     [SerializeField] private FractureableSO fracture;
     [SerializeField] private GameObject plusOne;
     
@@ -21,6 +22,7 @@ public class PointSystem : MonoBehaviour
     void Update()
     {
         pointsText.text = "Points: " + currentPoints.ToString();
+        pointsGameOver.text = "Points: " + currentPoints.ToString();
     }
 
     public void AddPoint(int point)
