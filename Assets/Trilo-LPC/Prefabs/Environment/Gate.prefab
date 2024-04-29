@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fractureableSO: {fileID: 11400000, guid: c04994d427888a242aabb7ce3644210e, type: 2}
+  fractureableSO: {fileID: 11400000, guid: 2af94982d55cfe8469dacc56d542befb, type: 2}
   currentRefractureCount: 0
 --- !u!1 &4674807089153282264
 GameObject:
