@@ -142,6 +142,15 @@ public class PlayerController : MonoBehaviour
 
     bool isModelInverted = false;
 
+    [Header("Audio")]
+    [SerializeField]
+    AudioClip beaverRun;
+    [SerializeField]
+    AudioClip beaverJump;
+    [SerializeField]
+    AudioClip beaverDash;
+    AudioSource beaverAudio;
+
     public enum MovementState
     {
         STATIONARY,
@@ -172,6 +181,8 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.FindAction("Breakdance").performed += BreakDance;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        beaverAudio = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -240,6 +251,7 @@ public class PlayerController : MonoBehaviour
         Vector3 newVelocity = Get3DMovement();
         if (newVelocity.magnitude == 0)
         {
+            //SFX Stop beaverRun audio
             movementState = MovementState.STATIONARY;
             anim.SetBool("isRunning", false);
             return;
@@ -247,7 +259,7 @@ public class PlayerController : MonoBehaviour
         else if(movementState != MovementState.SLAMMING)
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
-        //SFX play beaver_run
+        //SFX Start beaverRun audio
 
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
@@ -293,7 +305,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //SFX play beaver_jump
+        beaverAudio.PlayOneShot(beaverJump);
 
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
@@ -314,7 +326,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //SFX play beaver_jump
+        beaverAudio.PlayOneShot(beaverJump);
 
         anim.SetTrigger("jump");
 
@@ -352,7 +364,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //SFX play beaver_dash
+        beaverAudio.PlayOneShot(beaverDash);
 
         anim.SetTrigger("dash");
 
@@ -428,7 +440,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //SFX play beaver_run
+        //SFX Start beaverRun audio
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 
@@ -642,5 +654,6 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetTrigger("dance");
+        //SFX Play beaverBreakdance
     }
 }

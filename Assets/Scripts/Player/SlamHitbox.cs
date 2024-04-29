@@ -39,6 +39,11 @@ public class SlamHitbox : MonoBehaviour
 
     bool willDisable = false;
 
+    [Header("Audio")]
+    [SerializeField]
+    AudioClip beaverSlam;
+    AudioSource slamSource;
+
     private void Awake()
     {
         col = GetComponent<Collider>();
@@ -48,6 +53,8 @@ public class SlamHitbox : MonoBehaviour
         playerController = GetComponentInParent<PlayerController>();
 
         col.enabled = false;
+
+        slamSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,7 +96,7 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
-        //SFX play beaver_slam
+        slamSource.PlayOneShot(beaverSlam);
 
         GetComponentInParent<Animator>().SetTrigger("poundCollided");
         willDisable = true;

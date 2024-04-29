@@ -13,10 +13,14 @@ public class BeaverGnaw : MonoBehaviour
     bool GnawIsTrue = false;
     Animator anim;
 
+    AudioSource chompAudio;
+    [SerializeField] AudioClip beaverChomp;
+
     private void Start()
     {
         GnawHitBox.enabled = false;
         anim = GetComponent<Animator>();
+        chompAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,7 +35,7 @@ public class BeaverGnaw : MonoBehaviour
             else
             {
                 anim.SetTrigger("chomp");
-                //SFX play beaver_chomp
+                chompAudio.PlayOneShot(beaverChomp);
 
                 //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 //GnawIsTrue = true;

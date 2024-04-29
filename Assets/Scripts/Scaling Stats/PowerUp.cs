@@ -21,6 +21,11 @@ public class PowerUp : MonoBehaviour
 
     TMP_Text text;
 
+    AudioSource powerupAudio;
+
+    [SerializeField]
+    AudioClip beaverGulp;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -31,11 +36,13 @@ public class PowerUp : MonoBehaviour
         text.text = scalingStats.text;
 
         text.enabled = false;
+
+        powerupAudio = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //SFX play beaver_gulp
+        //powerupAudio.PlayOneShot(beaverGulp);
         
         BeaverStats playerStats = other.GetComponent<BeaverStats>();
         if (playerStats == null)
