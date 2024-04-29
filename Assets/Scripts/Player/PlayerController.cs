@@ -626,6 +626,6 @@ public class PlayerController : MonoBehaviour
 
     private void BreakDance(InputAction.CallbackContext context)
     {
-        // DANCE
+        anim.SetTrigger("dance");
     }
 }
