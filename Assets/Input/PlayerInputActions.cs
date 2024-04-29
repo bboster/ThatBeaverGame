@@ -71,6 +71,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Breakdance"",
+                    ""type"": ""Button"",
+                    ""id"": ""9217ff01-9a40-4de0-8bb3-b406bbae36a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""GroundSlam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0f91c9e-06ae-436a-98de-29e206963038"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Breakdance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86734afd-cff8-40b3-ad38-ea03e0815f40"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Breakdance"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -316,6 +347,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_GroundSlam = m_Player.FindAction("GroundSlam", throwIfNotFound: true);
+        m_Player_Breakdance = m_Player.FindAction("Breakdance", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigation = m_UI.FindAction("Navigation", throwIfNotFound: true);
@@ -386,6 +418,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_GroundSlam;
+    private readonly InputAction m_Player_Breakdance;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -395,6 +428,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @GroundSlam => m_Wrapper.m_Player_GroundSlam;
+        public InputAction @Breakdance => m_Wrapper.m_Player_Breakdance;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -419,6 +453,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @GroundSlam.started += instance.OnGroundSlam;
             @GroundSlam.performed += instance.OnGroundSlam;
             @GroundSlam.canceled += instance.OnGroundSlam;
+            @Breakdance.started += instance.OnBreakdance;
+            @Breakdance.performed += instance.OnBreakdance;
+            @Breakdance.canceled += instance.OnBreakdance;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -438,6 +475,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @GroundSlam.started -= instance.OnGroundSlam;
             @GroundSlam.performed -= instance.OnGroundSlam;
             @GroundSlam.canceled -= instance.OnGroundSlam;
+            @Breakdance.started -= instance.OnBreakdance;
+            @Breakdance.performed -= instance.OnBreakdance;
+            @Breakdance.canceled -= instance.OnBreakdance;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -525,6 +565,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnGroundSlam(InputAction.CallbackContext context);
+        void OnBreakdance(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
