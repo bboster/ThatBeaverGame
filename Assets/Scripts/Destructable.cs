@@ -35,6 +35,8 @@ public class Destructable : MonoBehaviour
 
     private IEnumerator DelayedDestroy(GameObject obj)
     {
+        //SFX Play collapse
+
         Collider col = obj.GetComponent<Collider>();
         yield return new WaitForSeconds(Random.Range(destructionDelayMin, destructionDelayMax));
 

@@ -245,6 +245,8 @@ public class PlayerController : MonoBehaviour
         else if(movementState != MovementState.SLAMMING)
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
 
+        //SFX play beaver_run
+
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
 
@@ -289,6 +291,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        //SFX play beaver_jump
+
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
 
@@ -307,6 +311,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        //SFX play beaver_jump
 
         anim.SetTrigger("jump");
 
@@ -343,6 +349,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        //SFX play beaver_dash
 
         anim.SetTrigger("dash");
 
@@ -417,6 +425,8 @@ public class PlayerController : MonoBehaviour
             SetTouchedWall(false);
             return;
         }
+
+        //SFX play beaver_run
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 

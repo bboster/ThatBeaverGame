@@ -31,6 +31,7 @@ public class BeaverGnaw : MonoBehaviour
             else
             {
                 anim.SetTrigger("chomp");
+                //SFX play beaver_chomp
 
                 //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 //GnawIsTrue = true;

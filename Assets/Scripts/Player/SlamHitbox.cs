@@ -89,6 +89,8 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
+        //SFX play beaver_slam
+
         GetComponentInParent<Animator>().SetTrigger("poundCollided");
         willDisable = true;
         yield return new WaitForSeconds(slamDurationWhenTriggered);

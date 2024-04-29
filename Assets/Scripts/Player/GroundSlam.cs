@@ -63,6 +63,8 @@ public class GroundSlam : MonoBehaviour
 
         StartCoroutine(DelayedSlam());
         playerController.anim.SetTrigger("pound");
+
+        //SFX play beaver_flip
     }
 
     private IEnumerator DelayedSlam()

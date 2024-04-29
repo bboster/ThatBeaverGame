@@ -35,6 +35,8 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //SFX play beaver_gulp
+        
         BeaverStats playerStats = other.GetComponent<BeaverStats>();
         if (playerStats == null)
             return;
