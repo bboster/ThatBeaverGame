@@ -169,6 +169,7 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.FindAction("Jump").performed += Jump;
         playerInput.currentActionMap.FindAction("Jump").performed += WallJump;
         playerInput.currentActionMap.FindAction("Dash").performed += Dash;
+        playerInput.currentActionMap.FindAction("Breakdance").performed += BreakDance;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -181,6 +182,7 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.FindAction("Jump").performed -= Jump;
         playerInput.currentActionMap.FindAction("Jump").performed -= WallJump;
         playerInput.currentActionMap.FindAction("Dash").performed -= Dash;
+        playerInput.currentActionMap.FindAction("Breakdance").performed -= BreakDance;
     }
 
     private void FixedUpdate()
@@ -620,5 +622,10 @@ public class PlayerController : MonoBehaviour
     public void UpdateScale()
     {
         transform.localScale = startScale * playerStats.GetStat(ScalableStat.SIZE);
+    }
+
+    private void BreakDance(InputAction.CallbackContext context)
+    {
+        // DANCE
     }
 }
