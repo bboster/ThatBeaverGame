@@ -468,8 +468,8 @@ public class PlayerController : MonoBehaviour
             if (isTouchingGrass)
                 return;
 
-            if (wallJumpRemainingDuration > 0)
-                return;
+            /*if (wallJumpRemainingDuration > 0)
+                return;*/
 
             if (VectorUtils.ZeroOutYAxis(rb.velocity).magnitude < minSpeedToStartWallRun)
                 return;
