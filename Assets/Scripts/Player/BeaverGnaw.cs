@@ -34,8 +34,7 @@ public class BeaverGnaw : MonoBehaviour
             else
             {
                 anim.SetTrigger("chomp");
-                chompAudio.PlayOneShot(beaverChomp);
-
+                
                 //Debug.Log("JEV'S GNAW HAS ACTIVATED! GNAW AWAY LOVECRAFTIAN BEAST!");
                 //GnawIsTrue = true;
                 //GnawHitBox.enabled = true;
@@ -60,5 +59,6 @@ public class BeaverGnaw : MonoBehaviour
     public void EnableGnawHitbox()
     {
         GnawHitBox.enabled = true;
+        chompAudio.PlayOneShot(beaverChomp);
     }
 }

@@ -254,12 +254,12 @@ public class PlayerController : MonoBehaviour
         Vector3 newVelocity = Get3DMovement();
         if (newVelocity.magnitude == 0)
         {
-            movementState = MovementState.STATIONARY;
+            SetMovementState(MovementState.STATIONARY);
             anim.SetBool("isRunning", false);
             return;
         }
         else if(movementState != MovementState.SLAMMING)
-            movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
+            SetMovementState(MovementState.MOVING); anim.SetBool("isRunning", true);
 
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
@@ -585,6 +585,17 @@ public class PlayerController : MonoBehaviour
     public void SetMovementState(MovementState newState)
     {
         movementState = newState;
+
+        if(!runAudio.isPlaying && movementState == MovementState.MOVING && (isOnWall || isTouchingGrass))
+        {
+            //Debug.Log("Playing Run");
+            runAudio.PlayOneShot(beaverRun);
+        }
+        else if(runAudio.isPlaying && movementState != MovementState.MOVING)
+        {
+            //Debug.Log("Stopping Run");
+            runAudio.Stop();
+        }
     }
 
     public MovementState GetMovementState()

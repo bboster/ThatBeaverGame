@@ -1170,7 +1170,7 @@ MonoBehaviour:
   baseGravity: 8
   fallingGravityMod: 1.75
   anim: {fileID: 2649461943377335590}
-  beaverRun: {fileID: 0}
+  beaverRun: {fileID: 8300000, guid: cc78a3dce9f5ef04ca17d4f620fc897c, type: 3}
   beaverJump: {fileID: 8300000, guid: 2f74b0d647839c441bd1b13994594ea0, type: 3}
   beaverDash: {fileID: 8300000, guid: cc2e43423d876164c9be8008f057f14c, type: 3}
   beaverAudio: {fileID: 6077159260369545185}
@@ -1279,7 +1279,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -3594188600964194189, guid: 1ad7fb165047faf45a63137b36a741e7, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 0
   Mute: 0
