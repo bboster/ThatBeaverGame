@@ -149,7 +149,10 @@ public class PlayerController : MonoBehaviour
     AudioClip beaverJump;
     [SerializeField]
     AudioClip beaverDash;
+    [SerializeField]
     AudioSource beaverAudio;
+    [SerializeField]
+    AudioSource runAudio;
 
     public enum MovementState
     {
@@ -181,8 +184,6 @@ public class PlayerController : MonoBehaviour
         playerInput.currentActionMap.FindAction("Breakdance").performed += BreakDance;
 
         Cursor.lockState = CursorLockMode.Locked;
-
-        beaverAudio = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -245,21 +246,20 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        //runAudio.Play();
+
         if (movementState == MovementState.DASHING)
             return;
 
         Vector3 newVelocity = Get3DMovement();
         if (newVelocity.magnitude == 0)
         {
-            //SFX Stop beaverRun audio
             movementState = MovementState.STATIONARY;
             anim.SetBool("isRunning", false);
             return;
         }
         else if(movementState != MovementState.SLAMMING)
             movementState = MovementState.MOVING; anim.SetBool("isRunning", true);
-
-        //SFX Start beaverRun audio
 
         newVelocity = (Quaternion.Euler(0, targetRotationAngle, 0) * Vector3.forward).normalized;
         newVelocity *= moveSpeed;
@@ -272,6 +272,8 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(newVelocity, ForceMode.Acceleration);
         //Debug.Log("Speed: " + rb.velocity.magnitude);
+
+        //runAudio.Stop();
     }
 
     private bool IsOnSlope()
@@ -440,7 +442,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //SFX Start beaverRun audio
+        //runAudio.Play();
 
         Vector3 wallRunStickForce = wallDetector.GetWallNormal().normalized * -wallRunStickMult;
 

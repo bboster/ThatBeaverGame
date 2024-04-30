@@ -13,14 +13,13 @@ public class BeaverGnaw : MonoBehaviour
     bool GnawIsTrue = false;
     Animator anim;
 
-    AudioSource chompAudio;
+    [SerializeField] AudioSource chompAudio;
     [SerializeField] AudioClip beaverChomp;
 
     private void Start()
     {
         GnawHitBox.enabled = false;
         anim = GetComponent<Animator>();
-        chompAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

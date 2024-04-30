@@ -42,8 +42,6 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //powerupAudio.PlayOneShot(beaverGulp);
-        
         BeaverStats playerStats = other.GetComponent<BeaverStats>();
         if (playerStats == null)
             return;
@@ -61,6 +59,8 @@ public class PowerUp : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, Quaternion.LookRotation(targetPostition).eulerAngles.y + 180, 0));
 
         anim.Play("TextCrawl");
+
+        powerupAudio.PlayOneShot(beaverGulp);
 
         StartCoroutine(DelayedDestroy());
     }

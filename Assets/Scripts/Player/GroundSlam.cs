@@ -29,6 +29,7 @@ public class GroundSlam : MonoBehaviour
 
     float currentCooldown = 0;
 
+    [SerializeField]
     AudioSource slamAudio;
 
     [SerializeField]
@@ -38,7 +39,6 @@ public class GroundSlam : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
-        slamAudio = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
