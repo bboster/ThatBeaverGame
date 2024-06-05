@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Testing Scenes/Map.unity
     guid: ffe0ae1a89d77a5489e451df3811ff84
+  - enabled: 1
+    path: Assets/_NETWORKING/Scenes/OfflineLobbyScene.unity
+    guid: 6bbf966dad8742743aae4cbbae1058bd
+  - enabled: 1
+    path: Assets/_NETWORKING/Scenes/OnlineLobbyScene.unity
+    guid: a7548a9bc5c94d74cbdb7526756e4ef2
+  - enabled: 1
+    path: Assets/_NETWORKING/Scenes/GameplayScene.unity
+    guid: 07fe2d5151aabe9419802c221d18dc97
   m_configObjects: {}
