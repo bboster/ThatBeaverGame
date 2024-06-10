@@ -24,6 +24,13 @@ public class NetworkManagerBeaver : NetworkRoomManager
         base.OnStopServer();
     }
 
+    public override void OnStartHost()
+    {
+        SteamworksManager.Instance.StartHost();
+
+        base.OnStartHost();
+    }
+
     /// <summary>
     /// This is called on the server when a networked scene finishes loading.
     /// </summary>

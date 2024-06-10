@@ -18,10 +18,10 @@ public class SteamworksManager : MonoBehaviour
 
     public Lobby? currentLobby { get; private set; } = null;
 
-    public ulong hostId;
-
     private const string BeaverKey = "BeaverGame";
     private const string BeaverValue = "3876";
+
+    bool isSteamworksEnabled = true;
 
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class SteamworksManager : MonoBehaviour
         if(transport == null)
         {
             Debug.LogWarning("FizzyFacepunch not enabled! Replace transport to enable Steamworks!");
+            isSteamworksEnabled = false;
         }
 
         SteamMatchmaking.OnLobbyGameCreated += OnLobbyGameCreatedCallback;
@@ -143,6 +144,9 @@ public class SteamworksManager : MonoBehaviour
 
     public async void StartHost()
     {
+        if (!isSteamworksEnabled)
+            return;
+
         Debug.Log("Started Steam Server!");
 
         currentLobby = await SteamMatchmaking.CreateLobbyAsync(2);
