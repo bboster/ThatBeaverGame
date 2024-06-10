@@ -8,6 +8,22 @@ public class NetworkManagerBeaver : NetworkRoomManager
 {
     public static new NetworkManagerBeaver singleton => NetworkManager.singleton as NetworkManagerBeaver;
 
+    public bool isServer { get; private set; } = false;
+
+    public override void OnStartServer()
+    {
+        isServer = true;
+
+        base.OnStartServer();
+    }
+
+    public override void OnStopServer()
+    {
+        isServer = false;
+
+        base.OnStopServer();
+    }
+
     /// <summary>
     /// This is called on the server when a networked scene finishes loading.
     /// </summary>
