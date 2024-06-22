@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64963840028857762}
   - component: {fileID: 1313586435125266747}
   - component: {fileID: -7341230837374042721}
+  - component: {fileID: 4880354540320223675}
   m_Layer: 0
   m_Name: Building10_4
   m_TagString: Untagged
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
   currentRefractureCount: 0
+--- !u!114 &4880354540320223675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238734165712434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 142222326
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

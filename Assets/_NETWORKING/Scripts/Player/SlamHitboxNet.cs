@@ -32,7 +32,7 @@ public class SlamHitboxNet : NetworkBehaviour
     Rigidbody parentRb;
     Transform collisionPoint;
     BeaverStats playerStats;
-    PlayerController playerController;
+    PlayerControllerNet playerController;
     Animator animator;
 
     float force = 1;
@@ -52,7 +52,7 @@ public class SlamHitboxNet : NetworkBehaviour
         parentRb = GetComponentInParent<Rigidbody>();
         collisionPoint = transform.GetChild(0);
         playerStats = GetComponentInParent<BeaverStats>();
-        playerController = GetComponentInParent<PlayerController>();
+        playerController = GetComponentInParent<PlayerControllerNet>();
         animator = GetComponentInParent<Animator>();
 
         slamSource = GetComponent<AudioSource>();
@@ -120,10 +120,10 @@ public class SlamHitboxNet : NetworkBehaviour
         {
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
-                if (f.Collider == null)
+                if (f.Collider == null || !f.Collider.TryGetComponent(out NetworkIdentity netId))
                     continue;
 
-                CmdFractureObject(FractureManager.Instance.GetId(f.Fracture), collisionPoint.position);
+                CmdFractureObject(netId, collisionPoint.position);
             }
 
             objectsToFracture.Clear();
@@ -137,25 +137,19 @@ public class SlamHitboxNet : NetworkBehaviour
     }
 
     [Command]
-    private void CmdFractureObject(uint targetId, Vector3 fracturePoint)
+    private void CmdFractureObject(NetworkIdentity netId, Vector3 fracturePoint)
     {
-        RpcFractureObject(targetId, fracturePoint);
+        RpcFractureObject(netId, fracturePoint);
     }
 
     [ClientRpc]
-    private void RpcFractureObject(uint targetId, Vector3 fracturePoint)
+    private void RpcFractureObject(NetworkIdentity netId, Vector3 fracturePoint)
     {
-        Fracture fracture = FractureManager.Instance.GetFracture(targetId);
-
-        if (fracture == null)
-        {
-            Debug.LogError("Error: Fracture not found in Manager! ID: " + targetId);
-            return;
-        }
 
         Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
 
-        Collider collider = fracture.GetComponent<Collider>();
+        Fracture fracture = netId.GetComponent<Fracture>();
+        Collider collider = netId.GetComponent<Collider>();
 
         if (fracture == null || collider == null)
             return;

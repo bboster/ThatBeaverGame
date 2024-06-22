@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 64851693557239556}
   - component: {fileID: 5611683600776020126}
   - component: {fileID: -994664431692201793}
+  - component: {fileID: 3443511181339497029}
   m_Layer: 0
   m_Name: Parking_Gate_3
   m_TagString: Untagged
@@ -258,3 +259,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 2af94982d55cfe8469dacc56d542befb, type: 2}
   currentRefractureCount: 0
+--- !u!114 &3443511181339497029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197473990548934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1600555405
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

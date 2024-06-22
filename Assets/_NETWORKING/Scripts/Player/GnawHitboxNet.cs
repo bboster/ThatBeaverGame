@@ -104,10 +104,10 @@ public class GnawHitboxNet : NetworkBehaviour
         {
             foreach (FracturedObjectContainer f in objectsToFracture)
             {
-                if (f.Collider == null)
+                if (f.Collider == null || !f.Collider.TryGetComponent(out NetworkIdentity netId))
                     continue;
 
-                CmdFractureObject(FractureManager.Instance.GetId(f.Fracture), collisionPoint.position);
+                CmdFractureObject(netId, collisionPoint.position);
             }
 
             objectsToFracture.Clear();
@@ -115,25 +115,19 @@ public class GnawHitboxNet : NetworkBehaviour
     }
 
     [Command]
-    private void CmdFractureObject(uint targetId, Vector3 fracturePoint)
+    private void CmdFractureObject(NetworkIdentity netId, Vector3 fracturePoint)
     {
-        RpcFractureObject(targetId, fracturePoint);
+        RpcFractureObject(netId, fracturePoint);
     }
 
     [ClientRpc]
-    private void RpcFractureObject(uint targetId, Vector3 fracturePoint)
+    private void RpcFractureObject(NetworkIdentity netId, Vector3 fracturePoint)
     {
-        Fracture fracture = FractureManager.Instance.GetFracture(targetId);
-
-        if(fracture == null)
-        {
-            Debug.LogError("Error: Fracture not found in Manager! ID: " + targetId);
-            return;
-        }
 
         Fragmenter.FractureCompletedEvent += OnFractureCompletedEvent;
 
-        Collider collider = fracture.GetComponent<Collider>();
+        Fracture fracture = netId.GetComponent<Fracture>();
+        Collider collider = netId.GetComponent<Collider>();
 
         if (fracture == null || collider == null)
             return;

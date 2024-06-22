@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64076723419449976}
   - component: {fileID: 4257427924028476296}
   - component: {fileID: 1068022109885845752}
+  - component: {fileID: 8903236799666464647}
   m_Layer: 0
   m_Name: Lantern3
   m_TagString: Untagged
@@ -149,3 +150,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: d7337c9f5eaac38419742c4e85ac563b, type: 2}
   currentRefractureCount: 0
+--- !u!114 &8903236799666464647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433787465472112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2854134616
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

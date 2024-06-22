@@ -181,7 +181,13 @@ public class PlayerControllerNet : NetworkBehaviour
         base.OnStartClient();
 
         if (!isLocalPlayer)
+        {
+            Debug.Log("NOT LOCAL PLAYER");
+            playerInput.DeactivateInput();
+            playerInput.enabled = false;
             return;
+        }
+        Debug.Log("IS LOCAL PLAYER");
 
         cameraTransform = Camera.main.transform;
 
