@@ -12,6 +12,9 @@ public class SteamworksManager : MonoBehaviour
 {
     public static SteamworksManager Instance { get; private set; }
 
+    [SerializeField, Range(1, 10)]
+    int lobbySize = 9;
+
     private FizzyFacepunch transport;
 
     private Lobby[] availableLobbies;
@@ -149,7 +152,7 @@ public class SteamworksManager : MonoBehaviour
 
         Debug.Log("Started Steam Server!");
 
-        currentLobby = await SteamMatchmaking.CreateLobbyAsync(2);
+        currentLobby = await SteamMatchmaking.CreateLobbyAsync(lobbySize);
     }
 
     public void StartClient(SteamId _steamId)
