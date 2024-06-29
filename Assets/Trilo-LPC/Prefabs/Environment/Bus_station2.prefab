@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64914758495466190}
   - component: {fileID: -3731618619411717679}
   - component: {fileID: -4229105379972968537}
+  - component: {fileID: -6512474377932019574}
   m_Layer: 0
   m_Name: Bus_station2
   m_TagString: Untagged
@@ -149,3 +150,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 4f98094d6cd1ba64a8d1795d3aff251c, type: 2}
   currentRefractureCount: 0
+--- !u!114 &-6512474377932019574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880887720539128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2697315219
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

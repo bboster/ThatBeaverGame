@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64768327279474720}
   - component: {fileID: 5295641668496966086}
   - component: {fileID: 1113662533777643346}
+  - component: {fileID: -5010306039160733703}
   m_Layer: 0
   m_Name: Bush5
   m_TagString: Untagged
@@ -149,3 +150,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: c04994d427888a242aabb7ce3644210e, type: 2}
   currentRefractureCount: 0
+--- !u!114 &-5010306039160733703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699958509586308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2132093761
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

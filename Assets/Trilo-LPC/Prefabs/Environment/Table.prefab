@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64948405395817264}
   - component: {fileID: 1072780413477272248}
   - component: {fileID: -3983330517402215723}
+  - component: {fileID: -4290695850947893273}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -149,3 +150,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: c04994d427888a242aabb7ce3644210e, type: 2}
   currentRefractureCount: 0
+--- !u!114 &-4290695850947893273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377645852223804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 395447443
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

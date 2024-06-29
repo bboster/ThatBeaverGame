@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64771413558692230}
   - component: {fileID: 2080338845640652647}
   - component: {fileID: 7525401074854118557}
+  - component: {fileID: -5207847212787807995}
   m_Layer: 0
   m_Name: Factory2_3
   m_TagString: Untagged
@@ -156,3 +157,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
   currentRefractureCount: 0
+--- !u!114 &-5207847212787807995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738748825126660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1050707221
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

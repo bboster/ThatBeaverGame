@@ -39,6 +39,14 @@ public class Fracture : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (FractureManager.Instance != null)
+        {
+            FractureManager.Instance.AddFracture(this);
+        }
+    }
+
     public void CauseFracture()
     {
         fractureableSO.callbackOptions.CallOnFracture(null, gameObject, transform.position);

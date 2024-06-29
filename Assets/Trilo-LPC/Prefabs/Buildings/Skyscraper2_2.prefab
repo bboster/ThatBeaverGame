@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 65631824929558738}
   - component: {fileID: -1448891182057366624}
   - component: {fileID: 1801866461613850713}
+  - component: {fileID: 6852606491617126532}
   m_Layer: 0
   m_Name: Skyscraper2_2
   m_TagString: Untagged
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: ffcbeed3129dc8c4799985b2b9dc0a5c, type: 2}
   currentRefractureCount: 0
+--- !u!114 &6852606491617126532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603658306914404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 986216080
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

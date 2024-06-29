@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64685773876014880}
   - component: {fileID: 2560024896287394616}
   - component: {fileID: 7323943319525474107}
+  - component: {fileID: 3850647325257226663}
   m_Layer: 0
   m_Name: Building6_3
   m_TagString: Untagged
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fractureableSO: {fileID: 11400000, guid: 0dbb0e784eb6b7c4bb685755d8471fc6, type: 2}
   currentRefractureCount: 0
+--- !u!114 &3850647325257226663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070773838117758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2450060654
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
