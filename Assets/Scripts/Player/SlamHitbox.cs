@@ -39,10 +39,10 @@ public class SlamHitbox : MonoBehaviour
 
     bool willDisable = false;
 
-    [Header("Audio")]
+    /*[Header("Audio")]
     [SerializeField]
     AudioClip beaverSlam;
-    AudioSource slamSource;
+    AudioSource slamSource;*/
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class SlamHitbox : MonoBehaviour
 
         col.enabled = false;
 
-        slamSource = GetComponent<AudioSource>();
+        //slamSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -96,7 +96,7 @@ public class SlamHitbox : MonoBehaviour
 
     private IEnumerator SlamDurationTriggered()
     {
-        slamSource.PlayOneShot(beaverSlam);
+        //slamSource.PlayOneShot(beaverSlam);
 
         GetComponentInParent<Animator>().SetTrigger("poundCollided");
         willDisable = true;

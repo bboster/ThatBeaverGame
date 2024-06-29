@@ -21,10 +21,10 @@ public class PowerUp : MonoBehaviour
 
     TMP_Text text;
 
-    AudioSource powerupAudio;
+    //AudioSource powerupAudio;
 
-    [SerializeField]
-    AudioClip beaverGulp;
+    //[SerializeField]
+    //AudioClip beaverGulp;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class PowerUp : MonoBehaviour
 
         text.enabled = false;
 
-        powerupAudio = GetComponent<AudioSource>();
+        //powerupAudio = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,7 +60,7 @@ public class PowerUp : MonoBehaviour
 
         anim.Play("TextCrawl");
 
-        powerupAudio.PlayOneShot(beaverGulp);
+        //powerupAudio.PlayOneShot(beaverGulp);
 
         StartCoroutine(DelayedDestroy());
     }

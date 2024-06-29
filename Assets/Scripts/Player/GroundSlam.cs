@@ -29,11 +29,11 @@ public class GroundSlam : MonoBehaviour
 
     float currentCooldown = 0;
 
-    [SerializeField]
-    AudioSource slamAudio;
+    //[SerializeField]
+    //AudioSource slamAudio;
 
-    [SerializeField]
-    AudioClip beaverFlip;
+    //[SerializeField]
+    //AudioClip beaverFlip;
 
     private void Awake()
     {
@@ -70,7 +70,7 @@ public class GroundSlam : MonoBehaviour
         StartCoroutine(DelayedSlam());
         playerController.anim.SetTrigger("pound");
 
-        slamAudio.PlayOneShot(beaverFlip);
+        //slamAudio.PlayOneShot(beaverFlip);
     }
 
     private IEnumerator DelayedSlam()

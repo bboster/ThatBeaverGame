@@ -17,14 +17,14 @@ public class Destructable : MonoBehaviour
 
     //private PointSystem PS;
 
-    AudioSource destructableAudio;
-    [SerializeField]
-    AudioClip collapseSFX;
+    //AudioSource destructableAudio;
+    //[SerializeField]
+    //AudioClip collapseSFX;
 
     public void Start()
     {
         Fragmenter.fractured += OnFractureEvent;
-        destructableAudio = GetComponent<AudioSource>();
+        //destructableAudio = GetComponent<AudioSource>();
     }
 
     public void OnDestroy()
@@ -39,7 +39,7 @@ public class Destructable : MonoBehaviour
 
     private IEnumerator DelayedDestroy(GameObject obj)
     {
-        destructableAudio.PlayOneShot(collapseSFX);
+        //destructableAudio.PlayOneShot(collapseSFX);
 
         Collider col = obj.GetComponent<Collider>();
         yield return new WaitForSeconds(Random.Range(destructionDelayMin, destructionDelayMax));

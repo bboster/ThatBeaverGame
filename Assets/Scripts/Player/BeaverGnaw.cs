@@ -13,8 +13,8 @@ public class BeaverGnaw : MonoBehaviour
     bool GnawIsTrue = false;
     Animator anim;
 
-    [SerializeField] AudioSource chompAudio;
-    [SerializeField] AudioClip beaverChomp;
+    //[SerializeField] AudioSource chompAudio;
+    //[SerializeField] AudioClip beaverChomp;
 
     private void Start()
     {
@@ -59,6 +59,6 @@ public class BeaverGnaw : MonoBehaviour
     public void EnableGnawHitbox()
     {
         GnawHitBox.enabled = true;
-        chompAudio.PlayOneShot(beaverChomp);
+        //chompAudio.PlayOneShot(beaverChomp);
     }
 }

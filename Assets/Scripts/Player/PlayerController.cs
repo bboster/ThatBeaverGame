@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     bool isModelInverted = false;
 
-    [Header("Audio")]
+    /*[Header("Audio")]
     [SerializeField]
     AudioClip beaverRun;
     [SerializeField]
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     AudioSource beaverAudio;
     [SerializeField]
-    AudioSource runAudio;
+    AudioSource runAudio;*/
 
     public enum MovementState
     {
@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        beaverAudio.PlayOneShot(beaverJump);
+        //beaverAudio.PlayOneShot(beaverJump);
 
         rb.AddForce(Vector3.up * (jumpHeight * playerStats.GetStat(ScalableStat.JUMP_HEIGHT)), ForceMode.Impulse);
         anim.SetTrigger("jump");
@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        beaverAudio.PlayOneShot(beaverJump);
+        //beaverAudio.PlayOneShot(beaverJump);
 
         anim.SetTrigger("jump");
 
@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        beaverAudio.PlayOneShot(beaverDash);
+        //beaverAudio.PlayOneShot(beaverDash);
 
         anim.SetTrigger("dash");
 
@@ -586,7 +586,7 @@ public class PlayerController : MonoBehaviour
     {
         movementState = newState;
 
-        if(!runAudio.isPlaying && movementState == MovementState.MOVING && (isOnWall || isTouchingGrass))
+        /*if(!runAudio.isPlaying && movementState == MovementState.MOVING && (isOnWall || isTouchingGrass))
         {
             //Debug.Log("Playing Run");
             runAudio.PlayOneShot(beaverRun);
@@ -595,7 +595,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Stopping Run");
             runAudio.Stop();
-        }
+        }*/
     }
 
     public MovementState GetMovementState()
