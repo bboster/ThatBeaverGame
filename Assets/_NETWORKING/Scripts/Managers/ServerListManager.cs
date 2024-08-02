@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Steamworks;
 using Steamworks.Data;
 
-public class ServerListManager : SteamworksManager
+public class ServerListManager : MonoBehaviour
 {
     private const string BeaverKey = "BeaverGame";
     private const string BeaverValue = "3876";
@@ -15,9 +15,12 @@ public class ServerListManager : SteamworksManager
 
     private List<LobbyTileUI> availableLobbyUI = new List<LobbyTileUI>();
 
-    private async void Start()
+    public async void QueryLobbyList()
     {
         await GenerateLobbyList();
+
+        Debug.Log(availableLobbies[0].Id);
+
         await CreateListUI();
     }
 
@@ -39,8 +42,9 @@ public class ServerListManager : SteamworksManager
             return false;
         }
 
+        Debug.Log(availableLobbies[0].Id);
+
         Debug.Log("Available Lobbies: " + availableLobbies.Length);
-        Debug.Log(availableLobbies[0].Owner.Name);
         return true;
     }
 
@@ -51,7 +55,7 @@ public class ServerListManager : SteamworksManager
     private Task CreateListUI()
     {
         //Loop through each entry in available lobbies and create an entry in the list.
-        foreach(Lobby l in availableLobbies)
+        foreach (Lobby l in availableLobbies)
         {
             LobbyTileUI t = new LobbyTileUI(l.Id.Value.ToString(), l.Owner.Name, true, l.MemberCount, l.MaxMembers);
 
@@ -68,7 +72,7 @@ public class ServerListManager : SteamworksManager
     /// <returns></returns>
     private IEnumerator UpdateExistingServerInfo()
     {
-        for(; ; )
+        for (; ; )
         {
             //Loop through existing servers and update their info.
 
