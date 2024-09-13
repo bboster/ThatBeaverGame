@@ -15,24 +15,36 @@ public class ServerListManager : MonoBehaviour
 
     private List<LobbyTileUI> availableLobbyUI = new List<LobbyTileUI>();
 
+    [SerializeField] private GameObject tileParent;
+    [SerializeField] private GameObject lobbyButton;
+
+    private void Start()
+    {
+        QueryLobbyList();
+    }
+
     public async void QueryLobbyList()
     {
         await GenerateLobbyList();
 
         Debug.Log(availableLobbies[0].Id);
 
-        await CreateListUI();
+        await CreateListData();
+
+        Debug.Log(availableLobbyUI[0].lobbyName);
+
+        await CreateListTiles();
     }
 
     private async Task<bool> GenerateLobbyList()
     {
-        LobbyQuery query = SteamMatchmaking.LobbyList.WithSlotsAvailable(1).WithKeyValue(BeaverKey, BeaverValue).FilterDistanceFar();
+        LobbyQuery query = SteamMatchmaking.LobbyList.WithKeyValue(BeaverKey, BeaverValue).FilterDistanceFar();
         availableLobbies = await query.RequestAsync();
 
         if (availableLobbies.Length == 0)
         {
             Debug.Log("No Available Lobbies... Expanding Search...");
-            query = SteamMatchmaking.LobbyList.WithSlotsAvailable(1).WithKeyValue(BeaverKey, BeaverValue);
+            query = SteamMatchmaking.LobbyList.WithKeyValue(BeaverKey, BeaverValue);
             availableLobbies = await query.RequestAsync();
         }
 
@@ -52,7 +64,7 @@ public class ServerListManager : MonoBehaviour
     /// Creates the UI tiles of lobbies available to join.
     /// </summary>
     /// <returns></returns>
-    private Task CreateListUI()
+    private Task CreateListData()
     {
         //Loop through each entry in available lobbies and create an entry in the list.
         foreach (Lobby l in availableLobbies)
@@ -61,6 +73,17 @@ public class ServerListManager : MonoBehaviour
 
             availableLobbyUI.Add(t);
             Debug.Log(t.lobbyHost);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private Task CreateListTiles()
+    {
+        foreach(LobbyTileUI t in availableLobbyUI)
+        {
+            GameObject g = Instantiate(lobbyButton, tileParent.transform);
+            g.GetComponent<LobbyTileData>().CreateButton(t.lobbyName, t.lobbyHost, t.numPlayersJoined.ToString(), t.joinable);
         }
 
         return Task.CompletedTask;
